@@ -21,7 +21,7 @@ const upload = multer(uploadConfig);
 
 routes.post('/sessions', SessionController.store);
 
-protectedRouter.post('/users', UsersController.create);
+routes.post('/users', UsersController.create);
 
 protectedRouter.get('/pets', PetsController.index);
 protectedRouter.get('/pets/:id', PetsController.show);
