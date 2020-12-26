@@ -19,7 +19,23 @@
         "prettier"
     ],
     "rules": {
+      "camelcase": "off",
       "prettier/prettier": "error",
+      "class-methods-use-this": "off",
+      "@typescript-eslint/camelcase": "off",
+      "no-useless-constructor": "off",
+      "@typesscript-eslint/no-used-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "_"
+        }
+      ],
+      "@typescript-eslint/interface-name-prefix": [
+        "error",
+        {
+          "prefixWith": "always"
+        }
+      ],
       "import/extensions": [
         "error",
         "ignorePackages",
