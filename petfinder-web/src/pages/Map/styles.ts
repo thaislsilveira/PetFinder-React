@@ -58,6 +58,28 @@ export const AnimationContainer = styled.div`
   footer strong {
     font-weight: 800;
   }
+
+  footer button {
+    width: 48px;
+    height: 48px;
+
+    border: 0;
+
+    background: #ffd666;
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button:hover {
+    background: #94443f;
+  }
 `;
 
 export const LinkAnimal = styled(Link)`
