@@ -46,7 +46,7 @@ const LocationMap: React.FC = () => {
           />
         </Map>
 
-        <LinkAnimal to="/" className="create-animal">
+        <LinkAnimal to="/pets/create" className="create-animal">
           <FiPlus size={32} color="#fff" />
         </LinkAnimal>
       </Container>
