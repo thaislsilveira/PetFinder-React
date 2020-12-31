@@ -3,9 +3,12 @@ import { Map, Marker, TileLayer } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 
 import { FiPlus } from 'react-icons/fi';
+import { Form } from '@unform/web';
 
 import { useHistory } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
+
+import { Container, Content } from './styles';
 
 import mapIcon from '../../utils/mapIcon';
 
@@ -70,11 +73,11 @@ const CreatePet: React.FC = () => {
   }
 
   return (
-    <div id="page-create-orphanage">
+    <Container>
       <Sidebar />
 
-      <main>
-        <form onSubmit={handleSubmit} className="create-orphanage-form">
+      <Content>
+        <Form onSubmit={handleSubmit}>
           <fieldset>
             <legend>Dados</legend>
 
@@ -191,9 +194,9 @@ const CreatePet: React.FC = () => {
           <button className="confirm-button" type="submit">
             Confirmar
           </button>
-        </form>
-      </main>
-    </div>
+        </Form>
+      </Content>
+    </Container>
   );
 };
 
