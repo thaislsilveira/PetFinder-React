@@ -26,6 +26,8 @@
     ],
     "rules": {
       "prettier/prettier": "error",
+      "jsx-a11y/label-has-associated-control": "off",
+      "react/no-array-index-key": "off",
       "react/jsx-one-expression-per-line": "off",
       "react/jsx-props-no-spreading": "off",
       "react/prop-types": "off",
@@ -46,12 +48,6 @@
       "@typescript-eslint/camelcase": "off",
       "@typescript-eslint/ban-types": "off",
       "@typescript-eslint/no-use-before-define": "off",
-      "@typescript-eslint/explicit-function-return-type": [
-        "error",
-        {
-          "allowExpressions": true
-        }
-      ],
       "import/extensions": [
         "error",
         "ignorePackages",
