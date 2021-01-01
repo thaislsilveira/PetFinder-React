@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
-import mapMarkerImg from '../../assets/location.png';
+import Pets from '../../assets/pets.png';
 
 import { Container } from './styles';
 
@@ -11,7 +11,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <Container>
-      <img src={mapMarkerImg} alt="Happy" />
+      <img src={Pets} alt="PetFinder" />
 
       <footer>
         <button type="button" onClick={goBack}>
