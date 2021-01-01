@@ -166,7 +166,7 @@ const CreatePet: React.FC = () => {
                   <img key={index} src={image} alt={responsibleName} />
                 ))}
                 <label htmlFor="image[]" className="new-image">
-                  <FiPlus size={24} color="#15b6d6" />
+                  <FiPlus size={24} color="#94443f" />
                 </label>
               </div>
               <input
@@ -181,7 +181,7 @@ const CreatePet: React.FC = () => {
           <fieldset>
             <div className="input-block">
               <label htmlFor="breed">Raça</label>
-              <textarea
+              <input
                 id="breed"
                 value={breed}
                 onChange={e => setBreed(e.target.value)}
@@ -190,7 +190,7 @@ const CreatePet: React.FC = () => {
 
             <div className="input-block">
               <label htmlFor="information">Informações</label>
-              <input
+              <textarea
                 id="information"
                 value={information}
                 onChange={e => setInformation(e.target.value)}

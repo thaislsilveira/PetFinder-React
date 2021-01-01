@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  background: #ffe7d3;
 `;
 
 export const Content = styled.main`
@@ -11,8 +12,8 @@ export const Content = styled.main`
     width: 700px;
     margin: 64px auto;
 
-    background: #ffffff;
-    border: 1px solid #d3e2e5;
+    background: #fff;
+    border: 1px solid #f79641;
     border-radius: 20px;
 
     padding: 64px 80px;
@@ -20,7 +21,7 @@ export const Content = styled.main`
     overflow: hidden;
 
     margin-bottom: 40px;
-    border: 1px solid #d3e2e5;
+    border: 1px solid #f79641;
     border-radius: 20px;
   }
 
@@ -37,10 +38,10 @@ export const Content = styled.main`
 
     font-size: 32px;
     line-height: 34px;
-    color: #5c8599;
+    color: #ffd666;
     font-weight: 700;
 
-    border-bottom: 1px solid #d3e2e5;
+    border-bottom: 1px solid #94443f;
     margin-bottom: 40px;
     padding-bottom: 24px;
   }
@@ -51,14 +52,14 @@ export const Content = styled.main`
 
   .input-block label {
     display: flex;
-    color: #8fa7b3;
+    color: #94443f;
     margin-bottom: 8px;
     line-height: 24px;
   }
 
   .input-block label span {
     font-size: 14px;
-    color: #8fa7b3;
+    color: #94443f;
     margin-left: 24px;
     line-height: 24px;
   }
@@ -66,11 +67,11 @@ export const Content = styled.main`
   .input-block input,
   .input-block textarea {
     width: 100%;
-    background: #f5f8fa;
-    border: 1px solid #d3e2e5;
+    background: #ffe7d3;
+    border: 1px solid #ffe7d3;
     border-radius: 20px;
     outline: none;
-    color: #5c8599;
+    color: #ffd666;
   }
 
   .input-block input {
@@ -103,8 +104,8 @@ export const Content = styled.main`
 
   .input-block .new-image {
     height: 96px;
-    background: #f5f8fa;
-    border: 1px dashed #96d2f0;
+    background: #ffe7d3;
+    border: 1px dashed #94443f;
     border-radius: 20px;
     cursor: pointer;
 
@@ -125,8 +126,8 @@ export const Content = styled.main`
   .input-block .button-select button {
     height: 64px;
     background: #f5f8fa;
-    border: 1px solid #d3e2e5;
-    color: #5c8599;
+    border: 1px solid #94443f;
+    color: #ffd666;
     cursor: pointer;
   }
 

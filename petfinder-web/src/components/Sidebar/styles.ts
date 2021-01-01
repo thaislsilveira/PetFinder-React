@@ -4,7 +4,7 @@ export const Container = styled.aside`
   position: fixed;
   height: 100%;
   padding: 32px 24px;
-  background: linear-gradient(329.54deg, #15b6d6 0%, #15d6d6 100%);
+  background: linear-gradient(329.54deg, #f79641 0%, #f79641 100%);
 
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@ export const Container = styled.aside`
 
     border: 0;
 
-    background: #12afcb;
+    background: #fbdd5a;
     border-radius: 16px;
 
     cursor: pointer;
@@ -36,6 +36,6 @@ export const Container = styled.aside`
 
   footer a:hover,
   button:hover {
-    background: #17d6eb;
+    background: #94443f;
   }
 `;
