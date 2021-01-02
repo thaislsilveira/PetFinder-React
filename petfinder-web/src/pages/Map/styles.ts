@@ -81,26 +81,3 @@ export const AnimationContainer = styled.div`
     background: #94443f;
   }
 `;
-
-export const LinkAnimal = styled(Link)`
-  position: absolute;
-  right: 40px;
-  bottom: 40px;
-
-  z-index: 10;
-
-  width: 64px;
-  height: 64px;
-  background: #ffd666;
-  border-radius: 20px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  transition: background-color 0.2s;
-
-  &:hover {
-    background: #94443f;
-  }
-`;

@@ -9,7 +9,6 @@ import SignUp from './pages/SignUp';
 
 import Dashboard from './pages/Dashboard';
 import LocationMap from './pages/Map';
-import CreatePets from './pages/CreatePets';
 
 const Routes: React.FC = () => {
   return (
@@ -19,7 +18,6 @@ const Routes: React.FC = () => {
         <Route path="/signup" exact component={SignUp} />
         <Route path="/dashboard" component={Dashboard} isPrivate />
         <Route path="/location" component={LocationMap} isPrivate />
-        <Route path="/pets/create" component={CreatePets} isPrivate />
       </Switch>
     </BrowserRouter>
   );
