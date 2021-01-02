@@ -86,7 +86,7 @@ const CreatePet: React.FC = () => {
 
             <Map
               center={[-20.2836333, -50.5440513]}
-              style={{ width: '100%', height: 280 }}
+              style={{ width: '100%', height: 280, marginBottom: 20 }}
               zoom={15}
               onClick={handleMapClick}
             >
@@ -102,50 +102,55 @@ const CreatePet: React.FC = () => {
                 />
               )}
             </Map>
-
-            <div className="button-select">
-              <button
-                type="button"
-                name="type"
-                className={typeOn ? 'active' : ''}
-                onClick={() => {
-                  setTypeOn(1);
-                }}
-              >
-                Cachorro
-              </button>
-              <button
-                type="button"
-                name="type"
-                className={!typeOn ? 'active dont-open' : ''}
-                onClick={() => {
-                  setTypeOn(0);
-                }}
-              >
-                Gato
-              </button>
+            <div className="input-block">
+              <label htmlFor="type">Tipo</label>
+              <div className="button-select">
+                <button
+                  type="button"
+                  name="type"
+                  className={typeOn ? 'active' : ''}
+                  onClick={() => {
+                    setTypeOn(1);
+                  }}
+                >
+                  Cachorro
+                </button>
+                <button
+                  type="button"
+                  name="type"
+                  className={!typeOn ? 'active dont-open' : ''}
+                  onClick={() => {
+                    setTypeOn(0);
+                  }}
+                >
+                  Gato
+                </button>
+              </div>
             </div>
-            <div className="button-select">
-              <button
-                type="button"
-                name="sex"
-                className={sexOn ? 'active' : ''}
-                onClick={() => {
-                  setSexOn(1);
-                }}
-              >
-                Feminino
-              </button>
-              <button
-                type="button"
-                name="sex"
-                className={!sexOn ? 'active dont-open' : ''}
-                onClick={() => {
-                  setSexOn(0);
-                }}
-              >
-                Masculino
-              </button>
+            <div className="input-block">
+              <label htmlFor="sex">Sexo</label>
+              <div className="button-select">
+                <button
+                  type="button"
+                  name="sex"
+                  className={sexOn ? 'active' : ''}
+                  onClick={() => {
+                    setSexOn(1);
+                  }}
+                >
+                  Feminino
+                </button>
+                <button
+                  type="button"
+                  name="sex"
+                  className={!sexOn ? 'active dont-open' : ''}
+                  onClick={() => {
+                    setSexOn(0);
+                  }}
+                >
+                  Masculino
+                </button>
+              </div>
             </div>
 
             <div className="input-block">
