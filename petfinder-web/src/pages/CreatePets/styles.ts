@@ -124,10 +124,10 @@ export const Content = styled.main`
   }
 
   .input-block .button-select button {
-    height: 64px;
-    background: #f5f8fa;
-    border: 1px solid #94443f;
-    color: #ffd666;
+    height: 40px;
+    border: 1px solid #a3a4a9;
+    background: #f6f6f4;
+    color: #a3a4a9;
     cursor: pointer;
   }
 
@@ -138,18 +138,9 @@ export const Content = styled.main`
   }
 
   .input-block .button-select button.active.dont-open {
-    background: linear-gradient(154.16deg, #fdf8f5 7.85%, #ffffff 91.03%);
-    border: 1px solid #ffbcd4;
-    color: #ff6690;
-  }
-
-  .input-block .button-select button:first-child {
-    border-radius: 20px 0px 0px 20px;
-  }
-
-  .input-block .button-select button:last-child {
-    border-radius: 0 20px 20px 0;
-    border-left: 0;
+    background: #edfff6;
+    border: 1px solid #a1e9c5;
+    color: #37c77f;
   }
 
   button.confirm-button {
