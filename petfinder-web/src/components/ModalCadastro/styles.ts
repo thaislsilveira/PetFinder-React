@@ -1,8 +1,43 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
-export const Container = styled.div`
-  display: flex;
-  background: #ffe7d3;
+interface ContainerProps {
+  visible: boolean;
+}
+
+interface ModalProps {
+  visibleEffect: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${props => (props.visible ? 'block' : 'none')};
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  overflow: auto;
+`;
+
+const modalEffect = keyframes`
+    from {
+      opacity: 0;
+      transform: translateY(-60px)
+    } to {
+      opacity: 1;
+      transform: translateY(0)
+    }
+  `;
+
+export const Modal = styled.div<ModalProps>`
+  ${props =>
+    props.visibleEffect &&
+    css`
+      animation: ${modalEffect} 0.3s;
+    `}
 `;
 
 export const Content = styled.main`
@@ -23,6 +58,21 @@ export const Content = styled.main`
     margin-bottom: 40px;
     border: 1px solid #f79641;
     border-radius: 20px;
+    position: relative;
+
+    button.button-close {
+      position: absolute;
+      right: 16px;
+      top: 15px;
+      opacity: 0.6;
+      border: 0;
+      background: transparent;
+      color: inherit;
+    }
+
+    button.button-close svg {
+      color: #c53030;
+    }
   }
 
   fieldset {
@@ -36,6 +86,7 @@ export const Content = styled.main`
   fieldset legend {
     width: 100%;
 
+    text-align: center;
     font-size: 32px;
     line-height: 34px;
     color: #ffd666;
@@ -51,16 +102,10 @@ export const Content = styled.main`
   }
 
   .input-block label {
+    font-size: 18px;
     display: flex;
     color: #94443f;
     margin-bottom: 8px;
-    line-height: 24px;
-  }
-
-  .input-block label span {
-    font-size: 14px;
-    color: #94443f;
-    margin-left: 24px;
     line-height: 24px;
   }
 
@@ -71,7 +116,7 @@ export const Content = styled.main`
     border: 1px solid #ffe7d3;
     border-radius: 20px;
     outline: none;
-    color: #ffd666;
+    color: #94443f;
   }
 
   .input-block input {
