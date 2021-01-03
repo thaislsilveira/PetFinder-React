@@ -13,6 +13,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import { Container, Content, AnimationContainer, Background } from './styles';
+import { useToast } from '../../hooks/toast';
 
 interface FormData {
   name: string;
@@ -23,6 +24,7 @@ interface FormData {
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { addToast } = useToast();
 
   const history = useHistory();
 
@@ -33,14 +35,22 @@ const SignUp: React.FC = () => {
 
         await api.post('/users', data);
 
-        console.log('cheguei aqui');
-
         history.push('/');
+
+        addToast({
+          type: 'success',
+          title: 'Cadastro realizado!',
+          description: 'Você já pode fazer seu login em PetFinder!',
+        });
       } catch (err) {
-        console.log('error');
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro',
+          description: 'Ocorreu um erro ao fazer cadastro, tente novamente.',
+        });
       }
     },
-    [history],
+    [addToast, history],
   );
   return (
     <Container>
