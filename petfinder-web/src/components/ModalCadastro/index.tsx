@@ -1,4 +1,10 @@
-import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
+import React, {
+  useState,
+  ChangeEvent,
+  useRef,
+  useEffect,
+  useCallback,
+} from 'react';
 
 import { FiPlus, FiXCircle } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -6,6 +12,7 @@ import { Form } from '@unform/web';
 import { Container, Modal, Content } from './styles';
 
 import api from '../../services/api';
+import { useToast } from '../../hooks/toast';
 
 interface ModalProps {
   positionMap: {
@@ -22,6 +29,7 @@ const ModalCadastro: React.FC<ModalProps> = ({
   hide,
 }) => {
   const ref = useRef<HTMLInputElement>(null);
+  const { addToast } = useToast();
 
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
 
@@ -54,7 +62,7 @@ const ModalCadastro: React.FC<ModalProps> = ({
     setPreviewImages(selectedImagesPreview);
   }
 
-  async function handleSubmit(dataE) {
+  const handleSubmit = useCallback(async () => {
     const { latitude, longitude } = position;
 
     const data = new FormData();
@@ -74,7 +82,25 @@ const ModalCadastro: React.FC<ModalProps> = ({
     await api.post('pets', data);
 
     hide();
-  }
+
+    addToast({
+      type: 'success',
+      title: 'Cadastro realizado!',
+      description: 'Agora você pode visualizar o perfil do pet no mapa!',
+    });
+  }, [
+    addToast,
+    breed,
+    hide,
+    images,
+    information,
+    phone,
+    port,
+    position,
+    responsibleName,
+    sexOn,
+    typeOn,
+  ]);
 
   function handleOverlayClick(event) {
     if (event.target === ref.current) {

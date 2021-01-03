@@ -44,10 +44,11 @@ const LocationMap: React.FC = () => {
   }
 
   useEffect(() => {
+    console.log('buscou pets');
     api.get('pets').then(response => {
       setPets(response.data);
     });
-  }, []);
+  }, [visible]);
 
   return (
     <>
@@ -89,7 +90,7 @@ const LocationMap: React.FC = () => {
               <Marker
                 icon={mapIcon}
                 position={[pet.latitude, pet.longitude]}
-                key={pet.id}
+                key={`${pet.longitude}${pet.latitude}${pet.id}marker`}
               >
                 <Popup
                   closeButton={false}
@@ -102,6 +103,7 @@ const LocationMap: React.FC = () => {
                       <div
                         className="image-box"
                         style={{ backgroundImage: `url(${image.url})` }}
+                        key={`${pet.longitude}${pet.latitude}${pet.id}image`}
                       >
                         <img key={image.id} src={image.url} alt="foto" />
                       </div>
