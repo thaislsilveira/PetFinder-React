@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { compareSync } from 'bcryptjs';
 
 import { getRepository } from 'typeorm';
 
@@ -21,7 +22,7 @@ class SessionController {
       return response.status(400).json({ error: 'Validation fails' });
     }
 
-    const { email } = request.body;
+    const { email, password } = request.body;
 
     const user = await usersRepository.findOne({
       where: {
@@ -33,7 +34,15 @@ class SessionController {
       return response.status(401).json({ error: 'User not found' });
     }
 
-    const { id, name } = user;
+    const { id, name, password: encryptedPassword } = user;
+
+    const passwordMatched = compareSync(password, encryptedPassword);
+
+    if (!passwordMatched) {
+      return response
+        .status(403)
+        .json({ error: 'Incorrect email/password combination.' });
+    }
 
     return response.json({
       user: {

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { hash } from 'bcryptjs';
 
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
@@ -12,6 +13,8 @@ export default {
     const { name, email, password, phone } = request.body;
 
     const usersRepository = getRepository(User);
+
+    const hashedPassword = await hash(password, 8);
 
     const data = {
       name,
@@ -41,7 +44,12 @@ export default {
       abortEarly: false,
     });
 
-    const user = usersRepository.create(data);
+    const user = usersRepository.create({
+      name,
+      email,
+      password: hashedPassword,
+      phone,
+    });
     await usersRepository.save(user);
 
     return response.status(201).json(user);
