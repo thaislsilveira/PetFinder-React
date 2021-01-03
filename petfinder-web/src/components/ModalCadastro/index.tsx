@@ -37,7 +37,6 @@ const ModalCadastro: React.FC<ModalProps> = ({
 
   useEffect(() => {
     setPosition(positionMap);
-    console.log(positionMap);
   }, [positionMap]);
 
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
@@ -56,7 +55,6 @@ const ModalCadastro: React.FC<ModalProps> = ({
   }
 
   async function handleSubmit(dataE) {
-    console.log(dataE);
     const { latitude, longitude } = position;
 
     const data = new FormData();
