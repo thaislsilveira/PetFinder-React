@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 
 import Image from './Image';
@@ -45,4 +46,10 @@ export default class Pet {
   })
   @JoinColumn({ name: 'pet_id' })
   images: Image[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @CreateDateColumn()
+  updated_at: Date;
 }
