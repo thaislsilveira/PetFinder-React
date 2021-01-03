@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useHistory } from 'react-router-dom';
 
-import { FiPlus, FiArrowLeft } from 'react-icons/fi';
-import { Map, Marker, TileLayer } from 'react-leaflet';
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { Map, Marker, TileLayer, Popup } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 
 import { Container, AnimationContainer } from './styles';
+
+import api from '../../services/api';
 
 import logo from '../../assets/logo.png';
 import mapIcon from '../../utils/mapIcon';
 
 import ModalCadastro from '../../components/ModalCadastro';
 
+interface Pet {
+  id: number;
+  latitude: number;
+  longitude: number;
+  images: Array<{
+    id: number;
+    url: string;
+  }>;
+}
+
 const LocationMap: React.FC = () => {
   const { goBack } = useHistory();
 
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [visible, setVisible] = useState(false);
+
+  const [pets, setPets] = useState<Pet[]>([]);
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -26,8 +41,13 @@ const LocationMap: React.FC = () => {
       longitude: lng,
     });
     setVisible(true);
-    console.log(event);
   }
+
+  useEffect(() => {
+    api.get('pets').then(response => {
+      setPets(response.data);
+    });
+  }, []);
 
   return (
     <>
@@ -63,6 +83,37 @@ const LocationMap: React.FC = () => {
           <TileLayer
             url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
           />
+
+          {pets.map(pet => {
+            return (
+              <Marker
+                icon={mapIcon}
+                position={[pet.latitude, pet.longitude]}
+                key={pet.id}
+              >
+                <Popup
+                  closeButton={false}
+                  minWidth={240}
+                  maxHeight={240}
+                  className="map-popup"
+                >
+                  {pet.images.map(image => {
+                    return (
+                      <div
+                        className="image-box"
+                        style={{ backgroundImage: `url(${image.url})` }}
+                      >
+                        <img key={image.id} src={image.url} alt="foto" />
+                      </div>
+                    );
+                  })}
+                  <Link to={`/pets/${pet.id}`}>
+                    <FiArrowRight size={20} color="#fff" />
+                  </Link>
+                </Popup>
+              </Marker>
+            );
+          })}
 
           {position.latitude !== 0 && (
             <Marker

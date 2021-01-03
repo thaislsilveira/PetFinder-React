@@ -8,6 +8,47 @@ export const Container = styled.div`
 
   position: relative;
   display: flex;
+
+  .map-popup {
+    .leaflet-popup-tip-container {
+      .leaflet-popup-tip {
+        background: #e9c2af;
+      }
+    }
+    .leaflet-popup-content-wrapper {
+      background: #e9c2af;
+      border-radius: 20px;
+      box-shadow: none;
+    }
+
+    .leaflet-popup-content {
+      a {
+        width: 100%;
+        height: 40px;
+        background: #f79641;
+        box-shadow: 17.2868px 27.6589px 41.4884px rgba(23, 142, 166, 0.16);
+        border-radius: 12px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .image-box {
+        width: 100%;
+        height: 180px;
+        display: block;
+        border-radius: 12px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-bottom: 10px;
+        img {
+          display: none;
+        }
+      }
+    }
+  }
 `;
 
 const appearFromLeft = keyframes`
