@@ -9,3 +9,4 @@ A ideia é fazer uma nova versão  em React.js do meu trabalho de conclução de
 ## Web :computer:
 
 ![Web-Dashboard](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/web-petfinder.png)
+![Web-Location](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/location.png)
