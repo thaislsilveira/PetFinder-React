@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { format, parseISO } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 import { useHistory } from 'react-router-dom';
 
@@ -24,6 +26,7 @@ interface Pet {
     id: number;
     url: string;
   }>;
+  created_at: string;
 }
 
 const LocationMap: React.FC = () => {
@@ -95,7 +98,7 @@ const LocationMap: React.FC = () => {
                 <Popup
                   closeButton={false}
                   minWidth={240}
-                  maxHeight={240}
+                  maxHeight={270}
                   className="map-popup"
                 >
                   {pet.images.map(image => {
@@ -109,6 +112,17 @@ const LocationMap: React.FC = () => {
                       </div>
                     );
                   })}
+                  <div className="date-box">
+                    <span>
+                      {format(
+                        parseISO(pet.created_at),
+                        "'Dia' dd 'de' MMMM 'às' HH:mm",
+                        {
+                          locale: ptBR,
+                        },
+                      )}
+                    </span>
+                  </div>
                   <Link to={`/pets/${pet.id}`}>
                     <FiArrowRight size={20} color="#fff" />
                   </Link>

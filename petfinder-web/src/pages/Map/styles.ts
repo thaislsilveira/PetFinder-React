@@ -47,6 +47,17 @@ export const Container = styled.div`
           display: none;
         }
       }
+      .date-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .date-box span {
+        font-weight: bold;
+        color: #94443f;
+        padding: 8px;
+        font-size: 14px;
+      }
     }
   }
 `;

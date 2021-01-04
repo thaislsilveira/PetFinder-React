@@ -25,6 +25,7 @@
         "prettier"
     ],
     "rules": {
+      "camelcase": "off",
       "prettier/prettier": "error",
       "jsx-a11y/label-has-associated-control": "off",
       "react/no-array-index-key": "off",
