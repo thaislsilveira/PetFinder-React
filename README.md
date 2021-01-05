@@ -19,3 +19,12 @@ A ideia é fazer uma nova versão  em React.js do meu trabalho de conclução de
 
 ![Web-Dashboard](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/web-petfinder.png)
 ![Web-Location](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/location.png)
+
+
+## Tecnologias utilizadas 🚀
+
+<ul>
+    <li><a href="https://reactjs.org/" target="_blank">React</a></li>
+   <li><a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a></li>  
+   <li><a href="https://www.sqlite.org/index.html" target="_blank">SQLite</a></li>    
+</ul>
