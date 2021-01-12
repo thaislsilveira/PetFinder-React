@@ -47,7 +47,6 @@ const LocationMap: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log('buscou pets');
     api.get('pets').then(response => {
       setPets(response.data);
     });

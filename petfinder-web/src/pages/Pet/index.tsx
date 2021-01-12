@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { FiClock, FiInfo } from 'react-icons/fi';
+import L from 'leaflet';
+
+import { FiInfo } from 'react-icons/fi';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
@@ -31,16 +33,25 @@ interface PetParams {
   id: string;
 }
 
+const iconPoint = new L.Icon({
+  iconUrl: location,
+  iconRetinaUrl: location,
+  className: 'div-cion',
+});
+
 const Pet: React.FC = () => {
   const params = useParams<PetParams>();
   const [pet, setPet] = useState<Pet>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
+  console.log(params.id);
+
   useEffect(() => {
     api.get(`pets/${params.id}`).then(response => {
+      console.log('cheguei aqui');
       setPet(response.data);
     });
-  }, []);
+  }, [params.id]);
 
   if (!pet) {
     return <p>Carregando...</p>;
@@ -90,7 +101,7 @@ const Pet: React.FC = () => {
                 />
                 <Marker
                   interactive={false}
-                  icon={location}
+                  icon={iconPoint}
                   position={[pet.latitude, pet.longitude]}
                 />
               </Map>
