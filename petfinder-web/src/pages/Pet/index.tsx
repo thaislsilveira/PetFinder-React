@@ -48,7 +48,6 @@ const Pet: React.FC = () => {
 
   useEffect(() => {
     api.get(`pets/${params.id}`).then(response => {
-      console.log('cheguei aqui');
       setPet(response.data);
     });
   }, [params.id]);
@@ -82,7 +81,7 @@ const Pet: React.FC = () => {
           </div>
 
           <div className="pet-details-content">
-            <h1>{pet.port}</h1>
+            <h2>{pet.port}</h2>
             <p>{pet.breed}</p>
 
             <div className="map-container">
@@ -116,9 +115,6 @@ const Pet: React.FC = () => {
                 </a>
               </footer>
             </div>
-
-            <hr />
-
             <h2>Informações</h2>
             <p>{pet.information}</p>
 
@@ -129,7 +125,7 @@ const Pet: React.FC = () => {
                   Cachorro
                 </div>
               ) : (
-                <div className="open-on-weekends dont-open">
+                <div className="cat-or-dog dont-open">
                   <FiInfo size={32} color="##ff669D" />
                   Gato
                 </div>
@@ -142,7 +138,7 @@ const Pet: React.FC = () => {
                   Feminino
                 </div>
               ) : (
-                <div className="open-on-weekends dont-open">
+                <div className="cat-or-dog dont-open">
                   <FiInfo size={32} color="##ff669D" />
                   Masculino
                 </div>
