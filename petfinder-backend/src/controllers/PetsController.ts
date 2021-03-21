@@ -50,10 +50,10 @@ export default {
     });
 
     const data = {
-      type: type === 'true',
+      type: type === '1',
       latitude,
       longitude,
-      sex: sex === 'true',
+      sex: sex === '1',
       port,
       breed,
       information,
