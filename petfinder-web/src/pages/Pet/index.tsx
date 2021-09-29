@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import L from 'leaflet';
 
-import { FiInfo } from 'react-icons/fi';
+import { GiCat, GiSittingDog } from 'react-icons/gi';
+import { CgBoy, CgGirl } from 'react-icons/cg';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
@@ -43,8 +44,6 @@ const Pet: React.FC = () => {
   const params = useParams<PetParams>();
   const [pet, setPet] = useState<Pet>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  console.log(params.id);
 
   useEffect(() => {
     api.get(`pets/${params.id}`).then(response => {
@@ -120,26 +119,26 @@ const Pet: React.FC = () => {
 
             <div className="type-details">
               {pet.type ? (
-                <div className="type">
-                  <FiInfo size={32} color="#39CC83" />
+                <div className="type-dog">
+                  <GiSittingDog size={32} color="#39CC83" />
                   Cachorro
                 </div>
               ) : (
                 <div className="cat-or-dog dont-open">
-                  <FiInfo size={32} color="##ff669D" />
+                  <GiCat size={32} color="##ff669D" />
                   Gato
                 </div>
               )}
             </div>
             <div className="type-details">
               {pet.type ? (
-                <div className="type">
-                  <FiInfo size={32} color="#39CC83" />
+                <div className="type-girl">
+                  <CgGirl size={32} color="#ff669D" />
                   Feminino
                 </div>
               ) : (
-                <div className="cat-or-dog dont-open">
-                  <FiInfo size={32} color="##ff669D" />
+                <div className="type-boy">
+                  <CgBoy size={32} color="#6495ED" />
                   Masculino
                 </div>
               )}

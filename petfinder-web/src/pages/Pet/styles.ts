@@ -112,11 +112,17 @@ export const Content = styled.main`
         margin-bottom: 20px;
       }
 
-      div.type {
+      div.type-girl {
         width: 264px;
-        background: linear-gradient(149.97deg, #e6f7fb 8.13%, #ffffff 92.67%);
-        border: 1px solid #b3dae2;
-        color: #5c8599;
+        background: linear-gradient(154.16deg, #fdf0f5 7.85%, #ffffff 91.03%);
+        border: 1px solid #ffbcd4;
+        color: #ff669d;
+      }
+      div.type-dog {
+        width: 264px;
+        background: linear-gradient(154.16deg, #edfff6 7.85%, #ffffff 91.03%);
+        border: 1px solid #a1e9c5;
+        color: #37c77f;
       }
 
       div.cat-or-dog {
@@ -126,11 +132,11 @@ export const Content = styled.main`
         color: #37c77f;
       }
 
-      div.cat-or-dog.dont-open {
+      div.type-boy {
         width: 264px;
-        background: linear-gradient(154.16deg, #fdf0f5 7.85%, #ffffff 91.03%);
-        border: 1px solid #ffbcd4;
-        color: #ff669d;
+        background: linear-gradient(154.16deg, #add8e6 7.85%, #ffffff 91.03%);
+        border: 1px solid #4169e1;
+        color: #00008b;
       }
     }
   }
