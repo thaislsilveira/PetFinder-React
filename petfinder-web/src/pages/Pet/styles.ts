@@ -73,6 +73,14 @@ export const Content = styled.main`
         border-radius: 20px;
         background-color: #fde3e5;
       }
+
+      .phone {
+        border: 0;
+        font-size: 18px;
+        color: #94443f;
+        border-radius: 20px;
+        background-color: #fde3e5;
+      }
     }
 
     .map-container {
