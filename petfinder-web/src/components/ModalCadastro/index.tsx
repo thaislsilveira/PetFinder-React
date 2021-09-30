@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
+import InputMask from 'react-input-mask';
 
 import { FiPlus, FiXCircle } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -66,6 +67,9 @@ const ModalCadastro: React.FC<ModalProps> = ({
     const { latitude, longitude } = position;
 
     const data = new FormData();
+
+    const unmaskedPhone = phone.replace(/[-()]/g, '');
+
     data.append('type', String(typeOn));
     data.append('latitude', String(latitude));
     data.append('longitude', String(longitude));
@@ -74,7 +78,7 @@ const ModalCadastro: React.FC<ModalProps> = ({
     data.append('breed', breed);
     data.append('information', information);
     data.append('responsible_name', responsibleName);
-    data.append('phone', phone);
+    data.append('phone', unmaskedPhone);
     images.forEach(image => {
       data.append('images', image);
     });
@@ -231,8 +235,9 @@ const ModalCadastro: React.FC<ModalProps> = ({
               </div>
               <div className="input-block">
                 <label htmlFor="phone">Telefone</label>
-                <input
+                <InputMask
                   id="phone"
+                  mask="(99)9999-9999"
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
                 />

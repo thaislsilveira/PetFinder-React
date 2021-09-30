@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import InputMask from 'react-input-mask';
 
 import L from 'leaflet';
 
@@ -148,7 +149,14 @@ const Pet: React.FC = () => {
             <p>{pet.responsible_name}</p>
 
             <h2>Telefone</h2>
-            <p>{pet.phone}</p>
+
+            <p>
+              <InputMask
+                className="phone"
+                mask="(99)9999-9999"
+                value={pet.phone}
+              />
+            </p>
 
             {/*
             <button type="button" className="contact-button">
