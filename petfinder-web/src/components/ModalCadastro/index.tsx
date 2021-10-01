@@ -137,7 +137,7 @@ const ModalCadastro: React.FC<ModalProps> = ({
                       setTypeOn(1);
                     }}
                   >
-                    Cachorro
+                    cachorro
                   </button>
                   <button
                     type="button"
@@ -147,7 +147,7 @@ const ModalCadastro: React.FC<ModalProps> = ({
                       setTypeOn(0);
                     }}
                   >
-                    Gato
+                    gato
                   </button>
                 </div>
               </div>
@@ -162,7 +162,7 @@ const ModalCadastro: React.FC<ModalProps> = ({
                       setSexOn(1);
                     }}
                   >
-                    Feminino
+                    fêmea
                   </button>
                   <button
                     type="button"
@@ -172,7 +172,7 @@ const ModalCadastro: React.FC<ModalProps> = ({
                       setSexOn(0);
                     }}
                   >
-                    Masculino
+                    macho
                   </button>
                 </div>
               </div>

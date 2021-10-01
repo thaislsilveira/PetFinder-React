@@ -3,8 +3,7 @@ import InputMask from 'react-input-mask';
 
 import L from 'leaflet';
 
-import { GiCat, GiSittingDog } from 'react-icons/gi';
-import { CgBoy, CgGirl } from 'react-icons/cg';
+import { GiCat, GiSittingDog, GiFemale, GiMale } from 'react-icons/gi';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
@@ -120,27 +119,27 @@ const Pet: React.FC = () => {
 
             <div className="type-details">
               {pet.type ? (
-                <div className="type-dog">
-                  <GiSittingDog size={32} color="#39CC83" />
-                  Cachorro
+                <div className="type-animal">
+                  <GiSittingDog size={32} color="#D2691E" />
+                  cachorro
                 </div>
               ) : (
-                <div className="cat-or-dog dont-open">
-                  <GiCat size={32} color="##ff669D" />
-                  Gato
+                <div className="type-animal">
+                  <GiCat size={32} color="#D2691E" />
+                  gato
                 </div>
               )}
             </div>
             <div className="type-details">
               {pet.type ? (
-                <div className="type-girl">
-                  <CgGirl size={32} color="#ff669D" />
-                  Feminino
+                <div className="type-sex">
+                  <GiFemale size={32} color="#808080" />
+                  fêmea
                 </div>
               ) : (
-                <div className="type-boy">
-                  <CgBoy size={32} color="#6495ED" />
-                  Masculino
+                <div className="type-sex">
+                  <GiMale size={32} color="#808080" />
+                  macho
                 </div>
               )}
             </div>
