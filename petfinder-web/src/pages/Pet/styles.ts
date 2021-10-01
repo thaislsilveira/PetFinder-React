@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
 
 export const Container = styled.div`
   display: flex;
-  min-height: 100vh;
-  background: #fde3e5;
+  flex: 1;
+  background: url(${signInBackgoundImg}) no-repeat center;
+  background-size: cover;
 `;
 
 export const Content = styled.main`
@@ -14,16 +16,13 @@ export const Content = styled.main`
     width: 700px;
     margin: 64px auto;
 
-    background: #ffffff;
-    border: 1px solid #f79641;
-    border-radius: 20px;
-
     overflow: hidden;
 
     > img {
       width: 100%;
       height: 300px;
       object-fit: cover;
+      border-radius: 20px;
     }
 
     .images {
@@ -71,7 +70,7 @@ export const Content = styled.main`
         font-size: 18px;
         color: #94443f;
         border-radius: 20px;
-        background-color: #fde3e5;
+        background-color: #f79641;
       }
 
       .phone {
@@ -79,8 +78,11 @@ export const Content = styled.main`
         font-size: 18px;
         color: #94443f;
         border-radius: 20px;
-        background-color: #fde3e5;
+        background-color: #f79641;
       }
+    }
+    .leaflet-container {
+      border-radius: inherit;
     }
 
     .map-container {

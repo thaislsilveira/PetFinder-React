@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.aside`
   position: fixed;
   height: 100%;
-  padding: 32px 24px;
+  width: 150px;
+  padding: 15px 0;
   background: linear-gradient(329.54deg, #f79641 0%, #f79641 100%);
 
   display: flex;
@@ -12,7 +13,7 @@ export const Container = styled.aside`
   align-items: center;
 
   img {
-    width: 48px;
+    width: 100%;
   }
 
   footer a,
