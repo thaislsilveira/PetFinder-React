@@ -120,31 +120,17 @@ export const Content = styled.main`
         margin-bottom: 20px;
       }
 
-      div.type-girl {
+      div.type-sex {
         width: 264px;
-        background: linear-gradient(154.16deg, #fdf0f5 7.85%, #ffffff 91.03%);
-        border: 1px solid #ffbcd4;
-        color: #ff669d;
+        background: linear-gradient(154.16deg, #d3d3d3 7.85%, #ffffff 91.03%);
+        border: 1px solid #a9a9a9;
+        color: #808080;
       }
-      div.type-dog {
+      div.type-animal {
         width: 264px;
-        background: linear-gradient(154.16deg, #edfff6 7.85%, #ffffff 91.03%);
-        border: 1px solid #a1e9c5;
-        color: #37c77f;
-      }
-
-      div.cat-or-dog {
-        width: 264px;
-        background: linear-gradient(154.16deg, #edfff6 7.85%, #ffffff 91.03%);
-        border: 1px solid #a1e9c5;
-        color: #37c77f;
-      }
-
-      div.type-boy {
-        width: 264px;
-        background: linear-gradient(154.16deg, #add8e6 7.85%, #ffffff 91.03%);
-        border: 1px solid #4169e1;
-        color: #00008b;
+        background: linear-gradient(154.16deg, #ffdead 7.85%, #ffffff 91.03%);
+        border: 1px solid #f4a460;
+        color: #d2691e;
       }
     }
   }
