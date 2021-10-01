@@ -17,6 +17,7 @@ import logo from '../../assets/logo.png';
 import mapIcon from '../../utils/mapIcon';
 
 import ModalCadastro from '../../components/ModalCadastro';
+// import ModalPet from '../../components/ModalPet';
 
 interface Pet {
   id: number;
@@ -144,6 +145,11 @@ const LocationMap: React.FC = () => {
         positionMap={position}
         hide={() => setVisible(false)}
       />
+      {/* <ModalPet
+        visible={visible}
+        positionMap={position}
+        hide={() => setVisible(false)}
+      /> */}
     </>
   );
 };
