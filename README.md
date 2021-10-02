@@ -14,11 +14,14 @@ A ideia é fazer uma nova versão  em React.js do meu trabalho de conclução de
 
 ![gif-login](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/login.gif)
 ![gif-Dashboard](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/dashboard.gif)
+<img width="100%" alt="cadastrando" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastrando.gif">
+<img width="100%" alt="cadastro" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastro.gif">
 
 ## Imagens :framed_picture:
 
 ![Web-Dashboard](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/web-petfinder.png)
 ![Web-Location](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/location.png)
+
 
 
 ## Tecnologias utilizadas 🚀
