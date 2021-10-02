@@ -83,6 +83,6 @@ export const AnimationContainer = styled.div`
 
 export const Background = styled.div`
   flex: 1;
-  background: url(${signUpBackgoundImg}) no-repeat center;
-  background-size: cover;
+  background: url(${signUpBackgoundImg}) repeat center;
+  background-attachment: fixed;
 `;
