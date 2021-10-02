@@ -4,19 +4,21 @@ import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
 export const Container = styled.div`
   display: flex;
   flex: 1;
-  background: url(${signInBackgoundImg}) no-repeat center;
-  background-size: cover;
+  background: url(${signInBackgoundImg}) repeat center;
+  background-attachment: fixed;
 `;
 
 export const Content = styled.main`
   flex: 1;
 
   .pet-details {
-    padding: 80px;
+    padding: 40px;
     width: 700px;
     margin: 64px auto;
-
     overflow: hidden;
+    background-color: #f7f3eb;
+    border-radius: 20px;
+    border: 1px solid #eddfd2;
 
     > img {
       width: 100%;
