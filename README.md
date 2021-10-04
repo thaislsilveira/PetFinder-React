@@ -27,7 +27,10 @@ A ideia é fazer uma nova versão  em React.js do meu trabalho de conclução de
 ## Tecnologias utilizadas 🚀
 
 <ul>
-    <li><a href="https://reactjs.org/" target="_blank">React</a></li>
+   <li><a href="https://reactjs.org/" target="_blank">React</a></li>
    <li><a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a></li>  
-   <li><a href="https://www.sqlite.org/index.html" target="_blank">SQLite</a></li>    
+   <li><a href="https://www.sqlite.org/index.html" target="_blank">SQLite</a></li> 
+   <li><a href="https://styled-components.com/" target="_blank">Styled Components</a></li>
+   <li><a href="https://eslint.org/" target="_blank">Eslint</a></li>
+   <li><a href="https://prettier.io/" target="_blank">Prettier</a></li>
 </ul>
