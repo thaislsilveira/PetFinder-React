@@ -1,6 +1,29 @@
 import styled, { keyframes } from 'styled-components';
 
-import { Link } from 'react-router-dom';
+export const ExitButton = styled.button`
+  cursor: pointer;
+  background: #f79641;
+  color: black;
+  border-radius: 50%;
+  z-index: 401;
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  width: 60px;
+  height: 60px;
+  line-height: 72px;
+  text-align: center;
+  border: 0;
+  transition: background-color 0.2s;
+
+  svg {
+    padding-left: 2px;
+    display: inline-block;
+  }
+  &:hover {
+    background: #fbdd5a;
+  }
+`;
 
 export const Container = styled.div`
   width: 100vw;
