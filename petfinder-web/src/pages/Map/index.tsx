@@ -6,10 +6,11 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { useHistory } from 'react-router-dom';
 
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { ImExit } from 'react-icons/im';
 import { Map, Marker, TileLayer, Popup } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 
-import { Container, AnimationContainer } from './styles';
+import { Container, AnimationContainer, ExitButton } from './styles';
 
 import api from '../../services/api';
 
@@ -17,6 +18,7 @@ import logo from '../../assets/logo.png';
 import mapIcon from '../../utils/mapIcon';
 
 import ModalCadastro from '../../components/ModalCadastro';
+import { useAuth } from '../../hooks/auth';
 // import ModalPet from '../../components/ModalPet';
 
 interface Pet {
@@ -31,6 +33,7 @@ interface Pet {
 }
 
 const LocationMap: React.FC = () => {
+  const { signOut } = useAuth();
   const { goBack } = useHistory();
 
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
@@ -138,6 +141,10 @@ const LocationMap: React.FC = () => {
               position={[position.latitude, position.longitude]}
             />
           )}
+
+          <ExitButton onClick={signOut}>
+            <ImExit size={20} color="#94443f" />
+          </ExitButton>
         </Map>
       </Container>
       <ModalCadastro
