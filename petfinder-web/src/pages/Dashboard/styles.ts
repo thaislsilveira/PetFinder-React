@@ -104,7 +104,10 @@ export const ContentRight = styled.div`
     a {
       text-decoration: none;
       color: #94443f;
+
+      transition: background-color 0.2s;
       &:hover {
+        background: #ffd666;
         opacity: 0.8;
       }
     }
