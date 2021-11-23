@@ -46,7 +46,7 @@ export const Content = styled.div`
     line-height: 34px;
   }
 
-  a {
+  a.absolute-link {
     position: absolute;
 
     right: 0;
@@ -69,23 +69,44 @@ export const Content = styled.div`
   }
 `;
 
-export const Location = styled.div`
-  position: absolute;
-  margin: 30px 10px;
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 
-  right: 0;
-  top: 0;
+  width: 100%;
+`;
 
+export const ContentRight = styled.div`
   font-size: 24px;
   line-height: 34px;
 
   display: flex;
-  flex-direction: column;
+  margin: auto 0;
+  justify-content: center;
+  align-content: center;
 
   text-align: right;
 
   strong {
     text-align: center;
     font-weight: 800;
+  }
+
+  > div {
+    display: inline-block;
+    margin-left: 16px;
+    line-height: 24px;
+    span {
+      color: #f4ede8;
+    }
+
+    a {
+      text-decoration: none;
+      color: #94443f;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
 `;
