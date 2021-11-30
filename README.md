@@ -6,6 +6,31 @@ Uma plataforma baseada na plataforma [Happy](https://github.com/rocketseat-educa
 
 A ideia é fazer uma nova versão  em React.js do meu trabalho de conclução de curso apresentado em 2019 na Fatec-Jales, se baseando no projeto Happy. 👩‍💻
 
+
+## Como rodar a aplicação :arrow_forward:
+
+Em caso de download do projeto você precisará baixar as dependências :warning: :heavy_exclamation_mark:
+
+**Necessário:** Yarn ou NPM
+
+### Executando o projeto com **Yarn**:
+
+- Execute o comandos abaixo, para baixar as dependências:
+
+```
+yarn
+``` 
+- Para iniciar o projeto, executar o comando abaixo para rodar o backend:
+
+```
+yarn dev 
+```
+
+- Para iniciar o frontend, basta executar o comando abaixo:
+
+```
+yarn start
+```
 ## Web 
 
 ---
