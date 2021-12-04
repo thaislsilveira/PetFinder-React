@@ -42,6 +42,7 @@ yarn start
 <img width="100%" alt="cadastrando" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastrando.gif">
 <img width="100%" alt="cadastro" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastro.gif">
 <img width="100%" alt="botão sair" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/PetFinder-sair.gif">
+<img width="100%" alt="perfil" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/PetFinder-profile.gif">
 
 
 ## Tecnologias utilizadas 🚀
