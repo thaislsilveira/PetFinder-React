@@ -64,7 +64,7 @@ export const Content = styled.div`
     transition: background-color 0.2s;
   }
 
-  a:hover {
+  a.absolute-link:hover {
     background: #94443f;
   }
 `;
@@ -101,13 +101,14 @@ export const ContentRight = styled.div`
       color: #f4ede8;
     }
 
-    a {
+    a.profile-link {
       text-decoration: none;
-      color: #94443f;
+      color: #ffd666;
 
       transition: background-color 0.2s;
+
       &:hover {
-        background: #ffd666;
+        color: #94443f;
         opacity: 0.8;
       }
     }
