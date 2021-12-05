@@ -14,9 +14,9 @@ export const Content = styled.div`
   .details {
     padding: 40px;
     width: 700px;
-    background-color: #f7f3eb;
+    background-color: #f79641;
     border-radius: 20px;
-    border: 1px solid #eddfd2;
+    border: 1px solid #f79641;
     margin: 80px auto;
 
     h1 {
