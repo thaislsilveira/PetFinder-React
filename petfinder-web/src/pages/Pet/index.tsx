@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
 
-import L from 'leaflet';
-
 import { GiCat, GiSittingDog, GiFemale, GiMale } from 'react-icons/gi';
-import { Map, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 
 import Sidebar from '../../components/Sidebar';
 
-import location from '../../assets/location.png';
-
 import { Container, Content } from './styles';
+import MapComponent from '../../components/Map';
+import pointIcon from '../../utils/pointIcon';
 
 interface Pet {
   latitude: number;
@@ -33,12 +30,6 @@ interface Pet {
 interface PetParams {
   id: string;
 }
-
-const iconPoint = new L.Icon({
-  iconUrl: location,
-  iconRetinaUrl: location,
-  className: 'div-cion',
-});
 
 const Pet: React.FC = () => {
   const params = useParams<PetParams>();
@@ -84,25 +75,11 @@ const Pet: React.FC = () => {
             <p>{pet.breed}</p>
 
             <div className="map-container">
-              <Map
-                center={[pet.latitude, pet.longitude]}
-                zoom={16}
-                style={{ width: '100%', height: 280 }}
-                dragging={false}
-                touchZoom={false}
-                zoomControl={false}
-                scrollWheelZoom={false}
-                doubleClickZoom={false}
-              >
-                <TileLayer
-                  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-                />
-                <Marker
-                  interactive={false}
-                  icon={iconPoint}
-                  position={[pet.latitude, pet.longitude]}
-                />
-              </Map>
+              <MapComponent
+                latitude={pet.latitude}
+                longitude={pet.longitude}
+                icon={pointIcon}
+              />
 
               <footer>
                 <a

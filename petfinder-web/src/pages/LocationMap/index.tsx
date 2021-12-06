@@ -19,7 +19,6 @@ import mapIcon from '../../utils/mapIcon';
 
 import ModalCadastro from '../../components/ModalCadastro';
 import { useAuth } from '../../hooks/auth';
-// import ModalPet from '../../components/ModalPet';
 
 interface Pet {
   id: number;
@@ -83,10 +82,6 @@ const LocationMap: React.FC = () => {
           style={{ width: '100%', height: '100%', zIndex: 9 }}
           onClick={handleMapClick}
         >
-          {/* <TileLayer
-          url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        /> */}
-
           <TileLayer
             url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
           />

@@ -8,7 +8,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
 import Dashboard from './pages/Dashboard';
-import LocationMap from './pages/Map';
+import LocationMap from './pages/LocationMap';
 import Pet from './pages/Pet';
 import Profile from './pages/Profile';
 
