@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import UsersService from '../services/UsersService';
 import phoneRegExp from '../validation/phone';
+import userView from '../views/users_view';
 
 export default {
   async create(request: Request, response: Response) {
@@ -38,6 +39,6 @@ export default {
       phone,
     });
 
-    return response.status(201).json(user);
+    return response.status(201).json(userView.render(user));
   },
 };
