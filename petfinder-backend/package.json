@@ -15,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.3.1",
     "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-kun": "^1.0.24",
