@@ -18,4 +18,8 @@ const Tooltip: React.FC<TooltipProps> = ({
   </Container>
 );
 
+Tooltip.defaultProps = {
+  className: '',
+};
+
 export default Tooltip;

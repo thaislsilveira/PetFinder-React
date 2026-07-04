@@ -8,8 +8,8 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@types/react-input-mask": "^3.0.1",
     "@types/react-leaflet": "^2.5.2",
     "@types/yup": "^0.29.11",
@@ -20,7 +20,7 @@
     "leaflet": "^1.7.1",
     "polished": "^3.5.1",
     "react": "^17.0.1",
-    "react-dom": "^16.13.1",
+    "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^2.7.0",
@@ -34,9 +34,9 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "test": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts test",
     "eject": "react-scripts eject"
   },
   "browserslist": {
@@ -65,6 +65,11 @@
     "eslint-plugin-prettier": "^3.3.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "cross-env": "^7.0.3"
+  },
+  "resolutions": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0"
   }
 }

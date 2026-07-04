@@ -106,11 +106,14 @@ const ModalCadastro: React.FC<ModalProps> = ({
     typeOn,
   ]);
 
-  function handleOverlayClick(event) {
-    if (event.target === ref.current) {
-      hide();
-    }
-  }
+  const handleOverlayClick = useCallback(
+    event => {
+      if (event.target === ref.current) {
+        hide();
+      }
+    },
+    [hide],
+  );
 
   return (
     <Container visible={visible} ref={ref} onClick={handleOverlayClick}>

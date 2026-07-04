@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -40,14 +40,14 @@ const LocationMap: React.FC = () => {
 
   const [pets, setPets] = useState<Pet[]>([]);
 
-  function handleMapClick(event: LeafletMouseEvent) {
+  const handleMapClick = useCallback((event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;
     setPosition({
       latitude: lat,
       longitude: lng,
     });
     setVisible(true);
-  }
+  }, []);
 
   useEffect(() => {
     api.get('pets').then(response => {
@@ -83,7 +83,8 @@ const LocationMap: React.FC = () => {
           onClick={handleMapClick}
         >
           <TileLayer
-            url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
 
           {pets.map(pet => {

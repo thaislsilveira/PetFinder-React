@@ -22,7 +22,8 @@ const MapComponent: React.FC<MapProps> = ({ latitude, longitude, icon }) => (
     doubleClickZoom={false}
   >
     <TileLayer
-      url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     />
     <Marker interactive={false} icon={icon} position={[latitude, longitude]} />
   </Map>
