@@ -19,7 +19,6 @@
     "dotenv": "^17.4.2",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
-    "express-kun": "^1.0.24",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
     "zod": "^3.25.76"
