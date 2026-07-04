@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 
-import * as Yup from 'yup';
+import { z } from 'zod';
 
 import petView from '../views/pets_view';
 
 import PetsService from '../services/PetsService';
+import phoneRegExp from '../validation/phone';
 
 export default {
   async index(request: Request, response: Response) {
@@ -52,36 +53,25 @@ export default {
       images,
     };
 
-    const phoneRegExp =
-      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-    const schema = Yup.object().shape({
-      type: Yup.boolean().required(''),
-      latitude: Yup.number().required('Latitude é obrigatório'),
-      longitude: Yup.number().required('longitude é obrigatório'),
-      sex: Yup.boolean().required(''),
-      port: Yup.string().required('Porte é obrigatório'),
-      breed: Yup.string().required('Raça é obrigatório'),
-      information: Yup.string().required(
-        'Informações do Responsável são obrigatórias',
-      ),
-      responsible_name: Yup.string().required(
-        'Nome do Responsável é obrigatório',
-      ),
-      phone: Yup.string().matches(
-        phoneRegExp,
-        'Número de telefone não é válido',
-      ),
-      images: Yup.array(
-        Yup.object().shape({
-          path: Yup.string().required(),
-        }),
-      ),
+    const schema = z.object({
+      type: z.boolean(),
+      latitude: z.coerce.number({ required_error: 'Latitude é obrigatório' }),
+      longitude: z.coerce.number({ required_error: 'longitude é obrigatório' }),
+      sex: z.boolean(),
+      port: z.string().min(1, 'Porte é obrigatório'),
+      breed: z.string().min(1, 'Raça é obrigatório'),
+      information: z
+        .string()
+        .min(1, 'Informações do Responsável são obrigatórias'),
+      responsible_name: z.string().min(1, 'Nome do Responsável é obrigatório'),
+      phone: z
+        .string()
+        .regex(phoneRegExp, 'Número de telefone não é válido')
+        .optional(),
+      images: z.array(z.object({ path: z.string().min(1) })).optional(),
     });
 
-    await schema.validate(data, {
-      abortEarly: false,
-    });
+    schema.parse(data);
 
     const pet = await PetsService.create({
       type: data.type,

@@ -1,21 +1,23 @@
 import { Request, Response } from 'express';
 
-import * as Yup from 'yup';
+import { z } from 'zod';
 
 import SessionService from '../services/SessionService';
 
 class SessionController {
   async store(request: Request, response: Response) {
-    const schema = Yup.object().shape({
-      email: Yup.string().email().required(),
-      password: Yup.string().required(),
+    const schema = z.object({
+      email: z.string().email(),
+      password: z.string().min(1),
     });
 
-    if (!(await schema.isValid(request.body))) {
+    const parsed = schema.safeParse(request.body);
+
+    if (!parsed.success) {
       return response.status(400).json({ error: 'Validation fails' });
     }
 
-    const { email, password } = request.body;
+    const { email, password } = parsed.data;
 
     const result = await SessionService.authenticate(email, password);
 
