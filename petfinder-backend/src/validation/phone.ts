@@ -1,10 +1,11 @@
-// NOTE: this pattern is inherited verbatim from the original Yup-based
-// validation (previously duplicated in UsersController and PetsController).
-// It is double-escaped inside a regex literal, so `\\+`/`\\-` match literal
-// backslash characters instead of `+`/`-`/parentheses - it barely validates
-// anything. Kept as-is here so the Yup->Zod port is a pure mechanical move;
-// fixed in a separate, isolated commit right after this one.
+// Accepts a Brazilian phone number as plain digits (the format every real
+// row in this app's database actually uses, e.g. "17997196185") or loosely
+// formatted with an optional country code, parentheses around the area
+// code, and spaces/hyphens between groups (e.g. "+55 (17) 99719-6185").
+// Previously a double-escaped pattern that matched literal backslash
+// characters instead of `+`/`-`/parentheses, so it barely validated
+// anything - see git history for the original.
 const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  /^(\+?\d{1,3}[\s-]?)?(\(?\d{2}\)?[\s-]?)?\d{4,5}[\s-]?\d{4}$/;
 
 export default phoneRegExp;
