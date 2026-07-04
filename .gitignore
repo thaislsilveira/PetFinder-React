@@ -13,6 +13,9 @@ node_modules
 dist
 **/src/generated
 
+# local dev database (contains real user data - never commit)
+**/src/database/database.sqlite
+
 # misc
 .DS_Store
 .env
