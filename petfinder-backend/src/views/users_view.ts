@@ -1,4 +1,6 @@
-import User from '../models/User';
+import type UsersService from '../services/UsersService';
+
+type User = Awaited<ReturnType<typeof UsersService.create>>;
 
 export default {
   render(user: User) {

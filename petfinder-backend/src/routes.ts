@@ -11,8 +11,6 @@ import SessionController from './controllers/SessionController';
 import UsersController from './controllers/UsersController';
 import PetsController from './controllers/PetsController';
 
-import './database/connection';
-
 const routes = Router();
 
 const protectedRouter = withJWTAuthMiddleware(routes, authConfig.secret);
