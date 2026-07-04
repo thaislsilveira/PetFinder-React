@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("users")
+}
+
+model Pet {
+  id              Int      @id @default(autoincrement())
+  type            Boolean  @default(false)
+  latitude        Decimal
+  longitude       Decimal
+  sex             Boolean  @default(false)
+  port            String
+  breed           String
+  information     String
+  responsibleName String   @map("responsible_name")
+  phone           String
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @map("updated_at")
+  images          Image[]
+
+  @@map("pets")
+}
+
+model Image {
+  id    Int    @id @default(autoincrement())
+  path  String
+  petId Int    @map("pet_id")
+  pet   Pet    @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@map("images")
+}
