@@ -5,7 +5,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "typeorm": "ts-node-dev  ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev  ./node_modules/typeorm/cli.js",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "eslint --ext .ts src",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
