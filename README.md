@@ -1,7 +1,5 @@
 # Projeto PetFinder em Produção :construction:
 
-[![Hypercommit](https://img.shields.io/badge/Hypercommit-DB2475)](https://hypercommit.com/petfinder-react)
-
 ## Descrição do projeto :star:
 
 Uma plataforma baseada na plataforma [Happy](https://github.com/rocketseat-education/nlw-03-omnistack) da semana **Next Level Week#3** da [Rocketseat](https://www.rocketseat.com.br).
