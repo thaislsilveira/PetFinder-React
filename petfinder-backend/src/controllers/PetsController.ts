@@ -1,30 +1,22 @@
 import { Request, Response } from 'express';
 
-import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 
 import petView from '../views/pets_view';
 
-import Pet from '../models/Pet';
+import PetsService from '../services/PetsService';
 
 export default {
   async index(request: Request, response: Response) {
-    const petsRepository = getRepository(Pet);
-
-    const pets = await petsRepository.find({
-      relations: ['images'],
-    });
+    const pets = await PetsService.findAll();
 
     return response.json(petView.renderMany(pets));
   },
 
   async show(request: Request, response: Response) {
     const { id } = request.params;
-    const petsRepository = getRepository(Pet);
 
-    const pet = await petsRepository.findOneOrFail(id, {
-      relations: ['images'],
-    });
+    const pet = await PetsService.findById(Number(id));
 
     return response.json(petView.render(pet));
   },
@@ -41,8 +33,6 @@ export default {
       responsible_name,
       phone,
     } = request.body;
-
-    const petsRepository = getRepository(Pet);
 
     const requestImages = request.files as Express.Multer.File[];
     const images = requestImages.map(image => {
@@ -93,8 +83,18 @@ export default {
       abortEarly: false,
     });
 
-    const pet = petsRepository.create(data);
-    await petsRepository.save(pet);
+    const pet = await PetsService.create({
+      type: data.type,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      sex: data.sex,
+      port: data.port,
+      breed: data.breed,
+      information: data.information,
+      responsibleName: data.responsible_name,
+      phone: data.phone,
+      images: data.images,
+    });
 
     return response.status(201).json(pet);
   },

@@ -19,7 +19,10 @@ export default {
   },
 
   findById(id: number) {
-    return prisma.pet.findUnique({ where: { id }, include: { images: true } });
+    return prisma.pet.findUniqueOrThrow({
+      where: { id },
+      include: { images: true },
+    });
   },
 
   create(data: CreatePetData) {

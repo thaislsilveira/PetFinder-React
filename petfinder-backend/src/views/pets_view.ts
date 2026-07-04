@@ -1,21 +1,23 @@
-import Pet from '../models/Pet';
+import type PetsService from '../services/PetsService';
 import imagesView from './images_view';
+
+type Pet = Awaited<ReturnType<typeof PetsService.findAll>>[number];
 
 export default {
   render(pet: Pet) {
     return {
       id: pet.id,
       type: pet.type,
-      latitude: pet.latitude,
-      longitude: pet.longitude,
+      latitude: Number(pet.latitude),
+      longitude: Number(pet.longitude),
       sex: pet.sex,
       port: pet.port,
       breed: pet.breed,
       information: pet.information,
-      responsible_name: pet.responsible_name,
+      responsible_name: pet.responsibleName,
       phone: pet.phone,
       images: imagesView.renderMany(pet.images),
-      created_at: pet.created_at,
+      created_at: pet.createdAt,
     };
   },
 

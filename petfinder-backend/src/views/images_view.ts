@@ -1,4 +1,8 @@
-import Image from '../models/Image';
+import type PetsService from '../services/PetsService';
+
+type Image = Awaited<
+  ReturnType<typeof PetsService.findAll>
+>[number]['images'][number];
 
 export default {
   render(image: Image) {
