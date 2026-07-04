@@ -1,6 +1,8 @@
 import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
 
+import { Prisma } from '../generated/prisma/client';
+
 interface ValidationErrors {
   [key: string]: string[];
 }
@@ -13,6 +15,13 @@ const errorHandler: ErrorRequestHandler = (error, request, response, _next) => {
     });
 
     return response.status(400).json({ message: 'Validation fails', errors });
+  }
+
+  if (
+    error instanceof Prisma.PrismaClientKnownRequestError &&
+    error.code === 'P2025'
+  ) {
+    return response.status(404).json({ message: 'Not found' });
   }
 
   console.error(error);
