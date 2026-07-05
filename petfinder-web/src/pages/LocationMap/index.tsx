@@ -3,11 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
-import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
-import { ImExit } from 'react-icons/im';
+import {
+  FiArrowLeft as FiArrowLeftIcon,
+  FiArrowRight as FiArrowRightIcon,
+} from 'react-icons/fi';
+import { ImExit as ImExitIcon } from 'react-icons/im';
 import { MapContainer, Marker, TileLayer, Popup, useMapEvents } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 
+import asIcon from '../../utils/icon';
 import { container, animationContainer, exitButton } from './styles';
 
 import api from '../../services/api';
@@ -17,6 +21,10 @@ import mapIcon from '../../utils/mapIcon';
 
 import ModalCadastro from '../../components/ModalCadastro';
 import { useAuth } from '../../hooks/auth';
+
+const FiArrowLeft = asIcon(FiArrowLeftIcon);
+const FiArrowRight = asIcon(FiArrowRightIcon);
+const ImExit = asIcon(ImExitIcon);
 
 interface Pet {
   id: number;

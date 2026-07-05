@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
 
-import { GiCat, GiSittingDog, GiFemale, GiMale } from 'react-icons/gi';
+import {
+  GiCat as GiCatIcon,
+  GiSittingDog as GiSittingDogIcon,
+  GiFemale as GiFemaleIcon,
+  GiMale as GiMaleIcon,
+} from 'react-icons/gi';
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 
 import Sidebar from '../../components/Sidebar';
 
 import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
+import asIcon from '../../utils/icon';
 import { container, content } from './styles';
 import MapComponent from '../../components/Map';
 import pointIcon from '../../utils/pointIcon';
+
+const GiCat = asIcon(GiCatIcon);
+const GiSittingDog = asIcon(GiSittingDogIcon);
+const GiFemale = asIcon(GiFemaleIcon);
+const GiMale = asIcon(GiMaleIcon);
 
 interface Pet {
   latitude: number;

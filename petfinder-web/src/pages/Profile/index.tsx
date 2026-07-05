@@ -1,13 +1,17 @@
 import React from 'react';
-import { FiMail, FiUser } from 'react-icons/fi';
+import { FiMail as FiMailIcon, FiUser as FiUserIcon } from 'react-icons/fi';
 import Form from '../../utils/unformCompat';
 
 import Input from '../../components/Input';
 
 import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
+import asIcon from '../../utils/icon';
 import { container, content } from './styles';
 import { useAuth } from '../../hooks/auth';
 import Sidebar from '../../components/Sidebar';
+
+const FiMail = asIcon(FiMailIcon);
+const FiUser = asIcon(FiUserIcon);
 
 const Profile: React.FC = () => {
   const { user } = useAuth();

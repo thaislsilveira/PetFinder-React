@@ -1,10 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft as FiArrowLeftIcon } from 'react-icons/fi';
 
 import Pets from '../../assets/pets.png';
 
+import asIcon from '../../utils/icon';
 import { container } from './styles';
+
+const FiArrowLeft = asIcon(FiArrowLeftIcon);
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();

@@ -7,13 +7,17 @@ import React, {
 } from 'react';
 import InputMask from 'react-input-mask';
 
-import { FiPlus, FiXCircle } from 'react-icons/fi';
+import { FiPlus as FiPlusIcon, FiXCircle as FiXCircleIcon } from 'react-icons/fi';
 import Form from '../../utils/unformCompat';
 
+import asIcon from '../../utils/icon';
 import { container, modal, content } from './styles';
 
 import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
+
+const FiPlus = asIcon(FiPlusIcon);
+const FiXCircle = asIcon(FiXCircleIcon);
 
 interface ModalProps {
   positionMap: {

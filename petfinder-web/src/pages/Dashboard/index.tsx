@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight as FiArrowRightIcon } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.png';
 import backgroundImg from '../../assets/background.svg';
 
+import asIcon from '../../utils/icon';
 import { container, content, contentRight, header } from './styles';
 import { useAuth } from '../../hooks/auth';
+
+const FiArrowRight = asIcon(FiArrowRightIcon);
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();

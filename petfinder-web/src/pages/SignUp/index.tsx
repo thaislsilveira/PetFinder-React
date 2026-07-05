@@ -1,5 +1,11 @@
 import React, { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiMail, FiLock, FiUser, FiPhone } from 'react-icons/fi';
+import {
+  FiArrowLeft as FiArrowLeftIcon,
+  FiMail as FiMailIcon,
+  FiLock as FiLockIcon,
+  FiUser as FiUserIcon,
+  FiPhone as FiPhoneIcon,
+} from 'react-icons/fi';
 import Form from '../../utils/unformCompat';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,8 +19,15 @@ import signUpBackgoundImg from '../../assets/backgroundLogin.jpg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import asIcon from '../../utils/icon';
 import { container, content, animationContainer, background } from './styles';
 import { useToast } from '../../hooks/toast';
+
+const FiArrowLeft = asIcon(FiArrowLeftIcon);
+const FiMail = asIcon(FiMailIcon);
+const FiLock = asIcon(FiLockIcon);
+const FiUser = asIcon(FiUserIcon);
+const FiPhone = asIcon(FiPhoneIcon);
 
 interface FormData {
   name: string;
