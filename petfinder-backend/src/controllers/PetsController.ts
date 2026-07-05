@@ -55,8 +55,8 @@ export default {
 
     const schema = z.object({
       type: z.boolean(),
-      latitude: z.coerce.number({ required_error: 'Latitude é obrigatório' }),
-      longitude: z.coerce.number({ required_error: 'longitude é obrigatório' }),
+      latitude: z.coerce.number({ error: 'Latitude é obrigatório' }),
+      longitude: z.coerce.number({ error: 'longitude é obrigatório' }),
       sex: z.boolean(),
       port: z.string().min(1, 'Porte é obrigatório'),
       breed: z.string().min(1, 'Raça é obrigatório'),
