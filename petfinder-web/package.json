@@ -11,7 +11,7 @@
     "@unform/core": "^2.1.6",
     "@unform/web": "^2.1.6",
     "axios": "^1",
-    "date-fns": "^2.13.0",
+    "date-fns": "^4.4.0",
     "leaflet": "^1.9",
     "react": "^18",
     "react-dom": "^18",
