@@ -21,7 +21,7 @@
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.2.0",
-    "zod": "^3.25.76"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
