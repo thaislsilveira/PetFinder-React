@@ -116,6 +116,7 @@ const ModalCadastro: React.FC<ModalProps> = ({
   );
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- click-outside-to-dismiss backdrop; the modal already has an accessible close button
     <div
       className={container({ visible })}
       ref={ref}
