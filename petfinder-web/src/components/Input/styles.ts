@@ -1,78 +1,62 @@
-import styled, { css } from 'styled-components';
+import { css, cva } from '../../../styled-system/css';
 
-import Tooltip from '../Tooltip';
+export const container = cva({
+  base: {
+    background: 'textLight',
+    borderRadius: '10px',
+    border: '2px solid',
+    borderColor: 'textLight',
+    padding: '16px',
+    width: '100%',
+    color: 'primary',
 
-interface ContainerProps {
-  isFocused: boolean;
-  isFilled: boolean;
-  isErrored: boolean;
-}
-export const Container = styled.div<ContainerProps>`
-  background: #f7efe0;
-  border-radius: 10px;
-  border: 2px solid #f7efe0;
-  padding: 16px;
-  width: 100%;
-  color: #94443f;
+    display: 'flex',
+    alignItems: 'center',
 
-  display: flex;
-  align-items: center;
+    '& + div': {
+      marginTop: '8px',
+    },
 
-  & + div {
-    margin-top: 8px;
-  }
+    '& input': {
+      flex: 1,
+      background: 'transparent',
+      border: '0',
+      color: 'primary',
 
-  ${props =>
-    props.isFocused &&
-    css`
-      color: #ff9000;
-      border-color: #ff9000;
-    `}
+      '&::placeholder': {
+        color: '#666360',
+      },
+    },
 
-  ${props =>
-    props.isFilled &&
-    css`
-      color: #ff9000;
-    `}
+    '& svg': {
+      marginRight: '16px',
+    },
+  },
+  variants: {
+    isFocused: {
+      true: {
+        color: 'accent',
+        borderColor: 'accent',
+      },
+    },
+    isFilled: {
+      true: {
+        color: 'accent',
+      },
+    },
+    isErrored: {
+      true: {
+        borderColor: 'error',
+      },
+    },
+  },
+});
 
-    ${props =>
-    props.isErrored &&
-    css`
-      border-color: #c53030;
-    `}
+export const error = css({
+  height: '20px',
+  marginLeft: '16px',
 
-
-
-  input {
-    flex: 1;
-    background: transparent;
-    border: 0;
-    color: #94443f;
-
-    &::placeholder {
-      color: #666360;
-    }
-  }
-
-  svg {
-    margin-right: 16px;
-  }
-`;
-
-export const Error = styled(Tooltip)`
-  height: 20px;
-  margin-left: 16px;
-
-  svg {
-    margin: 0;
-  }
-
-  span {
-    background: #c53030;
-    color: #fff;
-
-    &::before {
-      border-color: #c53030 transparent;
-    }
-  }
-`;
+  '& svg': {
+    margin: 0,
+  },
+});

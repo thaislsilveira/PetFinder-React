@@ -1,158 +1,140 @@
-import styled, { keyframes } from 'styled-components';
+import { css } from '../../../styled-system/css';
 
-export const ExitButton = styled.button`
-  cursor: pointer;
-  background: #f79641;
-  color: black;
-  border-radius: 50%;
-  z-index: 401;
-  position: absolute;
-  top: 26px;
-  right: 26px;
-  width: 60px;
-  height: 60px;
-  line-height: 72px;
-  text-align: center;
-  border: 0;
-  transition: background-color 0.2s;
+export const exitButton = css({
+  cursor: 'pointer',
+  background: 'background',
+  color: 'black',
+  borderRadius: '50%',
+  zIndex: 401,
+  position: 'absolute',
+  top: '26px',
+  right: '26px',
+  width: '60px',
+  height: '60px',
+  lineHeight: '72px',
+  textAlign: 'center',
+  border: '0',
+  transition: 'background-color 0.2s',
 
-  svg {
-    padding-left: 2px;
-    display: inline-block;
-  }
-  &:hover {
-    background: #fbdd5a;
-  }
-`;
+  '& svg': {
+    paddingLeft: '2px',
+    display: 'inline-block',
+  },
+  '&:hover': {
+    background: 'warning',
+  },
+});
 
-export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+export const container = css({
+  width: '100vw',
+  height: '100vh',
 
-  position: relative;
-  display: flex;
+  position: 'relative',
+  display: 'flex',
 
-  .map-popup {
-    .leaflet-popup-tip-container {
-      .leaflet-popup-tip {
-        background: #e9c2af;
-      }
-    }
-    .leaflet-popup-content-wrapper {
-      background: #e9c2af;
-      border-radius: 20px;
-      box-shadow: none;
-    }
+  '& .map-popup .leaflet-popup-tip-container .leaflet-popup-tip': {
+    background: '#e9c2af',
+  },
+  '& .map-popup .leaflet-popup-content-wrapper': {
+    background: '#e9c2af',
+    borderRadius: '20px',
+    boxShadow: 'none',
+  },
 
-    .leaflet-popup-content {
-      a {
-        width: 100%;
-        height: 40px;
-        background: #f79641;
-        box-shadow: 17.2868px 27.6589px 41.4884px rgba(23, 142, 166, 0.16);
-        border-radius: 12px;
+  '& .map-popup .leaflet-popup-content a': {
+    width: '100%',
+    height: '40px',
+    background: 'background',
+    boxShadow: '17.2868px 27.6589px 41.4884px rgba(23, 142, 166, 0.16)',
+    borderRadius: '12px',
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-      .image-box {
-        width: 100%;
-        height: 180px;
-        display: block;
-        border-radius: 12px;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        margin-bottom: 10px;
-        img {
-          display: none;
-        }
-      }
-      .date-box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .date-box span {
-        font-weight: bold;
-        color: #94443f;
-        padding: 8px;
-        font-size: 14px;
-      }
-    }
-  }
-`;
+  '& .map-popup .leaflet-popup-content .image-box': {
+    width: '100%',
+    height: '180px',
+    display: 'block',
+    borderRadius: '12px',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    marginBottom: '10px',
+  },
+  '& .map-popup .leaflet-popup-content .image-box img': {
+    display: 'none',
+  },
+  '& .map-popup .leaflet-popup-content .date-box': {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  '& .map-popup .leaflet-popup-content .date-box span': {
+    fontWeight: 'bold',
+    color: 'primary',
+    padding: '8px',
+    fontSize: '14px',
+  },
+});
 
-const appearFromLeft = keyframes`
-from {
-  opacity: 0;
-  transform: translatex(-50px);
-} to{
+export const animationContainer = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 
-  opacity: 1;
-  transform: translatex(0);
+  animation: 'appearFromLeft 1s',
 
-}
-`;
+  width: '440px',
+  background: 'background',
+  padding: '80px',
 
-export const AnimationContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  justifyContent: 'space-between',
 
-  animation: ${appearFromLeft} 1s;
+  '& h2': {
+    fontSize: '40px',
+    fontWeight: '800',
 
-  width: 440px;
-  background: #f79641;
-  padding: 80px;
+    lineHeight: '42px',
+    marginTop: '64px',
+  },
 
-  justify-content: space-between;
+  '& p': {
+    marginRight: '28px',
+    marginTop: '24px',
+  },
 
-  h2 {
-    font-size: 40px;
-    font-weight: 800;
+  '& footer': {
+    display: 'flex',
+    flexDirection: 'column',
 
-    line-height: 42px;
-    margin-top: 64px;
-  }
+    lineHeight: '24px',
+  },
 
-  p {
-    margin-right: 28px;
-    margin-top: 24px;
-  }
+  '& footer strong': {
+    fontWeight: '800',
+  },
 
-  footer {
-    display: flex;
-    flex-direction: column;
+  '& footer button': {
+    width: '48px',
+    height: '48px',
 
-    line-height: 24px;
-  }
+    border: '0',
 
-  footer strong {
-    font-weight: 800;
-  }
+    background: 'highlight',
+    borderRadius: '16px',
 
-  footer button {
-    width: 48px;
-    height: 48px;
+    cursor: 'pointer',
 
-    border: 0;
+    transition: 'background-color 0.2s',
 
-    background: #ffd666;
-    border-radius: 16px;
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-    cursor: pointer;
-
-    transition: background-color 0.2s;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  button:hover {
-    background: #94443f;
-  }
-`;
+  '& button:hover': {
+    background: 'primary',
+  },
+});

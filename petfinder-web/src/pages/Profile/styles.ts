@@ -1,45 +1,46 @@
-import styled from 'styled-components';
-import { shade } from 'polished';
-import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
+import { css } from '../../../styled-system/css';
 
-export const Container = styled.div`
-  height: 100%;
-  background: url(${signInBackgoundImg}) repeat top;
-  background-attachment: fixed;
-`;
+export const container = css({
+  height: '100%',
+  backgroundRepeat: 'repeat',
+  backgroundPosition: 'top',
+  backgroundAttachment: 'fixed',
+});
 
-export const Content = styled.div`
-  display: flex;
+export const content = css({
+  display: 'flex',
 
-  .details {
-    padding: 40px;
-    width: 700px;
-    background-color: #f79641;
-    border-radius: 20px;
-    border: 1px solid #f79641;
-    margin: 80px auto;
+  '& .details': {
+    padding: '40px',
+    width: '700px',
+    backgroundColor: 'background',
+    borderRadius: '20px',
+    border: '1px solid',
+    borderColor: 'background',
+    margin: '80px auto',
+  },
 
-    h1 {
-      color: #94443f;
-      line-height: 46px;
-      text-align: center;
-    }
+  '& .details h1': {
+    color: 'primary',
+    lineHeight: '46px',
+    textAlign: 'center',
+  },
 
-    form {
-      margin: 80px auto;
-      width: 340px;
-      text-align: center;
+  '& .details form': {
+    margin: '80px auto',
+    width: '340px',
+    textAlign: 'center',
+  },
 
-      a {
-        color: #f4ede8;
-        display: block;
-        margin-top: 24px;
-        text-decoration: none;
-        transition: color 0.2s;
-        &:hover {
-          color: ${shade(0.2, '#f4ede8')};
-        }
-      }
-    }
-  }
-`;
+  '& .details form a': {
+    color: 'containerBackground',
+    display: 'block',
+    marginTop: '24px',
+    textDecoration: 'none',
+    transition: 'color 0.2s',
+  },
+
+  '& .details form a:hover': {
+    color: 'containerBackgroundHover',
+  },
+});

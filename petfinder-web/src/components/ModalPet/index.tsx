@@ -8,9 +8,9 @@ import React, {
 import InputMask from 'react-input-mask';
 
 import { FiPlus, FiXCircle } from 'react-icons/fi';
-import { Form } from '@unform/web';
+import Form from '../../utils/unformCompat';
 
-import { Container, Modal, Content } from './styles';
+import { container, modal, content } from './styles';
 
 import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
@@ -116,9 +116,13 @@ const ModalCadastro: React.FC<ModalProps> = ({
   );
 
   return (
-    <Container visible={visible} ref={ref} onClick={handleOverlayClick}>
-      <Modal visibleEffect>
-        <Content>
+    <div
+      className={container({ visible })}
+      ref={ref}
+      onClick={handleOverlayClick}
+    >
+      <div className={modal({ visibleEffect: true })}>
+        <div className={content}>
           <Form onSubmit={handleSubmit}>
             <button
               className="button-close"
@@ -251,9 +255,9 @@ const ModalCadastro: React.FC<ModalProps> = ({
               Confirmar
             </button>
           </Form>
-        </Content>
-      </Modal>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

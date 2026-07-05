@@ -1,71 +1,69 @@
-import styled, { css } from 'styled-components';
-import { animated } from 'react-spring';
+import { cva } from '../../../../styled-system/css';
 
-interface ContainerProps {
-  type?: 'success' | 'error' | 'info';
-  hasdescription: number;
-}
+export const container = cva({
+  base: {
+    width: '360px',
 
-const toastTypeVariations = {
-  info: css`
-    background: #edf8ff;
-    color: #3172b7;
-  `,
-  success: css`
-    background: #e6fffa;
-    color: #2e656a;
-  `,
-  error: css`
-    background: #fddede;
-    color: #c53030;
-  `,
-};
-export const Container = styled(animated.div)<ContainerProps>`
-  width: 360px;
+    position: 'relative',
+    padding: '16px 30px 16px 16px',
+    margin: '30px',
+    borderRadius: '10px',
+    boxShadow: '2px 2px 8px rgba(0, 0, 0, 0.2)',
+    display: 'flex',
 
-  position: relative;
-  padding: 16px 30px 16px 16px;
-  margin: 30px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-  display: flex;
+    '& + div': {
+      marginTop: '8px',
+    },
 
-  & + div {
-    margin-top: 8px;
-  }
+    '& > svg': {
+      margin: '4px 12px 0 0',
+    },
+    '& div': {
+      flex: 1,
 
-  ${props => toastTypeVariations[props.type || 'info']}
+      '& p': {
+        marginTop: '4px',
+        fontSize: '14px',
+        opacity: 0.8,
+        lineHeight: '20px',
+      },
+    },
 
-  > svg {
-    margin: 4px 12px 0 0;
-  }
-  div {
-    flex: 1;
-
-    p {
-      margin-top: 4px;
-      font-size: 14px;
-      opacity: 0.8;
-      line-height: 20px;
-    }
-  }
-
-  button {
-    position: absolute;
-    right: 16px;
-    top: 15px;
-    opacity: 0.6;
-    border: 0;
-    background: transparent;
-    color: inherit;
-  }
-  ${props =>
-    !props.hasdescription &&
-    css`
-      align-items: center;
-
-      svg {
-        margin-top: 0;
-      }
-    `}
-`;
+    '& button': {
+      position: 'absolute',
+      right: '16px',
+      top: '15px',
+      opacity: 0.6,
+      border: '0',
+      background: 'transparent',
+      color: 'inherit',
+    },
+  },
+  variants: {
+    type: {
+      info: {
+        background: '#edf8ff',
+        color: '#3172b7',
+      },
+      success: {
+        background: '#e6fffa',
+        color: '#2e656a',
+      },
+      error: {
+        background: '#fddede',
+        color: 'error',
+      },
+    },
+    hasDescription: {
+      false: {
+        alignItems: 'center',
+        '& svg': {
+          marginTop: 0,
+        },
+      },
+    },
+  },
+  defaultVariants: {
+    type: 'info',
+  },
+});

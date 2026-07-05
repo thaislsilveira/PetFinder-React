@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { Routes as RouterRoutes, Route } from 'react-router-dom';
 
-import Route from './routes/index';
+import { PrivateRoute, PublicRoute } from './routes/index';
 
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -14,16 +14,19 @@ import Profile from './pages/Profile';
 
 const Routes: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={SignIn} />
-        <Route path="/signup" exact component={SignUp} />
-        <Route path="/dashboard" component={Dashboard} isPrivate />
-        <Route path="/location" component={LocationMap} isPrivate />
-        <Route path="/profile" component={Profile} isPrivate />
-        <Route path="/pets/:id" component={Pet} isPrivate />
-      </Switch>
-    </BrowserRouter>
+    <RouterRoutes>
+      <Route element={<PublicRoute />}>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Route>
+
+      <Route element={<PrivateRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/location" element={<LocationMap />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/pets/:id" element={<Pet />} />
+      </Route>
+    </RouterRoutes>
   );
 };
 

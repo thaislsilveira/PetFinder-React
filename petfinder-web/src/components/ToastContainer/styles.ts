@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import { css } from '../../../styled-system/css';
 
-export const Container = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
-  overflow: hidden;
-  z-index: 2000;
-`;
+export const container = css({
+  position: 'absolute',
+  right: 0,
+  top: 0,
+  overflow: 'hidden',
+  zIndex: 2000,
+});

@@ -5,10 +5,11 @@ import {
   FiInfo,
   FiXCircle,
 } from 'react-icons/fi';
+import { animated } from '@react-spring/web';
 
 import { ToastMessage, useToast } from '../../../hooks/toast';
 
-import { Container } from './styles';
+import { container } from './styles';
 
 interface ToastProps {
   message: ToastMessage;
@@ -34,9 +35,11 @@ const Toast: React.FC<ToastProps> = ({ message, style }) => {
     };
   }, [removeToast, message.id]);
   return (
-    <Container
-      type={message.type}
-      hasdescription={Number(!!message.description)}
+    <animated.div
+      className={container({
+        type: message.type || 'info',
+        hasDescription: !!message.description,
+      })}
       style={style}
     >
       {icons[message.type || 'info']}
@@ -47,7 +50,7 @@ const Toast: React.FC<ToastProps> = ({ message, style }) => {
       <button onClick={() => removeToast(message.id)} type="button">
         <FiXCircle size={18} />
       </button>
-    </Container>
+    </animated.div>
   );
 };
 

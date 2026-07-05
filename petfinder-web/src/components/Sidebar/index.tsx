@@ -1,24 +1,24 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
 import Pets from '../../assets/pets.png';
 
-import { Container } from './styles';
+import { container } from './styles';
 
 const Sidebar: React.FC = () => {
-  const { goBack } = useHistory();
+  const navigate = useNavigate();
 
   return (
-    <Container>
+    <aside className={container}>
       <img src={Pets} alt="PetFinder" />
 
       <footer>
-        <button type="button" onClick={goBack}>
+        <button type="button" onClick={() => navigate(-1)}>
           <FiArrowLeft size={24} color="#FFF" />
         </button>
       </footer>
-    </Container>
+    </aside>
   );
 };
 

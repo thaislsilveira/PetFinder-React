@@ -7,7 +7,8 @@ import api from '../../services/api';
 
 import Sidebar from '../../components/Sidebar';
 
-import { Container, Content } from './styles';
+import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
+import { container, content } from './styles';
 import MapComponent from '../../components/Map';
 import pointIcon from '../../utils/pointIcon';
 
@@ -27,7 +28,7 @@ interface Pet {
   }>;
 }
 
-interface PetParams {
+interface PetParams extends Record<string, string | undefined> {
   id: string;
 }
 
@@ -47,9 +48,12 @@ const Pet: React.FC = () => {
   }
 
   return (
-    <Container>
+    <div
+      className={container}
+      style={{ backgroundImage: `url(${signInBackgoundImg})` }}
+    >
       <Sidebar />
-      <Content>
+      <main className={content}>
         <div className="pet-details">
           <img src={pet.images[activeImageIndex].url} alt={pet.type} />
 
@@ -141,8 +145,8 @@ const Pet: React.FC = () => {
             </button> */}
           </div>
         </div>
-      </Content>
-    </Container>
+      </main>
+    </div>
   );
 };
 

@@ -9,7 +9,8 @@ import { IconBaseProps } from 'react-icons';
 import { FiAlertCircle } from 'react-icons/fi';
 import { useField } from '@unform/core';
 
-import { Container, Error } from './styles';
+import Tooltip from '../Tooltip';
+import { container, error as errorStyles } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -19,8 +20,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input: React.FC<InputProps> = ({
   name,
-  containerStyle,
-  icon: Icon,
+  containerStyle = undefined,
+  icon: Icon = undefined,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -47,11 +48,13 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Container
+    <div
+      className={container({
+        isErrored: !!error,
+        isFilled,
+        isFocused,
+      })}
       style={containerStyle}
-      isErrored={!!error}
-      isFilled={isFilled}
-      isFocused={isFocused}
       data-testid="input-container"
     >
       {Icon && <Icon size={20} />}
@@ -63,17 +66,12 @@ const Input: React.FC<InputProps> = ({
         {...rest}
       />
       {error && (
-        <Error title={error}>
+        <Tooltip title={error} variant="error" className={errorStyles}>
           <FiAlertCircle color="#c53030" size={20} />
-        </Error>
+        </Tooltip>
       )}
-    </Container>
+    </div>
   );
-};
-
-Input.defaultProps = {
-  containerStyle: undefined,
-  icon: undefined,
 };
 
 export default Input;

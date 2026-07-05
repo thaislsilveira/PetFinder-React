@@ -4,19 +4,23 @@ import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.png';
+import backgroundImg from '../../assets/background.svg';
 
-import { Container, Content, ContentRight, Header } from './styles';
+import { container, content, contentRight, header } from './styles';
 import { useAuth } from '../../hooks/auth';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
 
   return (
-    <Container>
-      <Content>
-        <Header>
+    <div className={container}>
+      <div
+        className={content}
+        style={{ backgroundImage: `url(${backgroundImg})` }}
+      >
+        <div className={header}>
           <img src={logoImg} alt="PetFinder" />
-          <ContentRight>
+          <div className={contentRight}>
             <div>
               <span>Bem-vindo,</span>
               <Link className="profile-link" to="/profile">
@@ -27,8 +31,8 @@ const Dashboard: React.FC = () => {
               <br />
               <span>São Paulo</span>
             </div>
-          </ContentRight>
-        </Header>
+          </div>
+        </div>
 
         <main>
           <h1>Leve felicidade aos animais</h1>
@@ -38,8 +42,8 @@ const Dashboard: React.FC = () => {
         <Link className="absolute-link" to="/location">
           <FiArrowRight size={26} color="rgba(0, 0, 0, 0.6)" />
         </Link>
-      </Content>
-    </Container>
+      </div>
+    </div>
   );
 };
 

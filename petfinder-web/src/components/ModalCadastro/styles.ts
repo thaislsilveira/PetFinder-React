@@ -1,217 +1,209 @@
-import styled, { css, keyframes } from 'styled-components';
+import { css, cva } from '../../../styled-system/css';
 
-interface ContainerProps {
-  visible: boolean;
-}
+export const container = cva({
+  base: {
+    background: 'rgba(0, 0, 0, 0.5)',
+    width: '100%',
+    height: '100%',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 100,
+    overflow: 'auto',
+  },
+  variants: {
+    visible: {
+      true: { display: 'block' },
+      false: { display: 'none' },
+    },
+  },
+});
 
-interface ModalProps {
-  visibleEffect: boolean;
-}
+export const modal = cva({
+  variants: {
+    visibleEffect: {
+      true: {
+        animation: 'modalEffect 0.3s',
+      },
+    },
+  },
+});
 
-export const Container = styled.div<ContainerProps>`
-  background: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: ${props => (props.visible ? 'block' : 'none')};
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  overflow: auto;
-`;
+export const content = css({
+  flex: 1,
 
-const modalEffect = keyframes`
-    from {
-      opacity: 0;
-      transform: translateY(-60px)
-    } to {
-      opacity: 1;
-      transform: translateY(0)
-    }
-  `;
+  '& form': {
+    width: '700px',
+    margin: '64px auto',
 
-export const Modal = styled.div<ModalProps>`
-  ${props =>
-    props.visibleEffect &&
-    css`
-      animation: ${modalEffect} 0.3s;
-    `}
-`;
+    background: 'white',
+    border: '1px solid',
+    borderColor: 'background',
+    borderRadius: '20px',
 
-export const Content = styled.main`
-  flex: 1;
+    padding: '64px 80px',
 
-  form {
-    width: 700px;
-    margin: 64px auto;
+    overflow: 'hidden',
 
-    background: #fff;
-    border: 1px solid #f79641;
-    border-radius: 20px;
+    marginBottom: '40px',
+    position: 'relative',
+  },
 
-    padding: 64px 80px;
+  '& form button.button-close': {
+    position: 'absolute',
+    right: '16px',
+    top: '15px',
+    opacity: 0.6,
+    border: '0',
+    background: 'transparent',
+    color: 'inherit',
+  },
 
-    overflow: hidden;
+  '& form button.button-close svg': {
+    color: 'error',
+  },
 
-    margin-bottom: 40px;
-    border: 1px solid #f79641;
-    border-radius: 20px;
-    position: relative;
+  '& fieldset': {
+    border: '0',
+  },
 
-    button.button-close {
-      position: absolute;
-      right: 16px;
-      top: 15px;
-      opacity: 0.6;
-      border: 0;
-      background: transparent;
-      color: inherit;
-    }
+  '& fieldset + fieldset': {
+    marginTop: '80px',
+  },
 
-    button.button-close svg {
-      color: #c53030;
-    }
-  }
+  '& fieldset legend': {
+    width: '100%',
 
-  fieldset {
-    border: 0;
-  }
+    textAlign: 'center',
+    fontSize: '32px',
+    lineHeight: '34px',
+    color: 'highlight',
+    fontWeight: '700',
 
-  fieldset + fieldset {
-    margin-top: 80px;
-  }
+    borderBottom: '1px solid',
+    borderColor: 'primary',
+    marginBottom: '40px',
+    paddingBottom: '24px',
+  },
 
-  fieldset legend {
-    width: 100%;
+  '& .input-block + .input-block': {
+    marginTop: '24px',
+  },
 
-    text-align: center;
-    font-size: 32px;
-    line-height: 34px;
-    color: #ffd666;
-    font-weight: 700;
+  '& .input-block label': {
+    fontSize: '18px',
+    display: 'flex',
+    color: 'primary',
+    marginBottom: '8px',
+    lineHeight: '24px',
+  },
 
-    border-bottom: 1px solid #94443f;
-    margin-bottom: 40px;
-    padding-bottom: 24px;
-  }
+  '& .input-block input, & .input-block textarea': {
+    width: '100%',
+    background: 'inputBackground',
+    border: '1px solid',
+    borderColor: 'inputBackground',
+    borderRadius: '20px',
+    outline: 'none',
+    color: 'primary',
+  },
 
-  .input-block + .input-block {
-    margin-top: 24px;
-  }
+  '& .input-block input': {
+    height: '64px',
+    padding: '0 16px',
+  },
 
-  .input-block label {
-    font-size: 18px;
-    display: flex;
-    color: #94443f;
-    margin-bottom: 8px;
-    line-height: 24px;
-  }
+  '& .input-block textarea': {
+    minHeight: '120px',
+    maxHeight: '240px',
+    resize: 'vertical',
+    padding: '16px',
+    lineHeight: '28px',
+  },
 
-  .input-block input,
-  .input-block textarea {
-    width: 100%;
-    background: #ffe7d3;
-    border: 1px solid #ffe7d3;
-    border-radius: 20px;
-    outline: none;
-    color: #94443f;
-  }
+  '& .input-block .images-container': {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(5, 1fr)',
+    gridGap: '16px',
+  },
 
-  .input-block input {
-    height: 64px;
-    padding: 0 16px;
-  }
+  '& .input-block .images-container img': {
+    width: '100%',
+    height: '96px',
+    objectFit: 'cover',
+    borderRadius: '28px',
+    border: '1px solid rgba(0, 0, 0, 0.05)',
+    boxShadow: 'inset 0 0 2px #fff, 0 0 12px rgba(0, 0, 0, 0.05)',
+  },
 
-  .input-block textarea {
-    min-height: 120px;
-    max-height: 240px;
-    resize: vertical;
-    padding: 16px;
-    line-height: 28px;
-  }
+  '& .input-block .new-image': {
+    height: '96px',
+    background: 'inputBackground',
+    border: '1px dashed',
+    borderColor: 'primary',
+    borderRadius: '20px',
+    cursor: 'pointer',
 
-  .input-block .images-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 16px;
-  }
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-  .input-block .images-container img {
-    width: 100%;
-    height: 96px;
-    object-fit: cover;
-    border-radius: 28px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 0 2px #fff, 0 0 12px rgba(0, 0, 0, 0.05);
-  }
+  '& .input-block input[type="file"]': {
+    visibility: 'hidden',
+  },
 
-  .input-block .new-image {
-    height: 96px;
-    background: #ffe7d3;
-    border: 1px dashed #94443f;
-    border-radius: 20px;
-    cursor: pointer;
+  '& .input-block .button-select': {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+  },
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  '& .input-block .button-select button': {
+    height: '40px',
+    border: '1px solid #a3a4a9',
+    background: '#f6f6f4',
+    color: '#a3a4a9',
+    cursor: 'pointer',
+  },
 
-  .input-block input[type='file'] {
-    visibility: hidden;
-  }
+  '& .input-block .button-select button.active': {
+    background: '#edfff6',
+    border: '1px solid #a1e9c5',
+    color: '#37c77f',
+  },
 
-  .input-block .button-select {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
+  '& .input-block .button-select button.active.dont-open': {
+    background: '#edfff6',
+    border: '1px solid #a1e9c5',
+    color: '#37c77f',
+  },
 
-  .input-block .button-select button {
-    height: 40px;
-    border: 1px solid #a3a4a9;
-    background: #f6f6f4;
-    color: #a3a4a9;
-    cursor: pointer;
-  }
+  '& button.confirm-button': {
+    marginTop: '64px',
 
-  .input-block .button-select button.active {
-    background: #edfff6;
-    border: 1px solid #a1e9c5;
-    color: #37c77f;
-  }
+    width: '100%',
+    height: '64px',
+    border: '0',
+    cursor: 'pointer',
+    background: '#3cdc8c',
+    borderRadius: '20px',
+    color: '#ffffff',
+    fontWeight: '800',
 
-  .input-block .button-select button.active.dont-open {
-    background: #edfff6;
-    border: 1px solid #a1e9c5;
-    color: #37c77f;
-  }
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 
-  button.confirm-button {
-    margin-top: 64px;
+    transition: 'background-color 0.2s',
+  },
 
-    width: 100%;
-    height: 64px;
-    border: 0;
-    cursor: pointer;
-    background: #3cdc8c;
-    border-radius: 20px;
-    color: #ffffff;
-    font-weight: 800;
+  '& button.confirm-button svg': {
+    marginRight: '16px',
+  },
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    transition: background-color 0.2s;
-  }
-
-  button.confirm-button svg {
-    margin-right: 16px;
-  }
-
-  button.confirm-button:hover {
-    background: #36cf82;
-  }
-`;
+  '& button.confirm-button:hover': {
+    background: '#36cf82',
+  },
+});

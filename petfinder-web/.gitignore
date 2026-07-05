@@ -10,6 +10,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -24,3 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
+
+## Panda
+styled-system
+styled-system-studio

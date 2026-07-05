@@ -1,17 +1,18 @@
 import React, { useCallback, useRef } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
-import { Form } from '@unform/web';
+import Form from '../../utils/unformCompat';
 import { FormHandles } from '@unform/core';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import logoImg from '../../assets/logo.png';
+import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Container, Content, AnimationContainer, Background } from './styles';
+import { container, content, animationContainer, background } from './styles';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 
@@ -25,7 +26,7 @@ const SignIn: React.FC = () => {
 
   const { signIn } = useAuth();
   const { addToast } = useToast();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -37,7 +38,7 @@ const SignIn: React.FC = () => {
           password: data.password,
         });
 
-        history.push('/dashboard');
+        navigate('/dashboard');
       } catch (err) {
         addToast({
           type: 'error',
@@ -46,13 +47,13 @@ const SignIn: React.FC = () => {
         });
       }
     },
-    [signIn, addToast, history],
+    [signIn, addToast, navigate],
   );
 
   return (
-    <Container>
-      <Content>
-        <AnimationContainer>
+    <div className={container}>
+      <div className={content}>
+        <div className={animationContainer}>
           <img src={logoImg} alt="PetFinder" />
           <Form onSubmit={handleSubmit}>
             <h1> Faça seu logon</h1>
@@ -72,10 +73,13 @@ const SignIn: React.FC = () => {
             <FiLogIn />
             Criar conta
           </Link>
-        </AnimationContainer>
-      </Content>
-      <Background />
-    </Container>
+        </div>
+      </div>
+      <div
+        className={background}
+        style={{ backgroundImage: `url(${signInBackgoundImg})` }}
+      />
+    </div>
   );
 };
 

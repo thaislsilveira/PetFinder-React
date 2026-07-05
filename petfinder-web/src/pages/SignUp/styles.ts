@@ -1,88 +1,73 @@
-import styled, { keyframes } from 'styled-components';
-import { shade } from 'polished';
+import { css } from '../../../styled-system/css';
 
-import signUpBackgoundImg from '../../assets/backgroundLogin.jpg';
+export const container = css({
+  height: '100vh',
 
-export const Container = styled.div`
-  height: 100vh;
+  display: 'flex',
+  alignItems: 'stretch',
+});
 
-  display: flex;
-  align-items: stretch;
-`;
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+export const content = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
 
-  width: 100%;
-  max-width: 700px;
-`;
+  width: '100%',
+  maxWidth: '700px',
+});
 
-const appearFromRight = keyframes`
-from {
-  opacity: 0;
-  transform: translatex(50px);
-} to{
+export const animationContainer = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
 
-  opacity: 1;
-  transform: translatex(0);
+  animation: 'appearFromRight 1s',
 
-}
-`;
+  '& form': {
+    margin: '80px 0',
+    width: '340px',
+    textAlign: 'center',
+  },
 
-export const AnimationContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  '& form h1': {
+    marginBottom: '24px',
+  },
 
-  animation: ${appearFromRight} 1s;
+  '& form > a': {
+    color: 'containerBackground',
+    display: 'block',
+    marginTop: '24px',
+    textDecoration: 'none',
+    transition: 'color 0.2s',
 
-  form {
-    margin: 80px 0;
-    width: 340px;
-    text-align: center;
+    '&:hover': {
+      color: 'containerBackgroundHover',
+    },
+  },
 
-    h1 {
-      margin-bottom: 24px;
-    }
+  '& > a': {
+    color: 'textLight',
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: '24px',
+    textDecoration: 'none',
+    transition: 'color 0.2s',
 
-    > a {
-      color: #f4ede8;
-      display: block;
-      margin-top: 24px;
-      text-decoration: none;
-      transition: color 0.2s;
+    '&:hover': {
+      color: 'textLightHover',
+    },
 
-      &:hover {
-        color: ${shade(0.2, '#f4ede8')};
-      }
-    }
-  }
+    '& svg': {
+      marginRight: '16px',
+    },
+  },
+});
 
-  > a {
-    color: #f7efe0;
-    display: block;
-    margin-top: 24px;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    display: flex;
-    align-items: center;
-
-    &:hover {
-      color: ${shade(0.2, '#f7efe0')};
-    }
-
-    svg {
-      margin-right: 16px;
-    }
-  }
-`;
-
-export const Background = styled.div`
-  flex: 1;
-  background: url(${signUpBackgoundImg}) repeat center;
-  background-attachment: fixed;
-`;
+export const background = css({
+  flex: 1,
+  backgroundRepeat: 'repeat',
+  backgroundPosition: 'center',
+  backgroundAttachment: 'fixed',
+});

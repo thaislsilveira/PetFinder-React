@@ -1,16 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
-import { useHistory } from 'react-router-dom';
-
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { ImExit } from 'react-icons/im';
-import { Map, Marker, TileLayer, Popup } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer, Popup, useMapEvents } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 
-import { Container, AnimationContainer, ExitButton } from './styles';
+import { container, animationContainer, exitButton } from './styles';
 
 import api from '../../services/api';
 
@@ -31,9 +29,21 @@ interface Pet {
   created_at: string;
 }
 
+interface MapClickHandlerProps {
+  onMapClick(event: LeafletMouseEvent): void;
+}
+
+const MapClickHandler: React.FC<MapClickHandlerProps> = ({ onMapClick }) => {
+  useMapEvents({
+    click: onMapClick,
+  });
+
+  return null;
+};
+
 const LocationMap: React.FC = () => {
   const { signOut } = useAuth();
-  const { goBack } = useHistory();
+  const navigate = useNavigate();
 
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [visible, setVisible] = useState(false);
@@ -57,8 +67,8 @@ const LocationMap: React.FC = () => {
 
   return (
     <>
-      <Container>
-        <AnimationContainer>
+      <div className={container}>
+        <div className={animationContainer}>
           <header>
             <img src={logo} alt="PetFinder" />
 
@@ -70,18 +80,19 @@ const LocationMap: React.FC = () => {
             <strong>Jales</strong>
             <span>São Paulo</span>
 
-            <button type="button" onClick={goBack}>
+            <button type="button" onClick={() => navigate(-1)}>
               <FiArrowLeft size={24} color="#FFF" />
             </button>
           </footer>
-        </AnimationContainer>
+        </div>
 
-        <Map
+        <MapContainer
           center={[-20.2845958, -50.5446169]}
           zoom={15}
           style={{ width: '100%', height: '100%', zIndex: 9 }}
-          onClick={handleMapClick}
         >
+          <MapClickHandler onMapClick={handleMapClick} />
+
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -138,11 +149,11 @@ const LocationMap: React.FC = () => {
             />
           )}
 
-          <ExitButton onClick={signOut}>
+          <button type="button" className={exitButton} onClick={signOut}>
             <ImExit size={20} color="#94443f" />
-          </ExitButton>
-        </Map>
-      </Container>
+          </button>
+        </MapContainer>
+      </div>
       <ModalCadastro
         visible={visible}
         positionMap={position}

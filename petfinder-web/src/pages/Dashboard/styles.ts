@@ -1,116 +1,114 @@
-import styled from 'styled-components';
+import { css } from '../../../styled-system/css';
 
-import background from '../../assets/background.svg';
+export const container = css({
+  width: '100vw',
+  height: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
 
-export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export const content = css({
+  position: 'relative',
 
-export const Content = styled.div`
-  position: relative;
+  width: '100%',
+  maxWidth: '1100px',
 
-  width: 100%;
-  max-width: 1100px;
+  height: '100%',
+  maxHeight: '600px',
 
-  height: 100%;
-  max-height: 600px;
+  display: 'flex',
+  alignItems: 'flex-start',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
 
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: space-between;
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: '600px',
+  backgroundPositionX: '400px',
+  backgroundPositionY: '250px',
 
-  background-image: url(${background});
-  background-repeat: no-repeat;
-  background-size: 600px;
-  background-position-x: 400px;
-  background-position-y: 250px;
+  '& main': {
+    maxWidth: '350px',
+  },
 
-  main {
-    max-width: 350px;
-  }
+  '& main h1': {
+    fontSize: '76px',
+    fontWeight: '900',
+    lineHeight: '70px',
+  },
 
-  main h1 {
-    font-size: 76px;
-    font-weight: 900;
-    line-height: 70px;
-  }
+  '& p': {
+    marginTop: '40px',
+    fontSize: '24px',
+    lineHeight: '34px',
+  },
 
-  p {
-    margin-top: 40px;
-    font-size: 24px;
-    line-height: 34px;
-  }
+  '& a.absolute-link': {
+    position: 'absolute',
 
-  a.absolute-link {
-    position: absolute;
+    right: 0,
+    bottom: 0,
 
-    right: 0;
-    bottom: 0;
+    width: '80px',
+    height: '80px',
+    background: 'highlight',
+    borderRadius: '30px',
 
-    width: 80px;
-    height: 80px;
-    background: #ffd666;
-    border-radius: 30px;
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: 'background-color 0.2s',
+  },
 
-    transition: background-color 0.2s;
-  }
+  '& a.absolute-link:hover': {
+    background: 'primary',
+  },
+});
 
-  a.absolute-link:hover {
-    background: #94443f;
-  }
-`;
+export const header = css({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignContent: 'center',
 
-export const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
+  width: '100%',
+});
 
-  width: 100%;
-`;
+export const contentRight = css({
+  fontSize: '24px',
+  lineHeight: '34px',
 
-export const ContentRight = styled.div`
-  font-size: 24px;
-  line-height: 34px;
+  display: 'flex',
+  margin: 'auto 0',
+  justifyContent: 'center',
+  alignContent: 'center',
 
-  display: flex;
-  margin: auto 0;
-  justify-content: center;
-  align-content: center;
+  textAlign: 'right',
 
-  text-align: right;
+  '& strong': {
+    textAlign: 'center',
+    fontWeight: '800',
+  },
 
-  strong {
-    text-align: center;
-    font-weight: 800;
-  }
+  '& > div': {
+    display: 'inline-block',
+    marginLeft: '16px',
+    lineHeight: '24px',
+  },
 
-  > div {
-    display: inline-block;
-    margin-left: 16px;
-    line-height: 24px;
-    span {
-      color: #f4ede8;
-    }
+  '& > div span': {
+    color: 'containerBackground',
+  },
 
-    a.profile-link {
-      text-decoration: none;
-      color: #ffd666;
+  '& > div a.profile-link': {
+    textDecoration: 'none',
+    color: 'highlight',
 
-      transition: background-color 0.2s;
+    transition: 'background-color 0.2s',
+  },
 
-      &:hover {
-        color: #94443f;
-        opacity: 0.8;
-      }
-    }
-  }
-`;
+  '& > div a.profile-link:hover': {
+    color: 'primary',
+    opacity: 0.8,
+  },
+});

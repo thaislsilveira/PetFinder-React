@@ -26,7 +26,7 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthUser: React.FC = ({ children }) => {
+const AuthUser: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@PetFinder:token');
     const user = localStorage.getItem('@PetFinder:user');
@@ -43,6 +43,8 @@ const AuthUser: React.FC = ({ children }) => {
   const signOut = useCallback(() => {
     localStorage.removeItem('@PetFinder:token');
     localStorage.removeItem('@PetFinder:user');
+
+    delete api.defaults.headers.authorization;
 
     setData({} as AuthState);
   }, []);
