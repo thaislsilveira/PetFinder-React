@@ -1,10 +1,10 @@
 import React, { useCallback, useRef } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
-import Form from '../../utils/unformCompat';
 import { FormHandles } from '@unform/core';
 
 import { Link, useNavigate } from 'react-router-dom';
+import Form from '../../utils/unformCompat';
 
 import logoImg from '../../assets/logo.png';
 import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
@@ -39,7 +39,7 @@ const SignIn: React.FC = () => {
         });
 
         navigate('/dashboard');
-      } catch (err) {
+      } catch {
         addToast({
           type: 'error',
           title: 'Erro na autenticação',

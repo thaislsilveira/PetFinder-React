@@ -5,7 +5,13 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { ImExit } from 'react-icons/im';
-import { MapContainer, Marker, TileLayer, Popup, useMapEvents } from 'react-leaflet';
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  Popup,
+  useMapEvents,
+} from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 
 import { container, animationContainer, exitButton } from './styles';

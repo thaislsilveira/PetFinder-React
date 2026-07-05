@@ -25,11 +25,7 @@ const MapComponent: React.FC<MapProps> = ({ latitude, longitude, icon }) => (
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     />
-    <Marker
-      interactive={false}
-      icon={icon}
-      position={[latitude, longitude]}
-    />
+    <Marker interactive={false} icon={icon} position={[latitude, longitude]} />
   </MapContainer>
 );
 

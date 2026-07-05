@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useState,
+  useContext,
+  useMemo,
+} from 'react';
 import api from '../services/api';
 
 interface User {
@@ -65,11 +71,12 @@ const AuthUser: React.FC<React.PropsWithChildren> = ({ children }) => {
     setData({ token, user });
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({ user: data.user, signIn, signOut }),
+    [data.user, signIn, signOut],
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 function useAuth(): AuthContextData {

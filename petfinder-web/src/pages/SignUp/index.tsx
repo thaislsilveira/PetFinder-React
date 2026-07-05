@@ -1,10 +1,10 @@
 import React, { useCallback, useRef } from 'react';
 import { FiArrowLeft, FiMail, FiLock, FiUser, FiPhone } from 'react-icons/fi';
-import Form from '../../utils/unformCompat';
 
 import { Link, useNavigate } from 'react-router-dom';
 
 import { FormHandles } from '@unform/core';
+import Form from '../../utils/unformCompat';
 import api from '../../services/api';
 
 import logoImg from '../../assets/logo.png';
@@ -43,7 +43,7 @@ const SignUp: React.FC = () => {
           title: 'Cadastro realizado!',
           description: 'Você já pode fazer seu login em PetFinder!',
         });
-      } catch (err) {
+      } catch {
         addToast({
           type: 'error',
           title: 'Erro no cadastro',
