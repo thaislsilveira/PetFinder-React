@@ -19,7 +19,7 @@
     "react-input-mask": "^2.0.4",
     "react-leaflet": "^4",
     "react-router-dom": "^6",
-    "typescript": "^4.0.3",
+    "typescript": "^6.0.3",
     "uuid": "^14.0.1"
   },
   "scripts": {
