@@ -15,22 +15,24 @@ Em caso de download do projeto você precisará baixar as dependências :warning
 
 ### Executando o projeto com **Yarn**:
 
-- Execute o comandos abaixo, para baixar as dependências:
+- Backend (pasta `petfinder-backend`):
 
 ```
+cd petfinder-backend
 yarn
-``` 
-- Para iniciar o projeto, executar o comando abaixo para rodar o backend:
-
-```
-yarn dev 
+yarn dev
 ```
 
-- Para iniciar o frontend, basta executar o comando abaixo:
+- Frontend (pasta `petfinder-web`): copie `.env.example` para `.env` (ajustando `VITE_API_URL` se necessário) e execute:
 
 ```
-yarn start
+cd petfinder-web
+yarn
+yarn dev
 ```
+
+O frontend sobe em `http://localhost:3000` e depende do backend rodando em `http://localhost:3333`.
+
 ## Web 
 
 ---
@@ -50,8 +52,9 @@ yarn start
 <ul>
    <li><a href="https://reactjs.org/" target="_blank">React</a></li>
    <li><a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a></li>  
+   <li><a href="https://vitejs.dev/" target="_blank">Vite</a></li>
    <li><a href="https://www.sqlite.org/index.html" target="_blank">SQLite</a></li> 
-   <li><a href="https://styled-components.com/" target="_blank">Styled Components</a></li>
+   <li><a href="https://panda-css.com/" target="_blank">Panda CSS</a></li>
    <li><a href="https://eslint.org/" target="_blank">Eslint</a></li>
    <li><a href="https://prettier.io/" target="_blank">Prettier</a></li>
    <li><a href="https://react-leaflet.js.org/" target="_blank">React Leaflet</a></li>
