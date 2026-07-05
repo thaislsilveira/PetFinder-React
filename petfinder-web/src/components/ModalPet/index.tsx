@@ -7,7 +7,10 @@ import React, {
 } from 'react';
 import InputMask from 'react-input-mask';
 
-import { FiPlus as FiPlusIcon, FiXCircle as FiXCircleIcon } from 'react-icons/fi';
+import {
+  FiPlus as FiPlusIcon,
+  FiXCircle as FiXCircleIcon,
+} from 'react-icons/fi';
 import Form from '../../utils/unformCompat';
 
 import asIcon from '../../utils/icon';

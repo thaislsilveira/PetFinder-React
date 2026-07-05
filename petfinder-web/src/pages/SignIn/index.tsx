@@ -14,16 +14,16 @@ import asIcon from '../../utils/icon';
 import logoImg from '../../assets/logo.png';
 import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
 
-const FiLogIn = asIcon(FiLogInIcon);
-const FiMail = asIcon(FiMailIcon);
-const FiLock = asIcon(FiLockIcon);
-
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import { container, content, animationContainer, background } from './styles';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
+
+const FiLogIn = asIcon(FiLogInIcon);
+const FiMail = asIcon(FiMailIcon);
+const FiLock = asIcon(FiLockIcon);
 
 interface SignInFormData {
   email: string;
