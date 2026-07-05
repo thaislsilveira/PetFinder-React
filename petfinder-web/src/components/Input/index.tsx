@@ -6,11 +6,14 @@ import React, {
   useCallback,
 } from 'react';
 import { IconBaseProps } from 'react-icons';
-import { FiAlertCircle } from 'react-icons/fi';
+import { FiAlertCircle as FiAlertCircleIcon } from 'react-icons/fi';
 import { useField } from '@unform/core';
 
 import Tooltip from '../Tooltip';
+import asIcon from '../../utils/icon';
 import { container, error as errorStyles } from './styles';
+
+const FiAlertCircle = asIcon(FiAlertCircleIcon);
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;

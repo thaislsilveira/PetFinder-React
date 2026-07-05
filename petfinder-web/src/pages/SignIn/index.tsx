@@ -1,13 +1,22 @@
 import React, { useCallback, useRef } from 'react';
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+import {
+  FiLogIn as FiLogInIcon,
+  FiMail as FiMailIcon,
+  FiLock as FiLockIcon,
+} from 'react-icons/fi';
 
 import { FormHandles } from '@unform/core';
 
 import { Link, useNavigate } from 'react-router-dom';
 import Form from '../../utils/unformCompat';
 
+import asIcon from '../../utils/icon';
 import logoImg from '../../assets/logo.png';
 import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
+
+const FiLogIn = asIcon(FiLogInIcon);
+const FiMail = asIcon(FiMailIcon);
+const FiLock = asIcon(FiLockIcon);
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';

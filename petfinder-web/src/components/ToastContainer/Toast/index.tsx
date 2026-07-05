@@ -1,15 +1,21 @@
 import React, { useEffect } from 'react';
 import {
-  FiAlertCircle,
-  FiCheckCircle,
-  FiInfo,
-  FiXCircle,
+  FiAlertCircle as FiAlertCircleIcon,
+  FiCheckCircle as FiCheckCircleIcon,
+  FiInfo as FiInfoIcon,
+  FiXCircle as FiXCircleIcon,
 } from 'react-icons/fi';
 import { animated } from '@react-spring/web';
 
 import { ToastMessage, useToast } from '../../../hooks/toast';
 
+import asIcon from '../../../utils/icon';
 import { container } from './styles';
+
+const FiAlertCircle = asIcon(FiAlertCircleIcon);
+const FiCheckCircle = asIcon(FiCheckCircleIcon);
+const FiInfo = asIcon(FiInfoIcon);
+const FiXCircle = asIcon(FiXCircleIcon);
 
 interface ToastProps {
   message: ToastMessage;
