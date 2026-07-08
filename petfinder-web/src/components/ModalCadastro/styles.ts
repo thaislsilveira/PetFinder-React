@@ -100,20 +100,45 @@ export const content = css({
     lineHeight: '24px',
   },
 
-  '& .input-block input, & .input-block textarea': {
+  '& .input-block input, & .input-block textarea, & .input-block select': {
     width: '100%',
     background: 'inputBackground',
     border: '1px solid',
     borderColor: 'inputBackground',
-    borderRadius: '20px',
+    borderRadius: '12px',
     outline: 'none',
     color: 'primary',
   },
 
-  '& .input-block input': {
-    height: '64px',
+  '& .input-block input, & .input-block select': {
+    height: '48px',
     padding: '0 16px',
   },
+
+  '& .input-block select': {
+    cursor: 'pointer',
+    appearance: 'none',
+    paddingRight: '40px',
+    backgroundImage:
+      'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%2394443f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>\')',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right 16px center',
+  },
+
+  '& .field-row': {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '24px',
+  },
+
+  '& .field-row .input-block + .input-block': {
+    marginTop: 0,
+  },
+
+  '& .input-block + .field-row, & .field-row + .input-block, & .field-row + .field-row':
+    {
+      marginTop: '24px',
+    },
 
   '& .input-block textarea': {
     minHeight: '120px',
@@ -158,26 +183,32 @@ export const content = css({
   '& .input-block .button-select': {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
+    height: '48px',
+    border: '1px solid',
+    borderColor: 'inputBackground',
+    borderRadius: '12px',
+    overflow: 'hidden',
   },
 
   '& .input-block .button-select button': {
-    height: '40px',
-    border: '1px solid #a3a4a9',
-    background: '#f6f6f4',
-    color: '#a3a4a9',
+    height: '100%',
+    border: '0',
+    borderLeft: '1px solid',
+    borderLeftColor: 'inputBackground',
+    background: 'inputBackground',
+    color: 'primary',
     cursor: 'pointer',
+    fontWeight: '500',
+    transition: 'background-color 0.2s, color 0.2s',
+  },
+
+  '& .input-block .button-select button:first-child': {
+    borderLeft: '0',
   },
 
   '& .input-block .button-select button.active': {
-    background: '#edfff6',
-    border: '1px solid #a1e9c5',
-    color: '#37c77f',
-  },
-
-  '& .input-block .button-select button.active.dont-open': {
-    background: '#edfff6',
-    border: '1px solid #a1e9c5',
-    color: '#37c77f',
+    background: 'accent',
+    color: 'white',
   },
 
   '& button.confirm-button': {

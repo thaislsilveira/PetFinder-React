@@ -193,16 +193,6 @@ const ModalCadastro: React.FC<ModalProps> = ({
               </div>
 
               <div className="input-block">
-                <label htmlFor="port">Porte</label>
-                <input
-                  id="port"
-                  value={port}
-                  onChange={e => setPort(e.target.value)}
-                  maxLength={300}
-                />
-              </div>
-
-              <div className="input-block">
                 <label htmlFor="images">Fotos</label>
 
                 <div className="images-container">
@@ -223,13 +213,31 @@ const ModalCadastro: React.FC<ModalProps> = ({
             </fieldset>
 
             <fieldset>
-              <div className="input-block">
-                <label htmlFor="breed">Raça</label>
-                <input
-                  id="breed"
-                  value={breed}
-                  onChange={e => setBreed(e.target.value)}
-                />
+              <div className="field-row">
+                <div className="input-block">
+                  <label htmlFor="port">Porte</label>
+                  <select
+                    id="port"
+                    value={port}
+                    onChange={e => setPort(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      Selecione
+                    </option>
+                    <option value="Pequeno">Pequeno</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Grande">Grande</option>
+                  </select>
+                </div>
+
+                <div className="input-block">
+                  <label htmlFor="breed">Raça</label>
+                  <input
+                    id="breed"
+                    value={breed}
+                    onChange={e => setBreed(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div className="input-block">
@@ -240,22 +248,25 @@ const ModalCadastro: React.FC<ModalProps> = ({
                   onChange={e => setInformation(e.target.value)}
                 />
               </div>
-              <div className="input-block">
-                <label htmlFor="responsible_name">Responsável</label>
-                <input
-                  id="responsible_name"
-                  value={responsibleName}
-                  onChange={e => setResponsibleName(e.target.value)}
-                />
-              </div>
-              <div className="input-block">
-                <label htmlFor="phone">Telefone</label>
-                <InputMask
-                  id="phone"
-                  mask="(99)9999-9999"
-                  value={phone}
-                  onChange={e => setPhone(e.target.value)}
-                />
+
+              <div className="field-row">
+                <div className="input-block">
+                  <label htmlFor="responsible_name">Responsável</label>
+                  <input
+                    id="responsible_name"
+                    value={responsibleName}
+                    onChange={e => setResponsibleName(e.target.value)}
+                  />
+                </div>
+                <div className="input-block">
+                  <label htmlFor="phone">Telefone</label>
+                  <InputMask
+                    id="phone"
+                    mask="(99)9999-9999"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                  />
+                </div>
               </div>
             </fieldset>
 
