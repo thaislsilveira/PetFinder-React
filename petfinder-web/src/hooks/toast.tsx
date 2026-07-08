@@ -18,7 +18,11 @@ interface ToastContextData {
   addToast(message: Omit<ToastMessage, 'id'>): void;
   removeToast(id: string): void;
 }
-const ToastContext = createContext<ToastContextData>({} as ToastContextData);
+// The default value must be falsy (not `{}`, which is truthy) so the
+// "used outside a provider" guard in useToast below actually fires.
+const ToastContext = createContext<ToastContextData>(
+  null as unknown as ToastContextData,
+);
 
 const ToastProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [messages, setMessages] = useState<ToastMessage[]>([]);
