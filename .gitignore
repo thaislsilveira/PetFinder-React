@@ -16,6 +16,9 @@ dist
 # local dev database (contains real user data - never commit)
 **/src/database/database.sqlite
 
+# local convenience scripts (personal, not shared with the team)
+/scripts/
+
 # misc
 .DS_Store
 .env
