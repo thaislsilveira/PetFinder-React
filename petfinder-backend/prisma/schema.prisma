@@ -12,7 +12,7 @@ model User {
   name      String
   email     String   @unique
   password  String
-  phone     String   @unique
+  phone     String?  @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -29,7 +29,7 @@ model Pet {
   breed           String
   information     String
   responsibleName String   @map("responsible_name")
-  phone           String
+  phone           String?
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
   images          Image[]
