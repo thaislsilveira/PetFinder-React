@@ -131,15 +131,10 @@ export const animationContainer = css({
   '& footer': {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
+    alignItems: 'flex-start',
     gap: '20px',
 
     lineHeight: '24px',
-  },
-
-  '& footer .location-label': {
-    alignSelf: 'flex-start',
   },
 
   '& footer strong': {
