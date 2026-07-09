@@ -12,10 +12,6 @@ export const container = css({
   justifyContent: 'space-between',
   alignItems: 'center',
 
-  '& img': {
-    width: '100%',
-  },
-
   '& footer a, & footer button': {
     width: '48px',
     height: '48px',

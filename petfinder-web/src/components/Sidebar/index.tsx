@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowLeft as FiArrowLeftIcon } from 'react-icons/fi';
 
-import Pets from '../../assets/pets.png';
+import { LogoIcon } from '../Logo';
 
 import asIcon from '../../utils/icon';
 import { container } from './styles';
@@ -14,7 +14,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside className={container}>
-      <img src={Pets} alt="PetFinder" />
+      <LogoIcon size={110} />
 
       <footer>
         <button type="button" onClick={() => navigate(-1)}>
