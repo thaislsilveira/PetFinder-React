@@ -9,19 +9,42 @@ export const exitButton = css({
   position: 'absolute',
   top: '26px',
   right: '26px',
-  width: '60px',
-  height: '60px',
-  lineHeight: '72px',
-  textAlign: 'center',
+  width: '48px',
+  height: '48px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   border: '0',
   transition: 'background-color 0.2s',
 
-  '& svg': {
-    paddingLeft: '2px',
-    display: 'inline-block',
-  },
   '&:hover': {
     background: 'warning',
+  },
+});
+
+export const locateButton = css({
+  cursor: 'pointer',
+  background: 'background',
+  color: 'black',
+  borderRadius: '50%',
+  zIndex: 401,
+  position: 'absolute',
+  top: '84px',
+  right: '26px',
+  width: '48px',
+  height: '48px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  border: '0',
+  transition: 'background-color 0.2s',
+
+  '&:hover': {
+    background: 'warning',
+  },
+  '&:disabled': {
+    cursor: 'wait',
+    opacity: 0.6,
   },
 });
 
@@ -82,7 +105,7 @@ export const container = css({
 export const animationContainer = css({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
+  alignItems: 'flex-start',
 
   animation: 'appearFromLeft 1s',
 
@@ -108,8 +131,15 @@ export const animationContainer = css({
   '& footer': {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    gap: '20px',
 
     lineHeight: '24px',
+  },
+
+  '& footer .location-label': {
+    alignSelf: 'flex-start',
   },
 
   '& footer strong': {

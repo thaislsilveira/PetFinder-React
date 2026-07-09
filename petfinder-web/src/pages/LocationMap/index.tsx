@@ -6,19 +6,26 @@ import { ptBR } from 'date-fns/locale';
 import {
   FiArrowLeft as FiArrowLeftIcon,
   FiArrowRight as FiArrowRightIcon,
+  FiCrosshair as FiCrosshairIcon,
+  FiLogOut as FiLogOutIcon,
 } from 'react-icons/fi';
-import { ImExit as ImExitIcon } from 'react-icons/im';
 import {
   MapContainer,
   Marker,
   TileLayer,
   Popup,
+  useMap,
   useMapEvents,
 } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 
 import asIcon from '../../utils/icon';
-import { container, animationContainer, exitButton } from './styles';
+import {
+  container,
+  animationContainer,
+  exitButton,
+  locateButton,
+} from './styles';
 
 import api from '../../services/api';
 
@@ -27,10 +34,12 @@ import mapIcon from '../../utils/mapIcon';
 
 import ModalCadastro from '../../components/ModalCadastro';
 import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 
 const FiArrowLeft = asIcon(FiArrowLeftIcon);
 const FiArrowRight = asIcon(FiArrowRightIcon);
-const ImExit = asIcon(ImExitIcon);
+const FiCrosshair = asIcon(FiCrosshairIcon);
+const FiLogOut = asIcon(FiLogOutIcon);
 
 interface Pet {
   id: number;
@@ -55,14 +64,46 @@ const MapClickHandler: React.FC<MapClickHandlerProps> = ({ onMapClick }) => {
   return null;
 };
 
+const DEFAULT_CENTER: [number, number] = [-20.2845958, -50.5446169];
+const DEFAULT_LOCATION_LABEL = { city: 'Jales', state: 'São Paulo' };
+
+interface ReverseGeocodeResponse {
+  address?: {
+    city?: string;
+    town?: string;
+    village?: string;
+    state?: string;
+  };
+}
+
+const RecenterMap: React.FC<{ center: [number, number] }> = ({ center }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView(center);
+  }, [center, map]);
+
+  return null;
+};
+
+const GEOLOCATION_ERROR_MESSAGES: Record<number, string> = {
+  1: 'Permissão de localização negada pelo navegador.',
+  2: 'Não foi possível determinar sua localização.',
+  3: 'Tempo esgotado ao tentar obter sua localização. Verifique se o Serviço de Localização do sistema está ativado para o navegador.',
+};
+
 const LocationMap: React.FC = () => {
   const { signOut } = useAuth();
+  const { addToast } = useToast();
   const navigate = useNavigate();
 
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [visible, setVisible] = useState(false);
+  const [mapCenter, setMapCenter] = useState<[number, number]>(DEFAULT_CENTER);
+  const [locationLabel, setLocationLabel] = useState(DEFAULT_LOCATION_LABEL);
 
   const [pets, setPets] = useState<Pet[]>([]);
+  const [locatingUser, setLocatingUser] = useState(false);
 
   const handleMapClick = useCallback((event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;
@@ -79,6 +120,59 @@ const LocationMap: React.FC = () => {
     });
   }, [visible]);
 
+  const locateUser = useCallback(() => {
+    if (!navigator.geolocation) {
+      addToast({
+        type: 'info',
+        title: 'Localização não utilizada',
+        description: 'Seu navegador não suporta geolocalização.',
+      });
+      return;
+    }
+
+    setLocatingUser(true);
+
+    navigator.geolocation.getCurrentPosition(
+      geoPosition => {
+        const { latitude, longitude } = geoPosition.coords;
+
+        setMapCenter([latitude, longitude]);
+        setLocatingUser(false);
+
+        fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
+        )
+          .then(response => response.json())
+          .then((data: ReverseGeocodeResponse) => {
+            const city =
+              data.address?.city || data.address?.town || data.address?.village;
+
+            if (city && data.address?.state) {
+              setLocationLabel({ city, state: data.address.state });
+            }
+          })
+          .catch(() => {});
+      },
+      geoError => {
+        setLocatingUser(false);
+
+        addToast({
+          type: 'info',
+          title: 'Localização não utilizada',
+          description:
+            GEOLOCATION_ERROR_MESSAGES[geoError.code] ??
+            'Usando a localização padrão do mapa.',
+        });
+      },
+      { timeout: 20000, maximumAge: 60000 },
+    );
+  }, [addToast]);
+
+  useEffect(() => {
+    locateUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only auto-run once on mount, the button covers manual retries
+  }, []);
+
   return (
     <>
       <div className={container}>
@@ -91,8 +185,10 @@ const LocationMap: React.FC = () => {
           </header>
 
           <footer>
-            <strong>Jales</strong>
-            <span>São Paulo</span>
+            <p className="location-label">
+              <strong>{locationLabel.city}</strong>
+              <span>, {locationLabel.state}</span>
+            </p>
 
             <button type="button" onClick={() => navigate(-1)}>
               <FiArrowLeft size={24} color="#FFF" />
@@ -101,10 +197,11 @@ const LocationMap: React.FC = () => {
         </div>
 
         <MapContainer
-          center={[-20.2845958, -50.5446169]}
+          center={mapCenter}
           zoom={15}
           style={{ width: '100%', height: '100%', zIndex: 9 }}
         >
+          <RecenterMap center={mapCenter} />
           <MapClickHandler onMapClick={handleMapClick} />
 
           <TileLayer
@@ -163,8 +260,18 @@ const LocationMap: React.FC = () => {
             />
           )}
 
+          <button
+            type="button"
+            className={locateButton}
+            onClick={locateUser}
+            disabled={locatingUser}
+            title="Usar minha localização"
+          >
+            <FiCrosshair size={18} color="#94443f" />
+          </button>
+
           <button type="button" className={exitButton} onClick={signOut}>
-            <ImExit size={20} color="#94443f" />
+            <FiLogOut size={18} color="#94443f" />
           </button>
         </MapContainer>
       </div>
