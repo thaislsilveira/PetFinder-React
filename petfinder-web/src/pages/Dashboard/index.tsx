@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FiArrowRight as FiArrowRightIcon } from 'react-icons/fi';
@@ -9,11 +9,18 @@ import backgroundImg from '../../assets/background.svg';
 import asIcon from '../../utils/icon';
 import { container, content, contentRight, header } from './styles';
 import { useAuth } from '../../hooks/auth';
+import { useUserLocation } from '../../hooks/geolocation';
 
 const FiArrowRight = asIcon(FiArrowRightIcon);
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
+  const { locationLabel, locateUser } = useUserLocation();
+
+  useEffect(() => {
+    locateUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only auto-run once on mount
+  }, []);
 
   return (
     <div className={container}>
@@ -30,9 +37,9 @@ const Dashboard: React.FC = () => {
                 <strong>{user.name}</strong>
               </Link>
               <br />
-              <strong>Jales</strong>
+              <strong>{locationLabel.city}</strong>
               <br />
-              <span>São Paulo</span>
+              <span>{locationLabel.state}</span>
             </div>
           </div>
         </div>
