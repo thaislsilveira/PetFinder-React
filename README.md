@@ -37,14 +37,14 @@ O frontend sobe em `http://localhost:3000` e depende do backend rodando em `http
 
 ---
 
-## GIF :video_camera:
+## Capturas de tela :camera:
 
-![gif-login](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/login.gif)
-![gif-Dashboard](https://github.com/thaislsilveira/PetFinder-React/blob/main/images/dashboard.gif)
-<img width="100%" alt="cadastrando" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastrando.gif">
-<img width="100%" alt="cadastro" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastro.gif">
-<img width="100%" alt="botão sair" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/PetFinder-sair.gif">
-<img width="100%" alt="perfil" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/PetFinder-profile.gif">
+<img width="100%" alt="login" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/login.png">
+<img width="100%" alt="dashboard" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/dashboard.png">
+<img width="100%" alt="cadastrando" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastrando.png">
+<img width="100%" alt="cadastro" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastro.png">
+<img width="100%" alt="botão sair" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/petfinder-sair.png">
+<img width="100%" alt="perfil" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/petfinder-profile.png">
 
 
 ## Tecnologias utilizadas 🚀
