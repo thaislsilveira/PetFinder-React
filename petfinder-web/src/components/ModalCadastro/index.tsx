@@ -85,20 +85,41 @@ const ModalCadastro: React.FC<ModalProps> = ({
     data.append('breed', breed);
     data.append('information', information);
     data.append('responsible_name', responsibleName);
-    data.append('phone', unmaskedPhone);
+    if (unmaskedPhone) {
+      data.append('phone', unmaskedPhone);
+    }
     images.forEach(image => {
       data.append('images', image);
     });
 
-    await api.post('pets', data);
+    try {
+      await api.post('pets', data);
 
-    hide();
+      hide();
 
-    addToast({
-      type: 'success',
-      title: 'Cadastro realizado!',
-      description: 'Agora você pode visualizar o perfil do pet no mapa!',
-    });
+      setTypeOn(0);
+      setSexOn(0);
+      setPort('');
+      setBreed('');
+      setInformation('');
+      setResponsibleName('');
+      setPhone('');
+      setImages([]);
+      setPreviewImages([]);
+
+      addToast({
+        type: 'success',
+        title: 'Cadastro realizado!',
+        description: 'Agora você pode visualizar o perfil do pet no mapa!',
+      });
+    } catch (error) {
+      addToast({
+        type: 'error',
+        title: 'Erro no cadastro',
+        description:
+          'Verifique se todos os campos obrigatórios foram preenchidos corretamente.',
+      });
+    }
   }, [
     addToast,
     breed,
