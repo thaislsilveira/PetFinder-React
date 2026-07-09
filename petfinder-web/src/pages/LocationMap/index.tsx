@@ -29,10 +29,10 @@ import {
 
 import api from '../../services/api';
 
-import logo from '../../assets/logo.png';
 import mapIcon from '../../utils/mapIcon';
 
 import ModalCadastro from '../../components/ModalCadastro';
+import Logo from '../../components/Logo';
 import { useAuth } from '../../hooks/auth';
 import { useUserLocation } from '../../hooks/geolocation';
 
@@ -114,14 +114,14 @@ const LocationMap: React.FC = () => {
       <div className={container}>
         <div className={animationContainer}>
           <header>
-            <img src={logo} alt="PetFinder" />
+            <Logo />
 
             <h2>Viu um animalzinho perdido?</h2>
             <p>Marque o local em que ele foi avistado.</p>
           </header>
 
           <footer>
-            <p className="location-label">
+            <p>
               <strong>{locationLabel.city}</strong>
               <span>, {locationLabel.state}</span>
             </p>

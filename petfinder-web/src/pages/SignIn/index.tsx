@@ -11,11 +11,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import Form from '../../utils/unformCompat';
 
 import asIcon from '../../utils/icon';
-import logoImg from '../../assets/logo.png';
 import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Logo from '../../components/Logo';
 
 import { container, content, animationContainer, background } from './styles';
 import { useAuth } from '../../hooks/auth';
@@ -63,7 +63,7 @@ const SignIn: React.FC = () => {
     <div className={container}>
       <div className={content}>
         <div className={animationContainer}>
-          <img src={logoImg} alt="PetFinder" />
+          <Logo />
           <Form onSubmit={handleSubmit}>
             <h1> Faça seu logon</h1>
             <Input name="email" icon={FiMail} placeholder="E-mail" />

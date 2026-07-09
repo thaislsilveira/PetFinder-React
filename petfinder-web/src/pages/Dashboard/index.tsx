@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 import { FiArrowRight as FiArrowRightIcon } from 'react-icons/fi';
 
-import logoImg from '../../assets/logo.png';
 import backgroundImg from '../../assets/background.svg';
 
 import asIcon from '../../utils/icon';
 import { container, content, contentRight, header } from './styles';
 import { useAuth } from '../../hooks/auth';
 import { useUserLocation } from '../../hooks/geolocation';
+import Logo from '../../components/Logo';
 
 const FiArrowRight = asIcon(FiArrowRightIcon);
 
@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
         style={{ backgroundImage: `url(${backgroundImg})` }}
       >
         <div className={header}>
-          <img src={logoImg} alt="PetFinder" />
+          <Logo />
           <div className={contentRight}>
             <div>
               <span>Bem-vindo,</span>

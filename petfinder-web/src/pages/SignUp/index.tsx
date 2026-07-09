@@ -13,11 +13,11 @@ import { FormHandles } from '@unform/core';
 import Form from '../../utils/unformCompat';
 import api from '../../services/api';
 
-import logoImg from '../../assets/logo.png';
 import signUpBackgoundImg from '../../assets/backgroundLogin.jpg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Logo from '../../components/Logo';
 
 import asIcon from '../../utils/icon';
 import { container, content, animationContainer, background } from './styles';
@@ -74,7 +74,7 @@ const SignUp: React.FC = () => {
       />
       <div className={content}>
         <div className={animationContainer}>
-          <img src={logoImg} alt="GoBarber" />
+          <Logo />
           <Form onSubmit={handleSubmit}>
             <h1> Faça seu cadastro</h1>
             <Input name="name" icon={FiUser} placeholder="Nome" />
