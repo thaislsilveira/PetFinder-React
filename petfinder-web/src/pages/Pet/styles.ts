@@ -110,14 +110,13 @@ export const content = css({
 
   '& .pet-details .type-details': {
     marginTop: '24px',
-    paddingRight: '5px',
 
-    display: 'inline-block',
-    gridTemplateColumns: '1fr 1fr',
-    columnGap: '20px',
+    display: 'flex',
+    gap: '20px',
   },
 
   '& .pet-details .type-details div': {
+    flex: 1,
     padding: '32px 24px',
     borderRadius: '20px',
     lineHeight: '28px',
@@ -129,14 +128,14 @@ export const content = css({
   },
 
   '& .pet-details .type-details div.type-sex': {
-    width: '264px',
-    background: 'linear-gradient(154.16deg, #d3d3d3 7.85%, #ffffff 91.03%)',
-    border: '1px solid #a9a9a9',
-    color: '#808080',
+    background:
+      'linear-gradient(154.16deg, token(colors.inputBackground) 7.85%, token(colors.white) 91.03%)',
+    border: '1px solid',
+    borderColor: 'primary',
+    color: 'primary',
   },
 
   '& .pet-details .type-details div.type-animal': {
-    width: '264px',
     background: 'linear-gradient(154.16deg, #ffdead 7.85%, #ffffff 91.03%)',
     border: '1px solid #f4a460',
     color: '#d2691e',

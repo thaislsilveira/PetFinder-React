@@ -26,9 +26,9 @@ const GiMale = asIcon(GiMaleIcon);
 interface Pet {
   latitude: number;
   longitude: number;
-  type: string;
+  type: boolean;
   port: string;
-  sex: string;
+  sex: boolean;
   breed: string;
   information: string;
   responsible_name: string;
@@ -66,7 +66,10 @@ const Pet: React.FC = () => {
       <Sidebar />
       <main className={content}>
         <div className="pet-details">
-          <img src={pet.images[activeImageIndex].url} alt={pet.type} />
+          <img
+            src={pet.images[activeImageIndex].url}
+            alt={pet.type ? 'Cachorro' : 'Gato'}
+          />
 
           <div className="images">
             {pet.images.map((image, index) => {
@@ -79,7 +82,7 @@ const Pet: React.FC = () => {
                     setActiveImageIndex(index);
                   }}
                 >
-                  <img src={image.url} alt={pet.type} />
+                  <img src={image.url} alt={pet.type ? 'Cachorro' : 'Gato'} />
                 </button>
               );
             })}
@@ -121,16 +124,15 @@ const Pet: React.FC = () => {
                   gato
                 </div>
               )}
-            </div>
-            <div className="type-details">
-              {pet.type ? (
+
+              {pet.sex ? (
                 <div className="type-sex">
-                  <GiFemale size={32} color="#808080" />
+                  <GiFemale size={32} color="#94443F" />
                   fêmea
                 </div>
               ) : (
                 <div className="type-sex">
-                  <GiMale size={32} color="#808080" />
+                  <GiMale size={32} color="#94443F" />
                   macho
                 </div>
               )}
