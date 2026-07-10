@@ -35,19 +35,22 @@ export const content = css({
   flex: 1,
 
   '& form': {
-    width: '700px',
-    margin: '64px auto',
+    width: '640px',
+    maxWidth: 'calc(100vw - 32px)',
+    maxHeight: 'calc(100vh - 48px)',
+    margin: '24px auto',
 
     background: 'white',
     border: '1px solid',
     borderColor: 'background',
     borderRadius: '20px',
 
-    padding: '64px 80px',
+    display: 'flex',
+    flexDirection: 'column',
 
     overflow: 'hidden',
 
-    marginBottom: '40px',
+    marginBottom: '24px',
     position: 'relative',
   },
 
@@ -59,10 +62,30 @@ export const content = css({
     border: '0',
     background: 'transparent',
     color: 'inherit',
+    zIndex: 1,
   },
 
   '& form button.button-close svg': {
     color: 'error',
+  },
+
+  '& .modal-scroll': {
+    overflowY: 'auto',
+    padding: '40px 48px',
+
+    '&::-webkit-scrollbar': {
+      width: '8px',
+    },
+    '&::-webkit-scrollbar-track': {
+      background: 'transparent',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      background: 'inputBackground',
+      borderRadius: '8px',
+    },
+    '&::-webkit-scrollbar-thumb:hover': {
+      background: 'accent',
+    },
   },
 
   '& fieldset': {
@@ -70,22 +93,22 @@ export const content = css({
   },
 
   '& fieldset + fieldset': {
-    marginTop: '80px',
+    marginTop: '40px',
   },
 
   '& fieldset legend': {
     width: '100%',
 
     textAlign: 'center',
-    fontSize: '32px',
-    lineHeight: '34px',
+    fontSize: '24px',
+    lineHeight: '28px',
     color: 'highlight',
     fontWeight: '700',
 
     borderBottom: '1px solid',
     borderColor: 'primary',
-    marginBottom: '40px',
-    paddingBottom: '24px',
+    marginBottom: '24px',
+    paddingBottom: '16px',
   },
 
   '& .input-block + .input-block': {
@@ -150,21 +173,21 @@ export const content = css({
 
   '& .input-block .images-container': {
     display: 'grid',
-    gridTemplateColumns: 'repeat(5, 1fr)',
-    gridGap: '16px',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
+    gridGap: '12px',
   },
 
   '& .input-block .images-container img': {
     width: '100%',
-    height: '96px',
+    height: '72px',
     objectFit: 'cover',
-    borderRadius: '28px',
+    borderRadius: '20px',
     border: '1px solid rgba(0, 0, 0, 0.05)',
     boxShadow: 'inset 0 0 2px #fff, 0 0 12px rgba(0, 0, 0, 0.05)',
   },
 
   '& .input-block .new-image': {
-    height: '96px',
+    height: '72px',
     background: 'inputBackground',
     border: '1px dashed',
     borderColor: 'primary',
@@ -212,10 +235,10 @@ export const content = css({
   },
 
   '& button.confirm-button': {
-    marginTop: '64px',
+    marginTop: '32px',
 
     width: '100%',
-    height: '64px',
+    height: '56px',
     border: '0',
     cursor: 'pointer',
     background: '#3cdc8c',

@@ -160,140 +160,142 @@ const ModalCadastro: React.FC<ModalProps> = ({
             >
               <FiXCircle size={24} />
             </button>
-            <fieldset>
-              <legend>Dados</legend>
-              <div className="input-block">
-                <label htmlFor="type">Tipo</label>
-                <div className="button-select">
-                  <button
-                    type="button"
-                    name="type"
-                    className={typeOn ? 'active' : ''}
-                    onClick={() => {
-                      setTypeOn(1);
-                    }}
-                  >
-                    cachorro
-                  </button>
-                  <button
-                    type="button"
-                    name="type"
-                    className={!typeOn ? 'active dont-open' : ''}
-                    onClick={() => {
-                      setTypeOn(0);
-                    }}
-                  >
-                    gato
-                  </button>
-                </div>
-              </div>
-              <div className="input-block">
-                <label htmlFor="sex">Sexo</label>
-                <div className="button-select">
-                  <button
-                    type="button"
-                    name="sex"
-                    className={sexOn ? 'active' : ''}
-                    onClick={() => {
-                      setSexOn(1);
-                    }}
-                  >
-                    fêmea
-                  </button>
-                  <button
-                    type="button"
-                    name="sex"
-                    className={!sexOn ? 'active dont-open' : ''}
-                    onClick={() => {
-                      setSexOn(0);
-                    }}
-                  >
-                    macho
-                  </button>
-                </div>
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="images">Fotos</label>
-
-                <div className="images-container">
-                  {previewImages?.map((image, index) => (
-                    <img key={index} src={image} alt={responsibleName} />
-                  ))}
-                  <label htmlFor="image[]" className="new-image">
-                    <FiPlus size={24} color="#94443f" />
-                  </label>
-                </div>
-                <input
-                  multiple
-                  onChange={handleSelectImages}
-                  type="file"
-                  id="image[]"
-                />
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <div className="field-row">
+            <div className="modal-scroll">
+              <fieldset>
+                <legend>Dados</legend>
                 <div className="input-block">
-                  <label htmlFor="port">Porte</label>
-                  <select
-                    id="port"
-                    value={port}
-                    onChange={e => setPort(e.target.value)}
-                  >
-                    <option value="" disabled>
-                      Selecione
-                    </option>
-                    <option value="Pequeno">Pequeno</option>
-                    <option value="Médio">Médio</option>
-                    <option value="Grande">Grande</option>
-                  </select>
+                  <label htmlFor="type">Tipo</label>
+                  <div className="button-select">
+                    <button
+                      type="button"
+                      name="type"
+                      className={typeOn ? 'active' : ''}
+                      onClick={() => {
+                        setTypeOn(1);
+                      }}
+                    >
+                      cachorro
+                    </button>
+                    <button
+                      type="button"
+                      name="type"
+                      className={!typeOn ? 'active dont-open' : ''}
+                      onClick={() => {
+                        setTypeOn(0);
+                      }}
+                    >
+                      gato
+                    </button>
+                  </div>
+                </div>
+                <div className="input-block">
+                  <label htmlFor="sex">Sexo</label>
+                  <div className="button-select">
+                    <button
+                      type="button"
+                      name="sex"
+                      className={sexOn ? 'active' : ''}
+                      onClick={() => {
+                        setSexOn(1);
+                      }}
+                    >
+                      fêmea
+                    </button>
+                    <button
+                      type="button"
+                      name="sex"
+                      className={!sexOn ? 'active dont-open' : ''}
+                      onClick={() => {
+                        setSexOn(0);
+                      }}
+                    >
+                      macho
+                    </button>
+                  </div>
                 </div>
 
                 <div className="input-block">
-                  <label htmlFor="breed">Raça</label>
+                  <label htmlFor="images">Fotos</label>
+
+                  <div className="images-container">
+                    {previewImages?.map((image, index) => (
+                      <img key={index} src={image} alt={responsibleName} />
+                    ))}
+                    <label htmlFor="image[]" className="new-image">
+                      <FiPlus size={24} color="#94443f" />
+                    </label>
+                  </div>
                   <input
-                    id="breed"
-                    value={breed}
-                    onChange={e => setBreed(e.target.value)}
+                    multiple
+                    onChange={handleSelectImages}
+                    type="file"
+                    id="image[]"
                   />
                 </div>
-              </div>
+              </fieldset>
 
-              <div className="input-block">
-                <label htmlFor="information">Informações</label>
-                <textarea
-                  id="information"
-                  value={information}
-                  onChange={e => setInformation(e.target.value)}
-                />
-              </div>
+              <fieldset>
+                <div className="field-row">
+                  <div className="input-block">
+                    <label htmlFor="port">Porte</label>
+                    <select
+                      id="port"
+                      value={port}
+                      onChange={e => setPort(e.target.value)}
+                    >
+                      <option value="" disabled>
+                        Selecione
+                      </option>
+                      <option value="Pequeno">Pequeno</option>
+                      <option value="Médio">Médio</option>
+                      <option value="Grande">Grande</option>
+                    </select>
+                  </div>
 
-              <div className="field-row">
+                  <div className="input-block">
+                    <label htmlFor="breed">Raça</label>
+                    <input
+                      id="breed"
+                      value={breed}
+                      onChange={e => setBreed(e.target.value)}
+                    />
+                  </div>
+                </div>
+
                 <div className="input-block">
-                  <label htmlFor="responsible_name">Responsável</label>
-                  <input
-                    id="responsible_name"
-                    value={responsibleName}
-                    onChange={e => setResponsibleName(e.target.value)}
+                  <label htmlFor="information">Informações</label>
+                  <textarea
+                    id="information"
+                    value={information}
+                    onChange={e => setInformation(e.target.value)}
                   />
                 </div>
-                <div className="input-block">
-                  <label htmlFor="phone">Telefone</label>
-                  <InputMask
-                    id="phone"
-                    mask="(99)9999-9999"
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                  />
-                </div>
-              </div>
-            </fieldset>
 
-            <button className="confirm-button" type="submit">
-              Confirmar
-            </button>
+                <div className="field-row">
+                  <div className="input-block">
+                    <label htmlFor="responsible_name">Responsável</label>
+                    <input
+                      id="responsible_name"
+                      value={responsibleName}
+                      onChange={e => setResponsibleName(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-block">
+                    <label htmlFor="phone">Telefone</label>
+                    <InputMask
+                      id="phone"
+                      mask="(99)9999-9999"
+                      value={phone}
+                      onChange={e => setPhone(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </fieldset>
+
+              <button className="confirm-button" type="submit">
+                Confirmar
+              </button>
+            </div>
           </Form>
         </div>
       </div>
