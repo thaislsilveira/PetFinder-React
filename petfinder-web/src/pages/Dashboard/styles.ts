@@ -22,6 +22,8 @@ export const content = css({
   flexDirection: 'column',
   justifyContent: 'space-between',
 
+  animation: 'appearFromLeft 0.6s',
+
   backgroundRepeat: 'no-repeat',
   backgroundSize: '600px',
   backgroundPositionX: '400px',

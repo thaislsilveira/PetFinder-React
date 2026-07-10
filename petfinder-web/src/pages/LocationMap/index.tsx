@@ -104,11 +104,6 @@ const LocationMap: React.FC = () => {
     });
   }, [visible]);
 
-  useEffect(() => {
-    locateUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only auto-run once on mount, the button covers manual retries
-  }, []);
-
   return (
     <>
       <div className={container}>

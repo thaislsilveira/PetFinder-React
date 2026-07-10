@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { FiArrowRight as FiArrowRightIcon } from 'react-icons/fi';
@@ -15,12 +15,7 @@ const FiArrowRight = asIcon(FiArrowRightIcon);
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const { locationLabel, locateUser } = useUserLocation();
-
-  useEffect(() => {
-    locateUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only auto-run once on mount
-  }, []);
+  const { locationLabel } = useUserLocation();
 
   return (
     <div className={container}>

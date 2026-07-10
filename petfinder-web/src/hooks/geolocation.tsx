@@ -1,4 +1,12 @@
-import { useCallback, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { useToast } from './toast';
 
@@ -20,7 +28,20 @@ const GEOLOCATION_ERROR_MESSAGES: Record<number, string> = {
   3: 'Tempo esgotado ao tentar obter sua localização. Verifique se o Serviço de Localização do sistema está ativado para o navegador.',
 };
 
-export function useUserLocation() {
+interface UserLocationContextData {
+  mapCenter: [number, number];
+  locationLabel: { city: string; state: string };
+  locating: boolean;
+  locateUser: () => void;
+}
+
+const UserLocationContext = createContext<UserLocationContextData>(
+  null as unknown as UserLocationContextData,
+);
+
+const UserLocationProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
   const { addToast } = useToast();
 
   const [mapCenter, setMapCenter] = useState<[number, number]>(DEFAULT_CENTER);
@@ -75,5 +96,40 @@ export function useUserLocation() {
     );
   }, [addToast]);
 
-  return { mapCenter, locationLabel, locating, locateUser };
+  const hasAutoLocated = useRef(false);
+
+  useEffect(() => {
+    if (hasAutoLocated.current) {
+      return;
+    }
+
+    hasAutoLocated.current = true;
+    locateUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only auto-run once per private session, the button covers manual retries
+  }, []);
+
+  const value = useMemo(
+    () => ({ mapCenter, locationLabel, locating, locateUser }),
+    [mapCenter, locationLabel, locating, locateUser],
+  );
+
+  return (
+    <UserLocationContext.Provider value={value}>
+      {children}
+    </UserLocationContext.Provider>
+  );
+};
+
+function useUserLocation(): UserLocationContextData {
+  const context = useContext(UserLocationContext);
+
+  if (!context) {
+    throw new Error(
+      'useUserLocation must be used within a UserLocationProvider',
+    );
+  }
+
+  return context;
 }
+
+export { UserLocationProvider, useUserLocation };
