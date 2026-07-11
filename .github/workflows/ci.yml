@@ -8,7 +8,7 @@ on:
 
 jobs:
   web-tests:
-    name: Web unit tests
+    name: Web unit tests & Storybook build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -25,3 +25,5 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - run: yarn test
+
+      - run: yarn build-storybook
