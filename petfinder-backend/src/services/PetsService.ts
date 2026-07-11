@@ -51,13 +51,18 @@ export default {
     });
   },
 
-  update(id: number, data: UpdatePetData) {
+  async update(id: number, data: UpdatePetData) {
     const { images, ...pet } = data;
+
+    const existing = await prisma.pet.findUniqueOrThrow({ where: { id } });
+
+    const foundAt = pet.found ? (existing.foundAt ?? new Date()) : null;
 
     return prisma.pet.update({
       where: { id },
       data: {
         ...pet,
+        foundAt,
         ...(images && images.length > 0 ? { images: { create: images } } : {}),
       },
       include: { images: true },

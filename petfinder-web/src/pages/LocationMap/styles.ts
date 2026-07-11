@@ -64,6 +64,16 @@ export const container = css({
     boxShadow: 'none',
   },
 
+  '& .map-popup-found .leaflet-popup-tip-container .leaflet-popup-tip': {
+    background: '#3cdc8c',
+  },
+  '& .map-popup-found .leaflet-popup-content-wrapper': {
+    background: '#3cdc8c',
+  },
+  '& .map-popup-found .leaflet-popup-content .date-box span': {
+    color: '#ffffff',
+  },
+
   '& .map-popup .leaflet-popup-content a': {
     width: '100%',
     height: '40px',
@@ -91,6 +101,7 @@ export const container = css({
   },
   '& .map-popup .leaflet-popup-content .date-box': {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },

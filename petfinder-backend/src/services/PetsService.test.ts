@@ -104,6 +104,10 @@ describe('PetsService', () => {
       images: [{ path: 'cat.png' }],
     };
 
+    mockedPrisma.pet.findUniqueOrThrow.mockResolvedValueOnce({
+      found: false,
+      foundAt: null,
+    });
     mockedPrisma.pet.update.mockResolvedValueOnce({ id: 1, ...data });
 
     const pet = await PetsService.update(1, data);
@@ -112,7 +116,7 @@ describe('PetsService', () => {
 
     expect(mockedPrisma.pet.update).toHaveBeenCalledWith({
       where: { id: 1 },
-      data: { ...petData, images: { create: images } },
+      data: { ...petData, foundAt: null, images: { create: images } },
       include: { images: true },
     });
     expect(pet).toEqual({ id: 1, ...data });
@@ -129,16 +133,114 @@ describe('PetsService', () => {
       information: 'Muito dócil',
       responsibleName: 'Rex Owner',
       phone: '11912345678',
-      found: true,
+      found: false,
     };
 
+    mockedPrisma.pet.findUniqueOrThrow.mockResolvedValueOnce({
+      found: false,
+      foundAt: null,
+    });
     mockedPrisma.pet.update.mockResolvedValueOnce({ id: 1, ...data });
 
     await PetsService.update(1, data);
 
     expect(mockedPrisma.pet.update).toHaveBeenCalledWith({
       where: { id: 1 },
-      data,
+      data: { ...data, foundAt: null },
+      include: { images: true },
+    });
+  });
+
+  it('sets foundAt the first time a pet is marked as found', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-07-11T12:00:00.000Z'));
+
+    const data = {
+      type: true,
+      latitude: 12.5,
+      longitude: -38.2,
+      sex: false,
+      port: 'Médio',
+      breed: 'Vira-lata',
+      information: 'Muito dócil',
+      responsibleName: 'Rex Owner',
+      phone: '11912345678',
+      found: true,
+    };
+
+    mockedPrisma.pet.findUniqueOrThrow.mockResolvedValueOnce({
+      found: false,
+      foundAt: null,
+    });
+    mockedPrisma.pet.update.mockResolvedValueOnce({ id: 1, ...data });
+
+    await PetsService.update(1, data);
+
+    expect(mockedPrisma.pet.update).toHaveBeenCalledWith({
+      where: { id: 1 },
+      data: { ...data, foundAt: new Date('2026-07-11T12:00:00.000Z') },
+      include: { images: true },
+    });
+
+    vi.useRealTimers();
+  });
+
+  it('keeps the original foundAt when an already found pet is edited again', async () => {
+    const originalFoundAt = new Date('2026-01-01T00:00:00.000Z');
+
+    const data = {
+      type: true,
+      latitude: 12.5,
+      longitude: -38.2,
+      sex: false,
+      port: 'Médio',
+      breed: 'Vira-lata',
+      information: 'Muito dócil atualizado',
+      responsibleName: 'Rex Owner',
+      phone: '11912345678',
+      found: true,
+    };
+
+    mockedPrisma.pet.findUniqueOrThrow.mockResolvedValueOnce({
+      found: true,
+      foundAt: originalFoundAt,
+    });
+    mockedPrisma.pet.update.mockResolvedValueOnce({ id: 1, ...data });
+
+    await PetsService.update(1, data);
+
+    expect(mockedPrisma.pet.update).toHaveBeenCalledWith({
+      where: { id: 1 },
+      data: { ...data, foundAt: originalFoundAt },
+      include: { images: true },
+    });
+  });
+
+  it('clears foundAt when a pet is unmarked as found', async () => {
+    const data = {
+      type: true,
+      latitude: 12.5,
+      longitude: -38.2,
+      sex: false,
+      port: 'Médio',
+      breed: 'Vira-lata',
+      information: 'Muito dócil',
+      responsibleName: 'Rex Owner',
+      phone: '11912345678',
+      found: false,
+    };
+
+    mockedPrisma.pet.findUniqueOrThrow.mockResolvedValueOnce({
+      found: true,
+      foundAt: new Date('2026-01-01T00:00:00.000Z'),
+    });
+    mockedPrisma.pet.update.mockResolvedValueOnce({ id: 1, ...data });
+
+    await PetsService.update(1, data);
+
+    expect(mockedPrisma.pet.update).toHaveBeenCalledWith({
+      where: { id: 1 },
+      data: { ...data, foundAt: null },
       include: { images: true },
     });
   });

@@ -47,6 +47,7 @@ interface Pet {
   latitude: number;
   longitude: number;
   found: boolean;
+  found_at: string | null;
   images: Array<{
     id: number;
     url: string;
@@ -153,7 +154,9 @@ const LocationMap: React.FC = () => {
                   closeButton={false}
                   minWidth={240}
                   maxHeight={270}
-                  className="map-popup"
+                  className={
+                    pet.found ? 'map-popup map-popup-found' : 'map-popup'
+                  }
                 >
                   {pet.images.map(image => {
                     return (
@@ -170,12 +173,23 @@ const LocationMap: React.FC = () => {
                     <span>
                       {format(
                         parseISO(pet.created_at),
-                        "'Dia' dd 'de' MMMM 'às' HH:mm",
+                        "'Cadastrado em' dd 'de' MMMM 'às' HH:mm",
                         {
                           locale: ptBR,
                         },
                       )}
                     </span>
+                    {pet.found && pet.found_at && (
+                      <span>
+                        {format(
+                          parseISO(pet.found_at),
+                          "'Encontrado em' dd 'de' MMMM 'às' HH:mm",
+                          {
+                            locale: ptBR,
+                          },
+                        )}
+                      </span>
+                    )}
                   </div>
                   <Link to={`/pets/${pet.id}`}>
                     <FiArrowRight size={20} color="#fff" />

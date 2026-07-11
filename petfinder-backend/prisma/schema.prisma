@@ -20,19 +20,20 @@ model User {
 }
 
 model Pet {
-  id              Int      @id @default(autoincrement())
-  type            Boolean  @default(false)
+  id              Int       @id @default(autoincrement())
+  type            Boolean   @default(false)
   latitude        Decimal
   longitude       Decimal
-  sex             Boolean  @default(false)
+  sex             Boolean   @default(false)
   port            String
   breed           String
   information     String
-  responsibleName String   @map("responsible_name")
+  responsibleName String    @map("responsible_name")
   phone           String?
-  found           Boolean  @default(false)
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
+  found           Boolean   @default(false)
+  foundAt         DateTime? @map("found_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
   images          Image[]
 
   @@map("pets")
