@@ -9,7 +9,7 @@ interface CreatePetData {
   breed: string;
   information: string;
   responsibleName: string;
-  phone: string;
+  phone?: string;
   images: { path: string }[];
 }
 

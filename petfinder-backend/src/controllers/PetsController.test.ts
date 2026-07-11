@@ -1,0 +1,142 @@
+import { Request, Response } from 'express';
+import { ZodError } from 'zod';
+
+import PetsService from '../services/PetsService';
+import PetsController from './PetsController';
+
+vi.mock('../services/PetsService', () => ({
+  default: {
+    findAll: vi.fn(),
+    findById: vi.fn(),
+    create: vi.fn(),
+  },
+}));
+
+const mockedPetsService = PetsService as unknown as {
+  findAll: ReturnType<typeof vi.fn>;
+  findById: ReturnType<typeof vi.fn>;
+  create: ReturnType<typeof vi.fn>;
+};
+
+function createResponse() {
+  const response = {} as Response;
+  response.status = vi.fn().mockReturnValue(response);
+  response.json = vi.fn().mockReturnValue(response);
+  return response;
+}
+
+const createdAt = new Date('2026-01-01T00:00:00.000Z');
+const updatedAt = createdAt;
+
+function makePet(overrides = {}) {
+  return {
+    id: 1,
+    type: true,
+    latitude: 12.5,
+    longitude: -38.2,
+    sex: false,
+    port: 'Médio',
+    breed: 'Vira-lata',
+    information: 'Muito dócil',
+    responsibleName: 'Rex Owner',
+    phone: '11912345678',
+    images: [{ id: 1, path: 'dog.png', petId: 1 }],
+    createdAt,
+    updatedAt,
+    ...overrides,
+  };
+}
+
+describe('PetsController', () => {
+  beforeEach(() => {
+    mockedPetsService.findAll.mockReset();
+    mockedPetsService.findById.mockReset();
+    mockedPetsService.create.mockReset();
+  });
+
+  describe('index', () => {
+    it('lists all pets rendered through the pet view', async () => {
+      mockedPetsService.findAll.mockResolvedValueOnce([makePet()]);
+
+      const request = {} as Request;
+      const response = createResponse();
+
+      await PetsController.index(request, response);
+
+      expect(response.json).toHaveBeenCalledWith([
+        expect.objectContaining({ id: 1, responsible_name: 'Rex Owner' }),
+      ]);
+    });
+  });
+
+  describe('show', () => {
+    it('finds a pet by the numeric id from the route params', async () => {
+      mockedPetsService.findById.mockResolvedValueOnce(makePet());
+
+      const request = { params: { id: '1' } } as unknown as Request;
+      const response = createResponse();
+
+      await PetsController.show(request, response);
+
+      expect(mockedPetsService.findById).toHaveBeenCalledWith(1);
+      expect(response.json).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 1 }),
+      );
+    });
+  });
+
+  describe('create', () => {
+    function makeRequest(overrides: Record<string, unknown> = {}) {
+      return {
+        body: {
+          type: '1',
+          latitude: '12.5',
+          longitude: '-38.2',
+          sex: '0',
+          port: 'Médio',
+          breed: 'Vira-lata',
+          information: 'Muito dócil',
+          responsible_name: 'Rex Owner',
+          phone: '11912345678',
+          ...overrides,
+        },
+        files: [{ filename: 'dog.png' }],
+      } as unknown as Request;
+    }
+
+    it('creates a pet, coercing form fields and mapping uploaded files to images', async () => {
+      const createdPet = makePet();
+      mockedPetsService.create.mockResolvedValueOnce(createdPet);
+
+      const request = makeRequest();
+      const response = createResponse();
+
+      await PetsController.create(request, response);
+
+      expect(mockedPetsService.create).toHaveBeenCalledWith({
+        type: true,
+        latitude: 12.5,
+        longitude: -38.2,
+        sex: false,
+        port: 'Médio',
+        breed: 'Vira-lata',
+        information: 'Muito dócil',
+        responsibleName: 'Rex Owner',
+        phone: '11912345678',
+        images: [{ path: 'dog.png' }],
+      });
+      expect(response.status).toHaveBeenCalledWith(201);
+      expect(response.json).toHaveBeenCalledWith(createdPet);
+    });
+
+    it('rejects a request missing required fields', async () => {
+      const request = makeRequest({ breed: '' });
+      const response = createResponse();
+
+      await expect(
+        PetsController.create(request, response),
+      ).rejects.toBeInstanceOf(ZodError);
+      expect(mockedPetsService.create).not.toHaveBeenCalled();
+    });
+  });
+});

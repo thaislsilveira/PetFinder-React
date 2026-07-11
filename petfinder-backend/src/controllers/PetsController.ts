@@ -68,22 +68,22 @@ export default {
         .string()
         .regex(phoneRegExp, 'Número de telefone não é válido')
         .optional(),
-      images: z.array(z.object({ path: z.string().min(1) })).optional(),
+      images: z.array(z.object({ path: z.string().min(1) })),
     });
 
-    schema.parse(data);
+    const parsedData = schema.parse(data);
 
     const pet = await PetsService.create({
-      type: data.type,
-      latitude: data.latitude,
-      longitude: data.longitude,
-      sex: data.sex,
-      port: data.port,
-      breed: data.breed,
-      information: data.information,
-      responsibleName: data.responsible_name,
-      phone: data.phone,
-      images: data.images,
+      type: parsedData.type,
+      latitude: parsedData.latitude,
+      longitude: parsedData.longitude,
+      sex: parsedData.sex,
+      port: parsedData.port,
+      breed: parsedData.breed,
+      information: parsedData.information,
+      responsibleName: parsedData.responsible_name,
+      phone: parsedData.phone,
+      images: parsedData.images,
     });
 
     return response.status(201).json(pet);
