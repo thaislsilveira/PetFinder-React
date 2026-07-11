@@ -10,6 +10,7 @@ export const container = css({
 
 export const content = css({
   flex: 1,
+  paddingLeft: { base: '0', md: '150px' },
 
   '& .pet-details': {
     position: 'relative',

@@ -9,6 +9,7 @@ export const container = css({
 
 export const content = css({
   display: 'flex',
+  paddingLeft: { base: '0', md: '150px' },
 
   '& .details': {
     padding: { base: '24px', md: '40px' },
