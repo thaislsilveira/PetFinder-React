@@ -211,11 +211,6 @@ const LocationMap: React.FC = () => {
         positionMap={position}
         hide={() => setVisible(false)}
       />
-      {/* <ModalPet
-        visible={visible}
-        positionMap={position}
-        hide={() => setVisible(false)}
-      /> */}
     </>
   );
 };

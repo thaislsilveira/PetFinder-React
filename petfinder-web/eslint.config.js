@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+const storybook = require('eslint-plugin-storybook');
+
 const { FlatCompat } = require('@eslint/eslintrc');
 const js = require('@eslint/js');
 
@@ -82,9 +85,16 @@ module.exports = [
     },
   },
   {
-    files: ['**/*.test.ts', '**/*.test.tsx', 'src/setupTests.ts'],
+    files: [
+      '**/*.test.ts',
+      '**/*.test.tsx',
+      '**/*.stories.tsx',
+      'src/setupTests.ts',
+      '.storybook/**/*.{ts,tsx}',
+    ],
     rules: {
       'import/no-extraneous-dependencies': 'off',
     },
   },
+  ...storybook.configs['flat/recommended'],
 ];
