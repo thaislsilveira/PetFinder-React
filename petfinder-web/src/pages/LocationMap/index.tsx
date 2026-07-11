@@ -170,20 +170,21 @@ const LocationMap: React.FC = () => {
                     );
                   })}
                   <div className="date-box">
-                    <span>
-                      {format(
-                        parseISO(pet.created_at),
-                        "'Cadastrado em' dd 'de' MMMM 'às' HH:mm",
-                        {
-                          locale: ptBR,
-                        },
-                      )}
-                    </span>
-                    {pet.found && pet.found_at && (
+                    {pet.found && pet.found_at ? (
                       <span>
                         {format(
                           parseISO(pet.found_at),
                           "'Encontrado em' dd 'de' MMMM 'às' HH:mm",
+                          {
+                            locale: ptBR,
+                          },
+                        )}
+                      </span>
+                    ) : (
+                      <span>
+                        {format(
+                          parseISO(pet.created_at),
+                          "'Cadastrado em' dd 'de' MMMM 'às' HH:mm",
                           {
                             locale: ptBR,
                           },
