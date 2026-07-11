@@ -45,6 +45,9 @@ O frontend sobe em `http://localhost:3000` e depende do backend rodando em `http
 <img width="100%" alt="cadastro" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/cadastro.png">
 <img width="100%" alt="botão sair" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/petfinder-sair.png">
 <img width="100%" alt="perfil" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/petfinder-profile.png">
+<img width="100%" alt="perfil do pet com selo de encontrado" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/pet-encontrado.png">
+<img width="100%" alt="edição do pet, com opção de marcar como encontrado e remover fotos" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/editar-pet.png">
+<img width="100%" alt="mapa com pin verde e data de quando o pet foi encontrado" src="https://github.com/thaislsilveira/PetFinder-React/blob/main/images/mapa-encontrado.png">
 
 
 ## Tecnologias utilizadas 🚀
