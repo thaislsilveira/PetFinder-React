@@ -13,12 +13,12 @@ export const content = css({
 
   '& .details': {
     padding: { base: '24px', md: '40px' },
-    width: { base: 'auto', md: '700px' },
+    width: { base: 'calc(100% - 32px)', md: '700px' },
     backgroundColor: 'background',
     borderRadius: '20px',
     border: '1px solid',
     borderColor: 'background',
-    margin: { base: '88px 16px 24px', md: '80px auto' },
+    margin: { base: '88px auto 24px', md: '80px auto' },
   },
 
   '& .details h1': {
