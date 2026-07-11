@@ -9,6 +9,7 @@ vi.mock('../services/PetsService', () => ({
     findAll: vi.fn(),
     findById: vi.fn(),
     create: vi.fn(),
+    update: vi.fn(),
   },
 }));
 
@@ -16,6 +17,7 @@ const mockedPetsService = PetsService as unknown as {
   findAll: ReturnType<typeof vi.fn>;
   findById: ReturnType<typeof vi.fn>;
   create: ReturnType<typeof vi.fn>;
+  update: ReturnType<typeof vi.fn>;
 };
 
 function createResponse() {
@@ -52,6 +54,7 @@ describe('PetsController', () => {
     mockedPetsService.findAll.mockReset();
     mockedPetsService.findById.mockReset();
     mockedPetsService.create.mockReset();
+    mockedPetsService.update.mockReset();
   });
 
   describe('index', () => {
@@ -137,6 +140,81 @@ describe('PetsController', () => {
         PetsController.create(request, response),
       ).rejects.toBeInstanceOf(ZodError);
       expect(mockedPetsService.create).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('update', () => {
+    function makeRequest(overrides: Record<string, unknown> = {}) {
+      return {
+        params: { id: '1' },
+        body: {
+          type: '1',
+          latitude: '12.5',
+          longitude: '-38.2',
+          sex: '0',
+          port: 'Médio',
+          breed: 'Vira-lata',
+          information: 'Muito dócil',
+          responsible_name: 'Rex Owner',
+          phone: '11912345678',
+          ...overrides,
+        },
+        files: [],
+      } as unknown as Request;
+    }
+
+    it('updates a pet, coercing form fields, and renders it through the pet view', async () => {
+      const updatedPet = makePet({ breed: 'Poodle' });
+      mockedPetsService.update.mockResolvedValueOnce(updatedPet);
+
+      const request = makeRequest();
+      const response = createResponse();
+
+      await PetsController.update(request, response);
+
+      expect(mockedPetsService.update).toHaveBeenCalledWith(1, {
+        type: true,
+        latitude: 12.5,
+        longitude: -38.2,
+        sex: false,
+        port: 'Médio',
+        breed: 'Vira-lata',
+        information: 'Muito dócil',
+        responsibleName: 'Rex Owner',
+        phone: '11912345678',
+        images: [],
+      });
+      expect(response.status).not.toHaveBeenCalled();
+      expect(response.json).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 1, breed: 'Poodle' }),
+      );
+    });
+
+    it('maps newly uploaded files to images when provided', async () => {
+      mockedPetsService.update.mockResolvedValueOnce(makePet());
+
+      const request = {
+        ...makeRequest(),
+        files: [{ filename: 'new-photo.png' }],
+      } as unknown as Request;
+      const response = createResponse();
+
+      await PetsController.update(request, response);
+
+      expect(mockedPetsService.update).toHaveBeenCalledWith(
+        1,
+        expect.objectContaining({ images: [{ path: 'new-photo.png' }] }),
+      );
+    });
+
+    it('rejects a request missing required fields', async () => {
+      const request = makeRequest({ breed: '' });
+      const response = createResponse();
+
+      await expect(
+        PetsController.update(request, response),
+      ).rejects.toBeInstanceOf(ZodError);
+      expect(mockedPetsService.update).not.toHaveBeenCalled();
     });
   });
 });

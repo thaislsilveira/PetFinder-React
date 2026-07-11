@@ -13,6 +13,19 @@ interface CreatePetData {
   images: { path: string }[];
 }
 
+interface UpdatePetData {
+  type: boolean;
+  latitude: number;
+  longitude: number;
+  sex: boolean;
+  port: string;
+  breed: string;
+  information: string;
+  responsibleName: string;
+  phone?: string;
+  images?: { path: string }[];
+}
+
 export default {
   findAll() {
     return prisma.pet.findMany({ include: { images: true } });
@@ -32,6 +45,19 @@ export default {
       data: {
         ...pet,
         images: { create: images },
+      },
+      include: { images: true },
+    });
+  },
+
+  update(id: number, data: UpdatePetData) {
+    const { images, ...pet } = data;
+
+    return prisma.pet.update({
+      where: { id },
+      data: {
+        ...pet,
+        ...(images && images.length > 0 ? { images: { create: images } } : {}),
       },
       include: { images: true },
     });

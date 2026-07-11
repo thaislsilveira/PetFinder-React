@@ -11,6 +11,8 @@ import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 
 import Sidebar from '../../components/Sidebar';
+import Button from '../../components/Button';
+import ModalEditarPet from '../../components/ModalEditarPet';
 
 import signInBackgoundImg from '../../assets/backgroundLogin.jpg';
 import asIcon from '../../utils/icon';
@@ -23,7 +25,7 @@ const GiSittingDog = asIcon(GiSittingDogIcon);
 const GiFemale = asIcon(GiFemaleIcon);
 const GiMale = asIcon(GiMaleIcon);
 
-interface Pet {
+export interface Pet {
   latitude: number;
   longitude: number;
   type: boolean;
@@ -47,6 +49,7 @@ const Pet: React.FC = () => {
   const params = useParams<PetParams>();
   const [pet, setPet] = useState<Pet>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [editVisible, setEditVisible] = useState(false);
 
   useEffect(() => {
     api.get(`pets/${params.id}`).then(response => {
@@ -156,9 +159,23 @@ const Pet: React.FC = () => {
               <FaWhatsapp size={20} color="#FFF" />
               Entrar em contato
             </button> */}
+
+            <Button type="button" onClick={() => setEditVisible(true)}>
+              Editar
+            </Button>
           </div>
         </div>
       </main>
+
+      {params.id && (
+        <ModalEditarPet
+          petId={params.id}
+          pet={pet}
+          visible={editVisible}
+          hide={() => setEditVisible(false)}
+          onUpdated={updatedPet => setPet(updatedPet)}
+        />
+      )}
     </div>
   );
 };

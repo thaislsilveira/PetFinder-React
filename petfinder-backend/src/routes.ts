@@ -21,5 +21,6 @@ routes.use('/pets', ensureAuthenticated);
 routes.get('/pets', PetsController.index);
 routes.get('/pets/:id', PetsController.show);
 routes.post('/pets', upload.array('images'), PetsController.create);
+routes.put('/pets/:id', upload.array('images'), PetsController.update);
 
 export default routes;
