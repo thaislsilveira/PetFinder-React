@@ -14,7 +14,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside className={container}>
-      <LogoIcon size={110} />
+      <LogoIcon size={48} />
 
       <footer>
         <button type="button" onClick={() => navigate(-1)}>

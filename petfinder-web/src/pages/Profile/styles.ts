@@ -11,13 +11,13 @@ export const content = css({
   display: 'flex',
 
   '& .details': {
-    padding: '40px',
-    width: '700px',
+    padding: { base: '24px', md: '40px' },
+    width: { base: 'auto', md: '700px' },
     backgroundColor: 'background',
     borderRadius: '20px',
     border: '1px solid',
     borderColor: 'background',
-    margin: '80px auto',
+    margin: { base: '88px 16px 24px', md: '80px auto' },
   },
 
   '& .details h1': {
@@ -27,8 +27,9 @@ export const content = css({
   },
 
   '& .details form': {
-    margin: '80px auto',
-    width: '340px',
+    margin: { base: '40px auto', md: '80px auto' },
+    width: '100%',
+    maxWidth: '340px',
     textAlign: 'center',
   },
 

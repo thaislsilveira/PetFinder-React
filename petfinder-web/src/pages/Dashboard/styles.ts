@@ -2,10 +2,11 @@ import { css } from '../../../styled-system/css';
 
 export const container = css({
   width: '100vw',
-  height: '100vh',
+  minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  padding: { base: '24px', md: '0' },
 });
 
 export const content = css({
@@ -15,7 +16,8 @@ export const content = css({
   maxWidth: '1100px',
 
   height: '100%',
-  maxHeight: '600px',
+  minHeight: { base: '500px', md: 'auto' },
+  maxHeight: { base: 'none', md: '600px' },
 
   display: 'flex',
   alignItems: 'flex-start',
@@ -30,19 +32,20 @@ export const content = css({
   backgroundPositionY: '250px',
 
   '& main': {
-    maxWidth: '350px',
+    maxWidth: { base: '100%', md: '350px' },
+    paddingRight: { base: '96px', md: '0' },
   },
 
   '& main h1': {
-    fontSize: '76px',
+    fontSize: { base: '32px', md: '76px' },
     fontWeight: '900',
-    lineHeight: '70px',
+    lineHeight: { base: '36px', md: '70px' },
   },
 
   '& p': {
-    marginTop: '40px',
-    fontSize: '24px',
-    lineHeight: '34px',
+    marginTop: { base: '16px', md: '40px' },
+    fontSize: { base: '16px', md: '24px' },
+    lineHeight: { base: '22px', md: '34px' },
   },
 
   '& a.absolute-link': {
@@ -51,8 +54,8 @@ export const content = css({
     right: 0,
     bottom: 0,
 
-    width: '80px',
-    height: '80px',
+    width: { base: '56px', md: '80px' },
+    height: { base: '56px', md: '80px' },
     background: 'highlight',
     borderRadius: '30px',
 
@@ -70,6 +73,8 @@ export const content = css({
 
 export const header = css({
   display: 'flex',
+  flexWrap: 'wrap',
+  gap: '16px',
   justifyContent: 'space-between',
   alignContent: 'center',
 
@@ -77,8 +82,8 @@ export const header = css({
 });
 
 export const contentRight = css({
-  fontSize: '24px',
-  lineHeight: '34px',
+  fontSize: { base: '14px', md: '24px' },
+  lineHeight: { base: '20px', md: '34px' },
 
   display: 'flex',
   margin: 'auto 0',
@@ -95,7 +100,7 @@ export const contentRight = css({
   '& > div': {
     display: 'inline-block',
     marginLeft: '16px',
-    lineHeight: '24px',
+    lineHeight: { base: '18px', md: '24px' },
   },
 
   '& > div span': {

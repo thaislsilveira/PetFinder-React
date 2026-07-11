@@ -1,7 +1,7 @@
 import { css } from '../../../styled-system/css';
 
 export const container = css({
-  height: '100vh',
+  minHeight: '100vh',
 
   display: 'flex',
   alignItems: 'stretch',
@@ -15,6 +15,7 @@ export const content = css({
 
   width: '100%',
   maxWidth: '700px',
+  padding: '0 24px',
 });
 
 export const animationContainer = css({
@@ -22,12 +23,14 @@ export const animationContainer = css({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  width: '100%',
 
   animation: 'appearFromRight 1s',
 
   '& form': {
     margin: '80px 0',
-    width: '340px',
+    width: '100%',
+    maxWidth: '340px',
     textAlign: 'center',
   },
 
@@ -66,6 +69,7 @@ export const animationContainer = css({
 });
 
 export const background = css({
+  display: { base: 'none', md: 'block' },
   flex: 1,
   backgroundRepeat: 'repeat',
   backgroundPosition: 'center',

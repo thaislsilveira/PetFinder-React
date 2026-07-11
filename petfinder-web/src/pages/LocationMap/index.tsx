@@ -133,7 +133,7 @@ const LocationMap: React.FC = () => {
         <MapContainer
           center={mapCenter}
           zoom={15}
-          style={{ width: '100%', height: '100%', zIndex: 9 }}
+          style={{ flex: 1, width: '100%', height: '100%', zIndex: 9 }}
         >
           <RecenterMap center={mapCenter} />
           <MapClickHandler onMapClick={handleMapClick} />

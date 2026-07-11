@@ -71,7 +71,7 @@ export const content = css({
 
   '& .modal-scroll': {
     overflowY: 'auto',
-    padding: '40px 48px',
+    padding: { base: '24px 20px', md: '40px 48px' },
 
     '&::-webkit-scrollbar': {
       width: '8px',
@@ -100,8 +100,8 @@ export const content = css({
     width: '100%',
 
     textAlign: 'center',
-    fontSize: '24px',
-    lineHeight: '28px',
+    fontSize: { base: '20px', md: '24px' },
+    lineHeight: { base: '24px', md: '28px' },
     color: 'highlight',
     fontWeight: '700',
 
@@ -150,12 +150,12 @@ export const content = css({
 
   '& .field-row': {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: { base: '1fr', md: '1fr 1fr' },
     gap: '24px',
   },
 
   '& .field-row .input-block + .input-block': {
-    marginTop: 0,
+    marginTop: { base: '24px', md: '0' },
   },
 
   '& .input-block + .field-row, & .field-row + .input-block, & .field-row + .field-row':

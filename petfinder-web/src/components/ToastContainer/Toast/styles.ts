@@ -2,11 +2,11 @@ import { cva } from '../../../../styled-system/css';
 
 export const container = cva({
   base: {
-    width: '360px',
+    width: { base: 'calc(100vw - 32px)', md: '360px' },
 
     position: 'relative',
     padding: '16px 30px 16px 16px',
-    margin: '30px',
+    margin: { base: '12px 16px', md: '30px' },
     borderRadius: '10px',
     boxShadow: '2px 2px 8px rgba(0, 0, 0, 0.2)',
     display: 'flex',

@@ -54,6 +54,7 @@ export const container = css({
 
   position: 'relative',
   display: 'flex',
+  flexDirection: { base: 'column', md: 'row' },
 
   '& .map-popup .leaflet-popup-tip-container .leaflet-popup-tip': {
     background: '#e9c2af',
@@ -117,32 +118,36 @@ export const animationContainer = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
+  flexShrink: 0,
 
   animation: 'appearFromLeft 1s',
 
-  width: '440px',
+  width: { base: '100%', md: '440px' },
   background: 'background',
-  padding: '80px',
+  padding: { base: '20px 24px', md: '80px' },
 
   justifyContent: 'space-between',
+  gap: { base: '12px', md: '0' },
 
   '& h2': {
-    fontSize: '40px',
+    fontSize: { base: '20px', md: '40px' },
     fontWeight: '800',
 
-    lineHeight: '42px',
-    marginTop: '64px',
+    lineHeight: { base: '24px', md: '42px' },
+    marginTop: { base: '12px', md: '64px' },
   },
 
   '& p': {
-    marginRight: '28px',
-    marginTop: '24px',
+    marginRight: { base: '0', md: '28px' },
+    marginTop: { base: '8px', md: '24px' },
   },
 
   '& footer': {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: { base: 'row', md: 'column' },
+    alignItems: { base: 'center', md: 'flex-start' },
+    justifyContent: { base: 'space-between', md: 'flex-start' },
+    width: { base: '100%', md: 'auto' },
     gap: '20px',
 
     lineHeight: '24px',

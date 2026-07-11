@@ -11,6 +11,7 @@
     background: var(--colors-background);
     color: var(--colors-white);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   body,

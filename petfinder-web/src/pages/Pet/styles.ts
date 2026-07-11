@@ -13,9 +13,9 @@ export const content = css({
 
   '& .pet-details': {
     position: 'relative',
-    padding: '40px',
-    width: '700px',
-    margin: '64px auto',
+    padding: { base: '20px', md: '40px' },
+    width: { base: 'auto', md: '700px' },
+    margin: { base: '84px 16px 24px', md: '64px auto' },
     overflow: 'hidden',
     backgroundColor: '#f7f3eb',
     borderRadius: '20px',
@@ -24,15 +24,15 @@ export const content = css({
 
   '& .pet-details > img': {
     width: '100%',
-    height: '300px',
+    height: { base: '220px', md: '300px' },
     objectFit: 'cover',
     borderRadius: '20px',
   },
 
   '& .pet-details .found-badge': {
     position: 'absolute',
-    top: '56px',
-    left: '56px',
+    top: { base: '32px', md: '56px' },
+    left: { base: '32px', md: '56px' },
     zIndex: 1,
 
     display: 'flex',
@@ -51,15 +51,16 @@ export const content = css({
 
   '& .pet-details .images': {
     display: 'grid',
-    gridTemplateColumns: 'repeat(6, 1fr)',
+    gridTemplateColumns: { base: 'repeat(4, 1fr)', md: 'repeat(6, 1fr)' },
     columnGap: '16px',
+    rowGap: '16px',
 
     margin: '20px 0 0',
   },
 
   '& .pet-details .images button': {
     border: '0',
-    height: '88px',
+    height: { base: '64px', md: '88px' },
     background: 'none',
     cursor: 'pointer',
     borderRadius: '20px',
@@ -75,7 +76,7 @@ export const content = css({
 
   '& .pet-details .images button img': {
     width: '100%',
-    height: '88px',
+    height: { base: '64px', md: '88px' },
     objectFit: 'cover',
   },
 
@@ -133,12 +134,13 @@ export const content = css({
     marginTop: '24px',
 
     display: 'flex',
+    flexDirection: { base: 'column', md: 'row' },
     gap: '20px',
   },
 
   '& .pet-details .type-details div': {
     flex: 1,
-    padding: '32px 24px',
+    padding: { base: '20px', md: '32px 24px' },
     borderRadius: '20px',
     lineHeight: '28px',
   },
