@@ -14,6 +14,7 @@ describe('petView', () => {
     information: 'Muito dócil',
     responsibleName: 'Rex Owner',
     phone: '11912345678',
+    found: false,
     images: [{ id: 1, path: 'dog.png', petId: 1 }],
     createdAt,
     updatedAt: createdAt,
@@ -31,6 +32,7 @@ describe('petView', () => {
       information: 'Muito dócil',
       responsible_name: 'Rex Owner',
       phone: '11912345678',
+      found: false,
       images: [{ id: 1, url: 'http://localhost:3333/uploads/dog.png' }],
       created_at: createdAt,
     });

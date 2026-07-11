@@ -29,6 +29,7 @@ interface ModalProps {
   visible: boolean;
   hide: () => void;
   onUpdated: (pet: Pet) => void;
+  onImageDeleted: (imageId: number) => void;
 }
 
 const ModalEditarPet: React.FC<ModalProps> = ({
@@ -37,17 +38,20 @@ const ModalEditarPet: React.FC<ModalProps> = ({
   visible,
   hide,
   onUpdated,
+  onImageDeleted,
 }) => {
   const ref = useRef<HTMLInputElement>(null);
   const { addToast } = useToast();
 
   const [typeOn, setTypeOn] = useState(0);
   const [sexOn, setSexOn] = useState(0);
+  const [foundOn, setFoundOn] = useState(0);
   const [port, setPort] = useState('');
   const [breed, setBreed] = useState('');
   const [information, setInformation] = useState('');
   const [responsibleName, setResponsibleName] = useState('');
   const [phone, setPhone] = useState('');
+  const [existingImages, setExistingImages] = useState(pet.images);
   const [newImages, setNewImages] = useState<File[]>([]);
   const [newImagesPreview, setNewImagesPreview] = useState<string[]>([]);
 
@@ -58,14 +62,36 @@ const ModalEditarPet: React.FC<ModalProps> = ({
 
     setTypeOn(pet.type ? 1 : 0);
     setSexOn(pet.sex ? 1 : 0);
+    setFoundOn(pet.found ? 1 : 0);
     setPort(pet.port);
     setBreed(pet.breed);
     setInformation(pet.information);
     setResponsibleName(pet.responsible_name);
     setPhone(pet.phone ?? '');
+    setExistingImages(pet.images);
     setNewImages([]);
     setNewImagesPreview([]);
   }, [visible, pet]);
+
+  const handleDeleteImage = useCallback(
+    async (imageId: number) => {
+      try {
+        await api.delete(`pets/${petId}/images/${imageId}`);
+
+        setExistingImages(current =>
+          current.filter(image => image.id !== imageId),
+        );
+        onImageDeleted(imageId);
+      } catch {
+        addToast({
+          type: 'error',
+          title: 'Erro ao remover foto',
+          description: 'Não foi possível remover a foto, tente novamente.',
+        });
+      }
+    },
+    [addToast, onImageDeleted, petId],
+  );
 
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
     if (!event.target.files) {
@@ -91,6 +117,7 @@ const ModalEditarPet: React.FC<ModalProps> = ({
     data.append('latitude', String(pet.latitude));
     data.append('longitude', String(pet.longitude));
     data.append('sex', String(sexOn));
+    data.append('found', String(foundOn));
     data.append('port', port);
     data.append('breed', breed);
     data.append('information', information);
@@ -128,6 +155,7 @@ const ModalEditarPet: React.FC<ModalProps> = ({
     information,
     newImages,
     onUpdated,
+    foundOn,
     pet.latitude,
     pet.longitude,
     petId,
@@ -148,7 +176,7 @@ const ModalEditarPet: React.FC<ModalProps> = ({
   );
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- click-outside-to-dismiss backdrop; the modal already has an accessible close button
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       className={container({ visible })}
       ref={ref}
@@ -219,15 +247,47 @@ const ModalEditarPet: React.FC<ModalProps> = ({
                 </div>
 
                 <div className="input-block">
+                  <label htmlFor="found">Animal encontrado</label>
+                  <div className="button-select">
+                    <button
+                      type="button"
+                      name="found"
+                      className={foundOn ? 'active' : ''}
+                      onClick={() => {
+                        setFoundOn(1);
+                      }}
+                    >
+                      sim
+                    </button>
+                    <button
+                      type="button"
+                      name="found"
+                      className={!foundOn ? 'active dont-open' : ''}
+                      onClick={() => {
+                        setFoundOn(0);
+                      }}
+                    >
+                      não
+                    </button>
+                  </div>
+                </div>
+
+                <div className="input-block">
                   <label htmlFor="images">Fotos atuais</label>
 
                   <div className="images-container">
-                    {pet.images.map(image => (
-                      <img
-                        key={image.id}
-                        src={image.url}
-                        alt={responsibleName}
-                      />
+                    {existingImages.map(image => (
+                      <div className="existing-image" key={image.id}>
+                        <img src={image.url} alt={responsibleName} />
+                        <button
+                          type="button"
+                          className="remove-image-button"
+                          onClick={() => handleDeleteImage(image.id)}
+                          aria-label="Remover foto"
+                        >
+                          <FiXCircle size={16} />
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>

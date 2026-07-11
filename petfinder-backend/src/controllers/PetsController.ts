@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 import { Request, Response } from 'express';
 
 import { z } from 'zod';
@@ -6,6 +9,8 @@ import petView from '../views/pets_view';
 
 import PetsService from '../services/PetsService';
 import phoneRegExp from '../validation/phone';
+
+const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
 
 const petFieldsSchema = {
   type: z.boolean(),
@@ -29,6 +34,7 @@ const createSchema = z.object({
 
 const updateSchema = z.object({
   ...petFieldsSchema,
+  found: z.boolean(),
   images: z.array(z.object({ path: z.string().min(1) })).optional(),
 });
 
@@ -109,6 +115,7 @@ export default {
       information,
       responsible_name,
       phone,
+      found,
     } = request.body;
 
     const requestImages = request.files as Express.Multer.File[];
@@ -126,6 +133,7 @@ export default {
       information,
       responsible_name,
       phone,
+      found: found === '1',
       images,
     };
 
@@ -141,9 +149,20 @@ export default {
       information: parsedData.information,
       responsibleName: parsedData.responsible_name,
       phone: parsedData.phone,
+      found: parsedData.found,
       images: parsedData.images,
     });
 
     return response.json(petView.render(pet));
+  },
+
+  async deleteImage(request: Request, response: Response) {
+    const { petId, imageId } = request.params;
+
+    const image = await PetsService.deleteImage(Number(petId), Number(imageId));
+
+    fs.unlink(path.join(uploadsDir, image.path), () => {});
+
+    return response.status(204).send();
   },
 };

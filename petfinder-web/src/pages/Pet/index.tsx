@@ -7,6 +7,7 @@ import {
   GiFemale as GiFemaleIcon,
   GiMale as GiMaleIcon,
 } from 'react-icons/gi';
+import { FiCheck as FiCheckIcon } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 
@@ -24,6 +25,7 @@ const GiCat = asIcon(GiCatIcon);
 const GiSittingDog = asIcon(GiSittingDogIcon);
 const GiFemale = asIcon(GiFemaleIcon);
 const GiMale = asIcon(GiMaleIcon);
+const FiCheck = asIcon(FiCheckIcon);
 
 export interface Pet {
   latitude: number;
@@ -35,6 +37,7 @@ export interface Pet {
   information: string;
   responsible_name: string;
   phone: string;
+  found: boolean;
   images: Array<{
     id: number;
     url: string;
@@ -57,6 +60,12 @@ const Pet: React.FC = () => {
     });
   }, [params.id]);
 
+  useEffect(() => {
+    setActiveImageIndex(current =>
+      pet && current >= pet.images.length ? 0 : current,
+    );
+  }, [pet]);
+
   if (!pet) {
     return <p>Carregando...</p>;
   }
@@ -69,10 +78,19 @@ const Pet: React.FC = () => {
       <Sidebar />
       <main className={content}>
         <div className="pet-details">
-          <img
-            src={pet.images[activeImageIndex].url}
-            alt={pet.type ? 'Cachorro' : 'Gato'}
-          />
+          {pet.found && (
+            <div className="found-badge">
+              <FiCheck size={16} color="#fff" />
+              Encontrado
+            </div>
+          )}
+
+          {pet.images.length > 0 && (
+            <img
+              src={pet.images[activeImageIndex].url}
+              alt={pet.type ? 'Cachorro' : 'Gato'}
+            />
+          )}
 
           <div className="images">
             {pet.images.map((image, index) => {
@@ -174,6 +192,18 @@ const Pet: React.FC = () => {
           visible={editVisible}
           hide={() => setEditVisible(false)}
           onUpdated={updatedPet => setPet(updatedPet)}
+          onImageDeleted={imageId =>
+            setPet(current =>
+              current
+                ? {
+                    ...current,
+                    images: current.images.filter(
+                      image => image.id !== imageId,
+                    ),
+                  }
+                : current,
+            )
+          }
         />
       )}
     </div>

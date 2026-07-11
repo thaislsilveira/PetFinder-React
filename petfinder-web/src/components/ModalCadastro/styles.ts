@@ -10,7 +10,7 @@ export const container = cva({
     left: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 100,
+    zIndex: 1100,
     overflow: 'auto',
   },
   variants: {
@@ -184,6 +184,30 @@ export const content = css({
     borderRadius: '20px',
     border: '1px solid rgba(0, 0, 0, 0.05)',
     boxShadow: 'inset 0 0 2px #fff, 0 0 12px rgba(0, 0, 0, 0.05)',
+  },
+
+  '& .input-block .images-container .existing-image': {
+    position: 'relative',
+  },
+
+  '& .input-block .images-container .remove-image-button': {
+    position: 'absolute',
+    top: '-6px',
+    right: '-6px',
+
+    width: '22px',
+    height: '22px',
+    padding: 0,
+    border: '0',
+    borderRadius: '50%',
+
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    background: 'error',
+    color: '#ffffff',
+    cursor: 'pointer',
   },
 
   '& .input-block .new-image': {

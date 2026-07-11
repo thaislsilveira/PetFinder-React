@@ -22,5 +22,6 @@ routes.get('/pets', PetsController.index);
 routes.get('/pets/:id', PetsController.show);
 routes.post('/pets', upload.array('images'), PetsController.create);
 routes.put('/pets/:id', upload.array('images'), PetsController.update);
+routes.delete('/pets/:petId/images/:imageId', PetsController.deleteImage);
 
 export default routes;

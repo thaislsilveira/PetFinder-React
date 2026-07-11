@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import { Request, Response } from 'express';
 import { ZodError } from 'zod';
 
@@ -10,7 +12,12 @@ vi.mock('../services/PetsService', () => ({
     findById: vi.fn(),
     create: vi.fn(),
     update: vi.fn(),
+    deleteImage: vi.fn(),
   },
+}));
+
+vi.mock('fs', () => ({
+  default: { unlink: vi.fn((filePath, callback) => callback()) },
 }));
 
 const mockedPetsService = PetsService as unknown as {
@@ -18,7 +25,10 @@ const mockedPetsService = PetsService as unknown as {
   findById: ReturnType<typeof vi.fn>;
   create: ReturnType<typeof vi.fn>;
   update: ReturnType<typeof vi.fn>;
+  deleteImage: ReturnType<typeof vi.fn>;
 };
+
+const mockedFs = fs as unknown as { unlink: ReturnType<typeof vi.fn> };
 
 function createResponse() {
   const response = {} as Response;
@@ -55,6 +65,8 @@ describe('PetsController', () => {
     mockedPetsService.findById.mockReset();
     mockedPetsService.create.mockReset();
     mockedPetsService.update.mockReset();
+    mockedPetsService.deleteImage.mockReset();
+    mockedFs.unlink.mockClear();
   });
 
   describe('index', () => {
@@ -182,11 +194,26 @@ describe('PetsController', () => {
         information: 'Muito dócil',
         responsibleName: 'Rex Owner',
         phone: '11912345678',
+        found: false,
         images: [],
       });
       expect(response.status).not.toHaveBeenCalled();
       expect(response.json).toHaveBeenCalledWith(
         expect.objectContaining({ id: 1, breed: 'Poodle' }),
+      );
+    });
+
+    it('marks the pet as found when the found flag is sent', async () => {
+      mockedPetsService.update.mockResolvedValueOnce(makePet());
+
+      const request = makeRequest({ found: '1' });
+      const response = createResponse();
+
+      await PetsController.update(request, response);
+
+      expect(mockedPetsService.update).toHaveBeenCalledWith(
+        1,
+        expect.objectContaining({ found: true }),
       );
     });
 
@@ -215,6 +242,32 @@ describe('PetsController', () => {
         PetsController.update(request, response),
       ).rejects.toBeInstanceOf(ZodError);
       expect(mockedPetsService.update).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('deleteImage', () => {
+    it('deletes the image and removes its file, responding with no content', async () => {
+      mockedPetsService.deleteImage.mockResolvedValueOnce({
+        id: 9,
+        path: 'dog.png',
+        petId: 1,
+      });
+
+      const request = {
+        params: { petId: '1', imageId: '9' },
+      } as unknown as Request;
+      const response = createResponse();
+      response.send = vi.fn().mockReturnValue(response);
+
+      await PetsController.deleteImage(request, response);
+
+      expect(mockedPetsService.deleteImage).toHaveBeenCalledWith(1, 9);
+      expect(mockedFs.unlink).toHaveBeenCalledWith(
+        expect.stringContaining('dog.png'),
+        expect.any(Function),
+      );
+      expect(response.status).toHaveBeenCalledWith(204);
+      expect(response.send).toHaveBeenCalled();
     });
   });
 });

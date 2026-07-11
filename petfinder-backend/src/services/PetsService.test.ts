@@ -9,6 +9,10 @@ vi.mock('../database/prisma', () => ({
       create: vi.fn(),
       update: vi.fn(),
     },
+    image: {
+      findFirstOrThrow: vi.fn(),
+      delete: vi.fn(),
+    },
   },
 }));
 
@@ -19,6 +23,10 @@ const mockedPrisma = prisma as unknown as {
     create: ReturnType<typeof vi.fn>;
     update: ReturnType<typeof vi.fn>;
   };
+  image: {
+    findFirstOrThrow: ReturnType<typeof vi.fn>;
+    delete: ReturnType<typeof vi.fn>;
+  };
 };
 
 describe('PetsService', () => {
@@ -27,6 +35,8 @@ describe('PetsService', () => {
     mockedPrisma.pet.findUniqueOrThrow.mockReset();
     mockedPrisma.pet.create.mockReset();
     mockedPrisma.pet.update.mockReset();
+    mockedPrisma.image.findFirstOrThrow.mockReset();
+    mockedPrisma.image.delete.mockReset();
   });
 
   it('finds all pets including their images', async () => {
@@ -90,6 +100,7 @@ describe('PetsService', () => {
       information: 'Muito dócil',
       responsibleName: 'Rex Owner',
       phone: '11912345678',
+      found: false,
       images: [{ path: 'cat.png' }],
     };
 
@@ -118,6 +129,7 @@ describe('PetsService', () => {
       information: 'Muito dócil',
       responsibleName: 'Rex Owner',
       phone: '11912345678',
+      found: true,
     };
 
     mockedPrisma.pet.update.mockResolvedValueOnce({ id: 1, ...data });
@@ -129,5 +141,21 @@ describe('PetsService', () => {
       data,
       include: { images: true },
     });
+  });
+
+  it('deletes an image scoped to its pet', async () => {
+    const image = { id: 9, path: 'dog.png', petId: 1 };
+    mockedPrisma.image.findFirstOrThrow.mockResolvedValueOnce(image);
+    mockedPrisma.image.delete.mockResolvedValueOnce(image);
+
+    const result = await PetsService.deleteImage(1, 9);
+
+    expect(mockedPrisma.image.findFirstOrThrow).toHaveBeenCalledWith({
+      where: { id: 9, petId: 1 },
+    });
+    expect(mockedPrisma.image.delete).toHaveBeenCalledWith({
+      where: { id: 9 },
+    });
+    expect(result).toEqual(image);
   });
 });

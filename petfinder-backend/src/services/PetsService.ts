@@ -23,6 +23,7 @@ interface UpdatePetData {
   information: string;
   responsibleName: string;
   phone?: string;
+  found: boolean;
   images?: { path: string }[];
 }
 
@@ -61,5 +62,15 @@ export default {
       },
       include: { images: true },
     });
+  },
+
+  async deleteImage(petId: number, imageId: number) {
+    const image = await prisma.image.findFirstOrThrow({
+      where: { id: imageId, petId },
+    });
+
+    await prisma.image.delete({ where: { id: imageId } });
+
+    return image;
   },
 };

@@ -16,6 +16,7 @@ export default {
       information: pet.information,
       responsible_name: pet.responsibleName,
       phone: pet.phone,
+      found: pet.found,
       images: imagesView.renderMany(pet.images),
       created_at: pet.createdAt,
     };

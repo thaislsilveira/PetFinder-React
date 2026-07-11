@@ -30,6 +30,7 @@ import {
 import api from '../../services/api';
 
 import mapIcon from '../../utils/mapIcon';
+import foundMapIcon from '../../utils/foundMapIcon';
 
 import ModalCadastro from '../../components/ModalCadastro';
 import Logo from '../../components/Logo';
@@ -45,6 +46,7 @@ interface Pet {
   id: number;
   latitude: number;
   longitude: number;
+  found: boolean;
   images: Array<{
     id: number;
     url: string;
@@ -143,7 +145,7 @@ const LocationMap: React.FC = () => {
           {pets.map(pet => {
             return (
               <Marker
-                icon={mapIcon}
+                icon={pet.found ? foundMapIcon : mapIcon}
                 position={[pet.latitude, pet.longitude]}
                 key={`${pet.longitude}${pet.latitude}${pet.id}marker`}
               >

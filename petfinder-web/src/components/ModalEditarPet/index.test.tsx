@@ -7,12 +7,9 @@ import { Pet } from '../../pages/Pet';
 import ModalEditarPet from '.';
 
 vi.mock('../../services/api', () => ({
-  default: { put: vi.fn() },
+  default: { put: vi.fn(), delete: vi.fn() },
 }));
 
-// react-spring's leave transition keeps a toast mounted until a real
-// animation frame finishes, which jsdom won't drive - mock it so toast
-// assertions only depend on our own state logic. See hooks/toast.test.tsx.
 vi.mock('@react-spring/web', () => ({
   useTransition:
     (items: unknown[]) =>
@@ -26,7 +23,10 @@ vi.mock('@react-spring/web', () => ({
   ),
 }));
 
-const mockedApi = api as unknown as { put: ReturnType<typeof vi.fn> };
+const mockedApi = api as unknown as {
+  put: ReturnType<typeof vi.fn>;
+  delete: ReturnType<typeof vi.fn>;
+};
 
 const pet: Pet = {
   latitude: -23.55,
@@ -34,6 +34,7 @@ const pet: Pet = {
   type: true,
   port: 'Médio',
   sex: false,
+  found: false,
   breed: 'Vira-lata',
   information: 'Muito dócil',
   responsible_name: 'Fulano de Tal',
@@ -46,6 +47,7 @@ function renderModal(
 ) {
   const hide = vi.fn();
   const onUpdated = vi.fn();
+  const onImageDeleted = vi.fn();
 
   render(
     <ToastProvider>
@@ -55,17 +57,19 @@ function renderModal(
         visible
         hide={hide}
         onUpdated={onUpdated}
+        onImageDeleted={onImageDeleted}
         {...overrides}
       />
     </ToastProvider>,
   );
 
-  return { hide, onUpdated };
+  return { hide, onUpdated, onImageDeleted };
 }
 
 describe('ModalEditarPet', () => {
   beforeEach(() => {
     mockedApi.put.mockReset();
+    mockedApi.delete.mockReset();
   });
 
   it("pre-fills the form with the pet's current data when opened", () => {
@@ -80,6 +84,9 @@ describe('ModalEditarPet', () => {
       'active',
     );
     expect(screen.getByRole('button', { name: 'macho' })).toHaveClass(
+      'active dont-open',
+    );
+    expect(screen.getByRole('button', { name: 'não' })).toHaveClass(
       'active dont-open',
     );
   });
@@ -104,12 +111,59 @@ describe('ModalEditarPet', () => {
     expect(formData.get('longitude')).toBe(String(pet.longitude));
     expect(formData.get('breed')).toBe('Poodle');
     expect(formData.get('responsible_name')).toBe('Fulano de Tal');
+    expect(formData.get('found')).toBe('0');
 
     await waitFor(() =>
       expect(onUpdated).toHaveBeenCalledWith({ ...pet, breed: 'Poodle' }),
     );
     expect(hide).toHaveBeenCalled();
     expect(screen.getByText('Cadastro atualizado!')).toBeInTheDocument();
+  });
+
+  it('sends found=1 when the pet is marked as found', async () => {
+    mockedApi.put.mockResolvedValueOnce({ data: { ...pet, found: true } });
+
+    renderModal();
+
+    fireEvent.click(screen.getByRole('button', { name: 'sim' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Salvar alterações' }));
+
+    await waitFor(() => expect(mockedApi.put).toHaveBeenCalledTimes(1));
+
+    const [, formData] = mockedApi.put.mock.calls[0];
+    expect(formData.get('found')).toBe('1');
+  });
+
+  it('deletes a photo and notifies the parent when its remove button is clicked', async () => {
+    mockedApi.delete.mockResolvedValueOnce({});
+
+    const { onImageDeleted } = renderModal();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Remover foto' }));
+
+    await waitFor(() =>
+      expect(mockedApi.delete).toHaveBeenCalledWith('pets/1/images/1'),
+    );
+    expect(onImageDeleted).toHaveBeenCalledWith(1);
+    expect(
+      screen.queryByRole('button', { name: 'Remover foto' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('shows an error toast and keeps the photo when deletion fails', async () => {
+    mockedApi.delete.mockRejectedValueOnce(new Error('network error'));
+
+    const { onImageDeleted } = renderModal();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Remover foto' }));
+
+    await waitFor(() =>
+      expect(screen.getByText('Erro ao remover foto')).toBeInTheDocument(),
+    );
+    expect(onImageDeleted).not.toHaveBeenCalled();
+    expect(
+      screen.getByRole('button', { name: 'Remover foto' }),
+    ).toBeInTheDocument();
   });
 
   it('shows an error toast and keeps the modal open when the update request fails', async () => {

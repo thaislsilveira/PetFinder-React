@@ -12,6 +12,7 @@ export const content = css({
   flex: 1,
 
   '& .pet-details': {
+    position: 'relative',
     padding: '40px',
     width: '700px',
     margin: '64px auto',
@@ -26,6 +27,26 @@ export const content = css({
     height: '300px',
     objectFit: 'cover',
     borderRadius: '20px',
+  },
+
+  '& .pet-details .found-badge': {
+    position: 'absolute',
+    top: '56px',
+    left: '56px',
+    zIndex: 1,
+
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+
+    padding: '8px 16px',
+    borderRadius: '999px',
+    background: '#3cdc8c',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+
+    color: '#ffffff',
+    fontSize: '14px',
+    fontWeight: '700',
   },
 
   '& .pet-details .images': {
