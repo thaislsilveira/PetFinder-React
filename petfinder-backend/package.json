@@ -9,6 +9,7 @@
     "start": "node dist/server.js",
     "lint": "eslint --ext .ts src",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -42,7 +43,8 @@
     "prettier": "^3.9.4",
     "prisma": "^7.8.0",
     "tsx": "^4.23.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
   },
   "resolutions": {
     "@types/node": "18",
