@@ -27,9 +27,9 @@ export const content = css({
   animation: 'appearFromLeft 0.6s',
 
   backgroundRepeat: 'no-repeat',
-  backgroundSize: '600px',
-  backgroundPositionX: '400px',
-  backgroundPositionY: '250px',
+  backgroundSize: { base: '260px', md: '46%', lg: '54%' },
+  backgroundPositionX: { base: 'center', md: '90%', lg: '80%' },
+  backgroundPositionY: { base: '55%', md: '55%' },
 
   '& main': {
     maxWidth: { base: '100%', md: '350px' },
