@@ -14,7 +14,13 @@ dist
 **/src/generated
 
 # local dev database (contains real user data - never commit)
-**/src/database/database.sqlite
+**/src/database/*.sqlite
+
+# E2E test artifacts (regenerated on every run)
+/e2e/playwright-report/
+/e2e/test-results/
+/e2e/blob-report/
+/petfinder-backend/uploads-e2e/
 
 # local convenience scripts (personal, not shared with the team)
 /scripts/

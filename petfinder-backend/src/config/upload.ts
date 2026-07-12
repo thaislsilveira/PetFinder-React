@@ -1,9 +1,10 @@
 import multer from 'multer';
-import path from 'path';
+
+import uploadsDir from './uploadsDir';
 
 export default {
   storage: multer.diskStorage({
-    destination: path.join(__dirname, '..', '..', 'uploads'),
+    destination: uploadsDir,
     filename: (request, file, callback) => {
       const fileName = `${Date.now()}-${file.originalname}`;
 

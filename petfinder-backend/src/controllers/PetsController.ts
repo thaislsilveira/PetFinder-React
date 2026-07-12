@@ -10,8 +10,7 @@ import petView from '../views/pets_view';
 import PetsService from '../services/PetsService';
 import PetImageValidationService from '../services/PetImageValidationService';
 import phoneRegExp from '../validation/phone';
-
-const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
+import uploadsDir from '../config/uploadsDir';
 
 const petFieldsSchema = {
   type: z.boolean(),

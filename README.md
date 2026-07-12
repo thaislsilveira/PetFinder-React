@@ -37,6 +37,11 @@ yarn dev
 
 O frontend sobe em `http://localhost:3000` e depende do backend rodando em `http://localhost:3333`.
 
+## Testes :white_check_mark:
+
+- Testes unitários: `yarn test` dentro de `petfinder-backend` ou `petfinder-web`.
+- Testes end-to-end (Playwright, sobe backend + frontend de verdade): pasta `e2e/` — veja `e2e/README.md`.
+
 ## Web 
 
 ---
@@ -68,4 +73,5 @@ O frontend sobe em `http://localhost:3000` e depende do backend rodando em `http
    <li><a href="https://react-icons.github.io/react-icons/" target="_blank">React Icons</a></li>
    <li><a href="https://date-fns.org/" target="_blank">Date-fns</a></li>
    <li><a href="https://ai.google.dev/" target="_blank">Google Gemini API</a></li>
+   <li><a href="https://playwright.dev/" target="_blank">Playwright</a></li>
 </ul>

@@ -1,0 +1,15 @@
+{
+  "name": "petfinder-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "yarn@1.22.22",
+  "scripts": {
+    "test": "playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22",
+    "typescript": "^5"
+  }
+}

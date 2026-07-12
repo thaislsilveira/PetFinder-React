@@ -7,7 +7,7 @@ import {
   createUserContent,
 } from '@google/genai';
 
-const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
+import uploadsDir from '../config/uploadsDir';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -24,6 +24,12 @@ async function isPetImage(filename: string): Promise<boolean> {
   const mimeType = mimeTypeByExtension[extension];
 
   if (!mimeType) return true;
+
+  // Lets E2E tests exercise both outcomes without calling the real Gemini API:
+  // the fixture filename itself decides the verdict.
+  if (process.env.PET_IMAGE_VALIDATION_MOCK === 'true') {
+    return !filename.toLowerCase().includes('not-a-pet');
+  }
 
   const imageData = await fs.readFile(path.join(uploadsDir, filename));
 
