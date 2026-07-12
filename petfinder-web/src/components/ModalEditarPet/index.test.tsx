@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { AxiosError } from 'axios';
 
 import { ToastProvider } from '../../hooks/toast';
 import api from '../../services/api';
@@ -176,6 +177,31 @@ describe('ModalEditarPet', () => {
     await waitFor(() =>
       expect(screen.getByText('Erro ao atualizar')).toBeInTheDocument(),
     );
+    expect(onUpdated).not.toHaveBeenCalled();
+    expect(hide).not.toHaveBeenCalled();
+  });
+
+  it('shows a specific toast when the API rejects a photo that is not a pet', async () => {
+    const error = new AxiosError('Bad Request');
+    error.response = {
+      data: { error: 'Uma ou mais imagens não parecem ser de um animal.' },
+      status: 400,
+      statusText: 'Bad Request',
+      headers: {},
+      config: error.config as never,
+    };
+    mockedApi.put.mockRejectedValueOnce(error);
+
+    const { hide, onUpdated } = renderModal();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Salvar alterações' }));
+
+    await waitFor(() =>
+      expect(screen.getByText('Foto inválida')).toBeInTheDocument(),
+    );
+    expect(
+      screen.getByText('Uma ou mais imagens não parecem ser de um animal.'),
+    ).toBeInTheDocument();
     expect(onUpdated).not.toHaveBeenCalled();
     expect(hide).not.toHaveBeenCalled();
   });

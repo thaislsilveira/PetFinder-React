@@ -18,6 +18,7 @@ import { container, modal, content } from './styles';
 
 import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
+import getApiErrorMessage from '../../utils/getApiErrorMessage';
 
 const FiPlus = asIcon(FiPlusIcon);
 const FiXCircle = asIcon(FiXCircleIcon);
@@ -113,10 +114,13 @@ const ModalCadastro: React.FC<ModalProps> = ({
         description: 'Agora você pode visualizar o perfil do pet no mapa!',
       });
     } catch (error) {
+      const imageError = getApiErrorMessage(error);
+
       addToast({
         type: 'error',
-        title: 'Erro no cadastro',
+        title: imageError ? 'Foto inválida' : 'Erro no cadastro',
         description:
+          imageError ??
           'Verifique se todos os campos obrigatórios foram preenchidos corretamente.',
       });
     }

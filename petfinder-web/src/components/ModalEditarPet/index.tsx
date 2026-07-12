@@ -18,6 +18,7 @@ import { container, modal, content } from '../ModalCadastro/styles';
 
 import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
+import getApiErrorMessage from '../../utils/getApiErrorMessage';
 import { Pet } from '../../pages/Pet';
 
 const FiPlus = asIcon(FiPlusIcon);
@@ -140,11 +141,14 @@ const ModalEditarPet: React.FC<ModalProps> = ({
         title: 'Cadastro atualizado!',
         description: 'As informações do pet foram atualizadas com sucesso.',
       });
-    } catch {
+    } catch (error) {
+      const imageError = getApiErrorMessage(error);
+
       addToast({
         type: 'error',
-        title: 'Erro ao atualizar',
+        title: imageError ? 'Foto inválida' : 'Erro ao atualizar',
         description:
+          imageError ??
           'Verifique se todos os campos obrigatórios foram preenchidos corretamente.',
       });
     }
