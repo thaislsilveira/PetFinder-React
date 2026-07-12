@@ -6,7 +6,7 @@ export const container = css({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: { base: '24px', md: '0' },
+  padding: '24px',
 });
 
 export const content = css({
