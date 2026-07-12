@@ -8,6 +8,7 @@ import { z } from 'zod';
 import petView from '../views/pets_view';
 
 import PetsService from '../services/PetsService';
+import PetImageValidationService from '../services/PetImageValidationService';
 import phoneRegExp from '../validation/phone';
 
 const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
@@ -71,6 +72,21 @@ export default {
       return { path: image.filename };
     });
 
+    const invalidImage = await PetImageValidationService.validate(
+      images.map(image => image.path),
+    );
+
+    if (invalidImage) {
+      requestImages.forEach(image => {
+        fs.unlink(path.join(uploadsDir, image.filename), () => {});
+      });
+
+      return response.status(400).json({
+        error:
+          'Uma ou mais imagens enviadas não parecem ser de um animal de estimação.',
+      });
+    }
+
     const data = {
       type: type === '1',
       latitude,
@@ -122,6 +138,21 @@ export default {
     const images = requestImages.map(image => {
       return { path: image.filename };
     });
+
+    const invalidImage = await PetImageValidationService.validate(
+      images.map(image => image.path),
+    );
+
+    if (invalidImage) {
+      requestImages.forEach(image => {
+        fs.unlink(path.join(uploadsDir, image.filename), () => {});
+      });
+
+      return response.status(400).json({
+        error:
+          'Uma ou mais imagens enviadas não parecem ser de um animal de estimação.',
+      });
+    }
 
     const data = {
       type: type === '1',
