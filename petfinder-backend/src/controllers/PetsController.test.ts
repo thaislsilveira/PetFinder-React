@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { ZodError } from 'zod';
 
 import PetsService from '../services/PetsService';
+import PetImageValidationService from '../services/PetImageValidationService';
 import PetsController from './PetsController';
 
 vi.mock('../services/PetsService', () => ({
@@ -14,6 +15,10 @@ vi.mock('../services/PetsService', () => ({
     update: vi.fn(),
     deleteImage: vi.fn(),
   },
+}));
+
+vi.mock('../services/PetImageValidationService', () => ({
+  default: { validate: vi.fn() },
 }));
 
 vi.mock('fs', () => ({
@@ -27,6 +32,11 @@ const mockedPetsService = PetsService as unknown as {
   update: ReturnType<typeof vi.fn>;
   deleteImage: ReturnType<typeof vi.fn>;
 };
+
+const mockedPetImageValidationService =
+  PetImageValidationService as unknown as {
+    validate: ReturnType<typeof vi.fn>;
+  };
 
 const mockedFs = fs as unknown as { unlink: ReturnType<typeof vi.fn> };
 
@@ -66,6 +76,9 @@ describe('PetsController', () => {
     mockedPetsService.create.mockReset();
     mockedPetsService.update.mockReset();
     mockedPetsService.deleteImage.mockReset();
+    mockedPetImageValidationService.validate
+      .mockReset()
+      .mockResolvedValue(null);
     mockedFs.unlink.mockClear();
   });
 
@@ -152,6 +165,25 @@ describe('PetsController', () => {
         PetsController.create(request, response),
       ).rejects.toBeInstanceOf(ZodError);
       expect(mockedPetsService.create).not.toHaveBeenCalled();
+    });
+
+    it('rejects and cleans up uploaded files when an image is not a pet', async () => {
+      mockedPetImageValidationService.validate.mockResolvedValueOnce('dog.png');
+
+      const request = makeRequest();
+      const response = createResponse();
+
+      await PetsController.create(request, response);
+
+      expect(mockedFs.unlink).toHaveBeenCalledWith(
+        expect.stringContaining('dog.png'),
+        expect.any(Function),
+      );
+      expect(mockedPetsService.create).not.toHaveBeenCalled();
+      expect(response.status).toHaveBeenCalledWith(400);
+      expect(response.json).toHaveBeenCalledWith(
+        expect.objectContaining({ error: expect.any(String) }),
+      );
     });
   });
 
