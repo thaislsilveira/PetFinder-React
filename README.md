@@ -7,6 +7,10 @@ Uma plataforma baseada na plataforma [Happy](https://github.com/rocketseat-educa
 A ideia é fazer uma nova versão  em React.js do meu trabalho de conclução de curso apresentado em 2019 na Fatec-Jales, se baseando no projeto Happy. 👩‍💻
 
 
+## Validação de imagens com IA :robot:
+
+Ao cadastrar ou editar um pet, as fotos enviadas passam por uma verificação automática usando a API do Gemini (Google): se alguma imagem não parecer ser de um animal, o upload é rejeitado antes de ser salvo.
+
 ## Como rodar a aplicação :arrow_forward:
 
 Em caso de download do projeto você precisará baixar as dependências :warning: :heavy_exclamation_mark:
@@ -63,4 +67,5 @@ O frontend sobe em `http://localhost:3000` e depende do backend rodando em `http
    <li><a href="https://react-leaflet.js.org/" target="_blank">React Leaflet</a></li>
    <li><a href="https://react-icons.github.io/react-icons/" target="_blank">React Icons</a></li>
    <li><a href="https://date-fns.org/" target="_blank">Date-fns</a></li>
+   <li><a href="https://ai.google.dev/" target="_blank">Google Gemini API</a></li>
 </ul>
