@@ -14,7 +14,7 @@ jobs:
       run:
         working-directory: petfinder-web
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
@@ -35,7 +35,7 @@ jobs:
       run:
         working-directory: petfinder-backend
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
@@ -51,7 +51,7 @@ jobs:
     name: End-to-end tests (Playwright)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
