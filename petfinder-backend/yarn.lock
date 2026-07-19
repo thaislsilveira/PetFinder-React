@@ -259,10 +259,10 @@
     "@eslint/core" "^1.2.1"
     levn "^0.4.1"
 
-"@google/genai@^2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@google/genai/-/genai-2.11.0.tgz#7e21e4a0f094dc9e470144686c4b8110abbb7537"
-  integrity sha512-d2Csf29vS0GfHc52H0MG25ccY4FKvvbDgqDlEovLrPLF8sPegWr/GGO+LMOy85/1SnX0iV0zDAW7R8SsvWg8Vg==
+"@google/genai@^2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@google/genai/-/genai-2.12.0.tgz#42d81d8f5c5189b467189bd5b823858a17587a70"
+  integrity sha512-LUr972DZosqPUhf9Mb3CIVu/B99woD3QW6ZJV1T9aNgxaoimAZARmo+IyyDsxIL+zouFiYSdA4hzfEWXc9oNIQ==
   dependencies:
     google-auth-library "^10.3.0"
     p-retry "^4.6.2"
