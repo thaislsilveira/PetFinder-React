@@ -65,13 +65,13 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^29.1.1",
     "prettier": "^3.9.5",
-    "vite": "^8.1.4",
+    "vite": "^8.1.5",
     "vitest": "^4.1.10",
-    "storybook": "^10.5.0",
-    "@storybook/react-vite": "^10.5.0",
-    "@storybook/addon-a11y": "^10.5.0",
-    "@storybook/addon-docs": "^10.5.0",
-    "eslint-plugin-storybook": "^10.5.0"
+    "storybook": "^10.5.2",
+    "@storybook/react-vite": "^10.5.2",
+    "@storybook/addon-a11y": "^10.5.2",
+    "@storybook/addon-docs": "^10.5.2",
+    "eslint-plugin-storybook": "^10.5.2"
   },
   "resolutions": {
     "@types/react": "^18",
