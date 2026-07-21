@@ -20,6 +20,7 @@ import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
 import getApiErrorMessage from '../../utils/getApiErrorMessage';
 import isSessionExpiredError from '../../utils/isSessionExpiredError';
+import { MAX_PET_IMAGES } from '../../utils/petImages';
 
 const FiPlus = asIcon(FiPlusIcon);
 const FiXCircle = asIcon(FiXCircleIcon);
@@ -62,7 +63,17 @@ const ModalCadastro: React.FC<ModalProps> = ({
       return;
     }
 
-    const selectedImages = Array.from(event.target.files);
+    const selectedFiles = Array.from(event.target.files);
+
+    if (selectedFiles.length > MAX_PET_IMAGES) {
+      addToast({
+        type: 'error',
+        title: 'Muitas fotos selecionadas',
+        description: `Você pode enviar no máximo ${MAX_PET_IMAGES} fotos.`,
+      });
+    }
+
+    const selectedImages = selectedFiles.slice(0, MAX_PET_IMAGES);
     setImages(selectedImages);
 
     const selectedImagesPreview = selectedImages.map(image => {
@@ -229,15 +240,17 @@ const ModalCadastro: React.FC<ModalProps> = ({
                 </div>
 
                 <div className="input-block">
-                  <label htmlFor="images">Fotos</label>
+                  <label htmlFor="images">Fotos (máximo de {MAX_PET_IMAGES})</label>
 
                   <div className="images-container">
                     {previewImages?.map((image, index) => (
                       <img key={index} src={image} alt={responsibleName} />
                     ))}
-                    <label htmlFor="image[]" className="new-image">
-                      <FiPlus size={24} color="#94443f" />
-                    </label>
+                    {images.length < MAX_PET_IMAGES && (
+                      <label htmlFor="image[]" className="new-image">
+                        <FiPlus size={24} color="#94443f" />
+                      </label>
+                    )}
                   </div>
                   <input
                     multiple

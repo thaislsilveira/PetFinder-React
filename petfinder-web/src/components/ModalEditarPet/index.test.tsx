@@ -50,7 +50,7 @@ function renderModal(
   const onUpdated = vi.fn();
   const onImageDeleted = vi.fn();
 
-  render(
+  const { container } = render(
     <ToastProvider>
       <ModalEditarPet
         petId="1"
@@ -64,7 +64,14 @@ function renderModal(
     </ToastProvider>,
   );
 
-  return { hide, onUpdated, onImageDeleted };
+  return { hide, onUpdated, onImageDeleted, container };
+}
+
+function makeFiles(count: number) {
+  return Array.from(
+    { length: count },
+    (_, index) => new File(['photo'], `photo-${index}.png`, { type: 'image/png' }),
+  );
 }
 
 describe('ModalEditarPet', () => {
@@ -227,5 +234,26 @@ describe('ModalEditarPet', () => {
     expect(screen.queryByText('Foto inválida')).not.toBeInTheDocument();
     expect(onUpdated).not.toHaveBeenCalled();
     expect(hide).not.toHaveBeenCalled();
+  });
+
+  it('caps new photos so existing plus new never exceed 4, warning when more are chosen', () => {
+    const { container } = renderModal();
+
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+    fireEvent.change(fileInput, { target: { files: makeFiles(5) } });
+
+    const newImagesContainer = container.querySelectorAll('.images-container')[1];
+    expect(newImagesContainer.querySelectorAll('img')).toHaveLength(3);
+    expect(screen.getByText('Muitas fotos selecionadas')).toBeInTheDocument();
+  });
+
+  it('hides the add-photo button once existing plus new photos reach 4', () => {
+    const { container } = renderModal();
+
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+    fireEvent.change(fileInput, { target: { files: makeFiles(3) } });
+
+    expect(screen.queryByText('Muitas fotos selecionadas')).not.toBeInTheDocument();
+    expect(container.querySelector('label.new-image')).not.toBeInTheDocument();
   });
 });

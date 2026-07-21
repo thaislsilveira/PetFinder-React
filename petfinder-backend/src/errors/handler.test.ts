@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import multer from 'multer';
 import { z, ZodError } from 'zod';
 
 import { Prisma } from '../generated/prisma/client';
@@ -28,6 +29,19 @@ describe('errorHandler', () => {
     expect(response.json).toHaveBeenCalledWith({
       message: 'Validation fails',
       errors: { name: ['Nome é obrigatório'] },
+    });
+  });
+
+  it('returns 400 with a friendly message when too many photos are uploaded', () => {
+    const response = createResponse();
+
+    const error = new multer.MulterError('LIMIT_FILE_COUNT', 'images');
+
+    errorHandler(error, request, response, next);
+
+    expect(response.status).toHaveBeenCalledWith(400);
+    expect(response.json).toHaveBeenCalledWith({
+      error: 'Você pode enviar no máximo 4 fotos.',
     });
   });
 

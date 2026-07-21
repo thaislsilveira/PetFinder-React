@@ -21,7 +21,7 @@ function renderModal(
 ) {
   const hide = vi.fn();
 
-  render(
+  const { container } = render(
     <ToastProvider>
       <ModalCadastro
         positionMap={positionMap}
@@ -32,7 +32,14 @@ function renderModal(
     </ToastProvider>,
   );
 
-  return { hide };
+  return { hide, container };
+}
+
+function makeFiles(count: number) {
+  return Array.from(
+    { length: count },
+    (_, index) => new File(['photo'], `photo-${index}.png`, { type: 'image/png' }),
+  );
 }
 
 describe('ModalCadastro', () => {
@@ -169,5 +176,25 @@ describe('ModalCadastro', () => {
     );
     expect(screen.queryByText('Foto inválida')).not.toBeInTheDocument();
     expect(hide).not.toHaveBeenCalled();
+  });
+
+  it('caps the selected photos at 4 and warns when more are chosen', () => {
+    const { container } = renderModal();
+
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+    fireEvent.change(fileInput, { target: { files: makeFiles(5) } });
+
+    expect(container.querySelectorAll('.images-container img')).toHaveLength(4);
+    expect(screen.getByText('Muitas fotos selecionadas')).toBeInTheDocument();
+  });
+
+  it('hides the add-photo button once 4 photos are selected', () => {
+    const { container } = renderModal();
+
+    const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+    fireEvent.change(fileInput, { target: { files: makeFiles(4) } });
+
+    expect(screen.queryByText('Muitas fotos selecionadas')).not.toBeInTheDocument();
+    expect(container.querySelector('label.new-image')).not.toBeInTheDocument();
   });
 });

@@ -20,6 +20,7 @@ import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
 import getApiErrorMessage from '../../utils/getApiErrorMessage';
 import isSessionExpiredError from '../../utils/isSessionExpiredError';
+import { MAX_PET_IMAGES } from '../../utils/petImages';
 import { Pet } from '../../pages/Pet';
 
 const FiPlus = asIcon(FiPlusIcon);
@@ -109,7 +110,21 @@ const ModalEditarPet: React.FC<ModalProps> = ({
       return;
     }
 
-    const selectedImages = Array.from(event.target.files);
+    const availableSlots = Math.max(
+      MAX_PET_IMAGES - existingImages.length,
+      0,
+    );
+    const selectedFiles = Array.from(event.target.files);
+
+    if (selectedFiles.length > availableSlots) {
+      addToast({
+        type: 'error',
+        title: 'Muitas fotos selecionadas',
+        description: `Este pet pode ter no máximo ${MAX_PET_IMAGES} fotos no total.`,
+      });
+    }
+
+    const selectedImages = selectedFiles.slice(0, availableSlots);
     setNewImages(selectedImages);
 
     const selectedImagesPreview = selectedImages.map(image => {
@@ -316,15 +331,20 @@ const ModalEditarPet: React.FC<ModalProps> = ({
                 </div>
 
                 <div className="input-block">
-                  <label htmlFor="new-images">Adicionar fotos</label>
+                  <label htmlFor="new-images">
+                    Adicionar fotos (máximo de {MAX_PET_IMAGES} no total)
+                  </label>
 
                   <div className="images-container">
                     {newImagesPreview.map((image, index) => (
                       <img key={index} src={image} alt={responsibleName} />
                     ))}
-                    <label htmlFor="image[]" className="new-image">
-                      <FiPlus size={24} color="#94443f" />
-                    </label>
+                    {existingImages.length + newImages.length <
+                      MAX_PET_IMAGES && (
+                      <label htmlFor="image[]" className="new-image">
+                        <FiPlus size={24} color="#94443f" />
+                      </label>
+                    )}
                   </div>
                   <input
                     multiple

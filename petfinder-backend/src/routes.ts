@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import uploadConfig from './config/upload';
+import uploadConfig, { MAX_PET_IMAGES } from './config/upload';
 import ensureAuthenticated from './middlewares/ensureAuthenticated';
 
 import SessionController from './controllers/SessionController';
@@ -20,8 +20,16 @@ routes.use('/pets', ensureAuthenticated);
 
 routes.get('/pets', PetsController.index);
 routes.get('/pets/:id', PetsController.show);
-routes.post('/pets', upload.array('images'), PetsController.create);
-routes.put('/pets/:id', upload.array('images'), PetsController.update);
+routes.post(
+  '/pets',
+  upload.array('images', MAX_PET_IMAGES),
+  PetsController.create,
+);
+routes.put(
+  '/pets/:id',
+  upload.array('images', MAX_PET_IMAGES),
+  PetsController.update,
+);
 routes.delete('/pets/:petId/images/:imageId', PetsController.deleteImage);
 
 export default routes;

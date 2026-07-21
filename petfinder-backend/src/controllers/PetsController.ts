@@ -11,6 +11,7 @@ import PetsService from '../services/PetsService';
 import PetImageValidationService from '../services/PetImageValidationService';
 import phoneRegExp from '../validation/phone';
 import uploadsDir from '../config/uploadsDir';
+import { MAX_PET_IMAGES } from '../config/upload';
 
 const petFieldsSchema = {
   type: z.boolean(),
@@ -137,6 +138,19 @@ export default {
     const images = requestImages.map(image => {
       return { path: image.filename };
     });
+
+    const existingPet = await PetsService.findById(Number(id));
+    const totalImages = existingPet.images.length + images.length;
+
+    if (totalImages > MAX_PET_IMAGES) {
+      requestImages.forEach(image => {
+        fs.unlink(path.join(uploadsDir, image.filename), () => {});
+      });
+
+      return response.status(400).json({
+        error: `Você pode ter no máximo ${MAX_PET_IMAGES} fotos por pet.`,
+      });
+    }
 
     const invalidImage = await PetImageValidationService.validate(
       images.map(image => image.path),

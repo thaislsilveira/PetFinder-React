@@ -72,7 +72,7 @@ function makePet(overrides = {}) {
 describe('PetsController', () => {
   beforeEach(() => {
     mockedPetsService.findAll.mockReset();
-    mockedPetsService.findById.mockReset();
+    mockedPetsService.findById.mockReset().mockResolvedValue(makePet());
     mockedPetsService.create.mockReset();
     mockedPetsService.update.mockReset();
     mockedPetsService.deleteImage.mockReset();
@@ -274,6 +274,37 @@ describe('PetsController', () => {
         PetsController.update(request, response),
       ).rejects.toBeInstanceOf(ZodError);
       expect(mockedPetsService.update).not.toHaveBeenCalled();
+    });
+
+    it('rejects and cleans up uploaded files when existing plus new photos exceed the limit', async () => {
+      mockedPetsService.findById.mockResolvedValueOnce(
+        makePet({
+          images: [
+            { id: 1, path: 'a.png', petId: 1 },
+            { id: 2, path: 'b.png', petId: 1 },
+            { id: 3, path: 'c.png', petId: 1 },
+            { id: 4, path: 'd.png', petId: 1 },
+          ],
+        }),
+      );
+
+      const request = {
+        ...makeRequest(),
+        files: [{ filename: 'new-photo.png' }],
+      } as unknown as Request;
+      const response = createResponse();
+
+      await PetsController.update(request, response);
+
+      expect(mockedFs.unlink).toHaveBeenCalledWith(
+        expect.stringContaining('new-photo.png'),
+        expect.any(Function),
+      );
+      expect(mockedPetsService.update).not.toHaveBeenCalled();
+      expect(response.status).toHaveBeenCalledWith(400);
+      expect(response.json).toHaveBeenCalledWith(
+        expect.objectContaining({ error: expect.any(String) }),
+      );
     });
   });
 
