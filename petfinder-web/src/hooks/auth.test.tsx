@@ -1,9 +1,10 @@
 import { act, renderHook } from '@testing-library/react';
 
-import api from '../services/api';
+import api, { SESSION_EXPIRED_EVENT } from '../services/api';
 import { AuthUser, useAuth } from './auth';
 
 vi.mock('../services/api', () => ({
+  SESSION_EXPIRED_EVENT: 'petfinder:sessionExpired',
   default: {
     post: vi.fn(),
     defaults: { headers: {} as Record<string, string> },
@@ -68,6 +69,27 @@ describe('useAuth', () => {
     expect(result.current.user).toBeUndefined();
     expect(localStorage.getItem('@PetFinder:token')).toBeNull();
     expect(localStorage.getItem('@PetFinder:user')).toBeNull();
+    expect(mockedApi.defaults.headers.authorization).toBeUndefined();
+  });
+
+  it('signs out when the api dispatches a session-expired event', async () => {
+    mockedApi.post.mockResolvedValueOnce({ data: { token: 'abc123', user } });
+
+    const { result } = renderHook(() => useAuth(), { wrapper: AuthUser });
+
+    await act(async () => {
+      await result.current.signIn({
+        email: user.email,
+        password: 'secret',
+      });
+    });
+
+    act(() => {
+      window.dispatchEvent(new Event(SESSION_EXPIRED_EVENT));
+    });
+
+    expect(result.current.user).toBeUndefined();
+    expect(localStorage.getItem('@PetFinder:token')).toBeNull();
     expect(mockedApi.defaults.headers.authorization).toBeUndefined();
   });
 

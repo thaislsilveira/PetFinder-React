@@ -19,6 +19,7 @@ import { container, modal, content } from './styles';
 import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
 import getApiErrorMessage from '../../utils/getApiErrorMessage';
+import isSessionExpiredError from '../../utils/isSessionExpiredError';
 
 const FiPlus = asIcon(FiPlusIcon);
 const FiXCircle = asIcon(FiXCircleIcon);
@@ -114,6 +115,15 @@ const ModalCadastro: React.FC<ModalProps> = ({
         description: 'Agora você pode visualizar o perfil do pet no mapa!',
       });
     } catch (error) {
+      if (isSessionExpiredError(error)) {
+        addToast({
+          type: 'error',
+          title: 'Sessão expirada',
+          description: 'Faça login novamente para continuar.',
+        });
+        return;
+      }
+
       const imageError = getApiErrorMessage(error);
 
       addToast({

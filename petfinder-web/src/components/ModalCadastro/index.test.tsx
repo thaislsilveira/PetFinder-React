@@ -148,4 +148,26 @@ describe('ModalCadastro', () => {
     ).toBeInTheDocument();
     expect(hide).not.toHaveBeenCalled();
   });
+
+  it('shows a session-expired toast instead of "Foto inválida" when the token has expired', async () => {
+    const error = new AxiosError('Unauthorized');
+    error.response = {
+      data: { error: 'jwt expired', tokenExpired: true },
+      status: 401,
+      statusText: 'Unauthorized',
+      headers: {},
+      config: error.config as never,
+    };
+    mockedApi.post.mockRejectedValueOnce(error);
+
+    const { hide } = renderModal();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Confirmar' }));
+
+    await waitFor(() =>
+      expect(screen.getByText('Sessão expirada')).toBeInTheDocument(),
+    );
+    expect(screen.queryByText('Foto inválida')).not.toBeInTheDocument();
+    expect(hide).not.toHaveBeenCalled();
+  });
 });

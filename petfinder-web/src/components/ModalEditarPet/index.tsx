@@ -19,6 +19,7 @@ import { container, modal, content } from '../ModalCadastro/styles';
 import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
 import getApiErrorMessage from '../../utils/getApiErrorMessage';
+import isSessionExpiredError from '../../utils/isSessionExpiredError';
 import { Pet } from '../../pages/Pet';
 
 const FiPlus = asIcon(FiPlusIcon);
@@ -83,7 +84,16 @@ const ModalEditarPet: React.FC<ModalProps> = ({
           current.filter(image => image.id !== imageId),
         );
         onImageDeleted(imageId);
-      } catch {
+      } catch (error) {
+        if (isSessionExpiredError(error)) {
+          addToast({
+            type: 'error',
+            title: 'Sessão expirada',
+            description: 'Faça login novamente para continuar.',
+          });
+          return;
+        }
+
         addToast({
           type: 'error',
           title: 'Erro ao remover foto',
@@ -142,6 +152,15 @@ const ModalEditarPet: React.FC<ModalProps> = ({
         description: 'As informações do pet foram atualizadas com sucesso.',
       });
     } catch (error) {
+      if (isSessionExpiredError(error)) {
+        addToast({
+          type: 'error',
+          title: 'Sessão expirada',
+          description: 'Faça login novamente para continuar.',
+        });
+        return;
+      }
+
       const imageError = getApiErrorMessage(error);
 
       addToast({

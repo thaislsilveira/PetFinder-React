@@ -205,4 +205,27 @@ describe('ModalEditarPet', () => {
     expect(onUpdated).not.toHaveBeenCalled();
     expect(hide).not.toHaveBeenCalled();
   });
+
+  it('shows a session-expired toast instead of "Foto inválida" when the token has expired', async () => {
+    const error = new AxiosError('Unauthorized');
+    error.response = {
+      data: { error: 'jwt expired', tokenExpired: true },
+      status: 401,
+      statusText: 'Unauthorized',
+      headers: {},
+      config: error.config as never,
+    };
+    mockedApi.put.mockRejectedValueOnce(error);
+
+    const { hide, onUpdated } = renderModal();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Salvar alterações' }));
+
+    await waitFor(() =>
+      expect(screen.getByText('Sessão expirada')).toBeInTheDocument(),
+    );
+    expect(screen.queryByText('Foto inválida')).not.toBeInTheDocument();
+    expect(onUpdated).not.toHaveBeenCalled();
+    expect(hide).not.toHaveBeenCalled();
+  });
 });

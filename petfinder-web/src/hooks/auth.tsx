@@ -3,9 +3,10 @@ import React, {
   useCallback,
   useState,
   useContext,
+  useEffect,
   useMemo,
 } from 'react';
-import api from '../services/api';
+import api, { SESSION_EXPIRED_EVENT } from '../services/api';
 
 interface User {
   id: string;
@@ -54,6 +55,12 @@ const AuthUser: React.FC<React.PropsWithChildren> = ({ children }) => {
 
     setData({} as AuthState);
   }, []);
+
+  useEffect(() => {
+    window.addEventListener(SESSION_EXPIRED_EVENT, signOut);
+
+    return () => window.removeEventListener(SESSION_EXPIRED_EVENT, signOut);
+  }, [signOut]);
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {
