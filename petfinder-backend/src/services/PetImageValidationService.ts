@@ -19,19 +19,29 @@ const mimeTypeByExtension: Record<string, string> = {
   '.webp': 'image/webp',
 };
 
-async function isPetImage(filename: string): Promise<boolean> {
-  const extension = path.extname(filename).toLowerCase();
+interface UploadedImage {
+  /** Server-generated, on-disk filename. Never derived from client input. */
+  storedFilename: string;
+  /** Client-supplied filename, used only to steer the E2E mock — never for filesystem access. */
+  originalFilename: string;
+}
+
+async function isPetImage({
+  storedFilename,
+  originalFilename,
+}: UploadedImage): Promise<boolean> {
+  const extension = path.extname(storedFilename).toLowerCase();
   const mimeType = mimeTypeByExtension[extension];
 
   if (!mimeType) return false;
 
   // Lets E2E tests exercise both outcomes without calling the real Gemini API:
-  // the fixture filename itself decides the verdict.
+  // the fixture's original filename decides the verdict.
   if (process.env.PET_IMAGE_VALIDATION_MOCK === 'true') {
-    return !filename.toLowerCase().includes('not-a-pet');
+    return !originalFilename.toLowerCase().includes('not-a-pet');
   }
 
-  const imageData = await fs.readFile(path.join(uploadsDir, filename));
+  const imageData = await fs.readFile(path.join(uploadsDir, storedFilename));
 
   const response = await ai.models.generateContent({
     model: 'gemini-3.5-flash',
@@ -47,18 +57,15 @@ async function isPetImage(filename: string): Promise<boolean> {
 }
 
 export default {
-  validate(filenames: string[]): Promise<string | null> {
-    return filenames.reduce<Promise<string | null>>(
-      async (previous, filename) => {
-        const invalidFilename = await previous;
+  validate(images: UploadedImage[]): Promise<string | null> {
+    return images.reduce<Promise<string | null>>(async (previous, image) => {
+      const invalidFilename = await previous;
 
-        if (invalidFilename) return invalidFilename;
+      if (invalidFilename) return invalidFilename;
 
-        const isPet = await isPetImage(filename);
+      const isPet = await isPetImage(image);
 
-        return isPet ? null : filename;
-      },
-      Promise.resolve(null),
-    );
+      return isPet ? null : image.storedFilename;
+    }, Promise.resolve(null));
   },
 };

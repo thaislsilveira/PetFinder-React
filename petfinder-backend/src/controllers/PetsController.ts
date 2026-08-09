@@ -73,7 +73,10 @@ export default {
     });
 
     const invalidImage = await PetImageValidationService.validate(
-      images.map(image => image.path),
+      requestImages.map(image => ({
+        storedFilename: image.filename,
+        originalFilename: image.originalname,
+      })),
     );
 
     if (invalidImage) {
@@ -165,7 +168,10 @@ export default {
     }
 
     const invalidImage = await PetImageValidationService.validate(
-      images.map(image => image.path),
+      requestImages.map(image => ({
+        storedFilename: image.filename,
+        originalFilename: image.originalname,
+      })),
     );
 
     if (invalidImage) {
