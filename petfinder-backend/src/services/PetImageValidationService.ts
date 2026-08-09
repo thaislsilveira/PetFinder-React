@@ -23,7 +23,7 @@ async function isPetImage(filename: string): Promise<boolean> {
   const extension = path.extname(filename).toLowerCase();
   const mimeType = mimeTypeByExtension[extension];
 
-  if (!mimeType) return true;
+  if (!mimeType) return false;
 
   // Lets E2E tests exercise both outcomes without calling the real Gemini API:
   // the fixture filename itself decides the verdict.

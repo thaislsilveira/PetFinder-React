@@ -112,6 +112,7 @@ export default {
       information: parsedData.information,
       responsibleName: parsedData.responsible_name,
       phone: parsedData.phone,
+      userId: request.user!.id,
       images: parsedData.images,
     });
 
@@ -140,6 +141,17 @@ export default {
     });
 
     const existingPet = await PetsService.findById(Number(id));
+
+    if (existingPet.userId !== request.user!.id) {
+      requestImages.forEach(image => {
+        fs.unlink(path.join(uploadsDir, image.filename), () => {});
+      });
+
+      return response
+        .status(403)
+        .json({ error: 'Você não tem permissão para editar este pet.' });
+    }
+
     const totalImages = existingPet.images.length + images.length;
 
     if (totalImages > MAX_PET_IMAGES) {
@@ -202,6 +214,14 @@ export default {
 
   async deleteImage(request: Request, response: Response) {
     const { petId, imageId } = request.params;
+
+    const existingPet = await PetsService.findById(Number(petId));
+
+    if (existingPet.userId !== request.user!.id) {
+      return response
+        .status(403)
+        .json({ error: 'Você não tem permissão para remover esta foto.' });
+    }
 
     const image = await PetsService.deleteImage(Number(petId), Number(imageId));
 

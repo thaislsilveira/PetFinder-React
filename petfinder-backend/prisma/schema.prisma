@@ -15,6 +15,7 @@ model User {
   phone     String?  @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  pets      Pet[]
 
   @@map("users")
 }
@@ -35,6 +36,8 @@ model Pet {
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
   images          Image[]
+  userId          String    @map("user_id")
+  user            User      @relation(fields: [userId], references: [id])
 
   @@map("pets")
 }

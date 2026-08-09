@@ -10,6 +10,7 @@ interface CreatePetData {
   information: string;
   responsibleName: string;
   phone?: string;
+  userId: string;
   images: { path: string }[];
 }
 

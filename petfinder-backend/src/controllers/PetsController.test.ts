@@ -62,6 +62,7 @@ function makePet(overrides = {}) {
     information: 'Muito dócil',
     responsibleName: 'Rex Owner',
     phone: '11912345678',
+    userId: 'user-1',
     images: [{ id: 1, path: 'dog.png', petId: 1 }],
     createdAt,
     updatedAt,
@@ -116,6 +117,7 @@ describe('PetsController', () => {
   describe('create', () => {
     function makeRequest(overrides: Record<string, unknown> = {}) {
       return {
+        user: { id: 'user-1' },
         body: {
           type: '1',
           latitude: '12.5',
@@ -151,6 +153,7 @@ describe('PetsController', () => {
         information: 'Muito dócil',
         responsibleName: 'Rex Owner',
         phone: '11912345678',
+        userId: 'user-1',
         images: [{ path: 'dog.png' }],
       });
       expect(response.status).toHaveBeenCalledWith(201);
@@ -190,6 +193,7 @@ describe('PetsController', () => {
   describe('update', () => {
     function makeRequest(overrides: Record<string, unknown> = {}) {
       return {
+        user: { id: 'user-1' },
         params: { id: '1' },
         body: {
           type: '1',
@@ -306,10 +310,35 @@ describe('PetsController', () => {
         expect.objectContaining({ error: expect.any(String) }),
       );
     });
+
+    it('rejects updating a pet that belongs to another user', async () => {
+      mockedPetsService.findById.mockResolvedValueOnce(
+        makePet({ userId: 'someone-else' }),
+      );
+
+      const request = {
+        ...makeRequest(),
+        files: [{ filename: 'new-photo.png' }],
+      } as unknown as Request;
+      const response = createResponse();
+
+      await PetsController.update(request, response);
+
+      expect(mockedFs.unlink).toHaveBeenCalledWith(
+        expect.stringContaining('new-photo.png'),
+        expect.any(Function),
+      );
+      expect(mockedPetsService.update).not.toHaveBeenCalled();
+      expect(response.status).toHaveBeenCalledWith(403);
+      expect(response.json).toHaveBeenCalledWith(
+        expect.objectContaining({ error: expect.any(String) }),
+      );
+    });
   });
 
   describe('deleteImage', () => {
     it('deletes the image and removes its file, responding with no content', async () => {
+      mockedPetsService.findById.mockResolvedValueOnce(makePet());
       mockedPetsService.deleteImage.mockResolvedValueOnce({
         id: 9,
         path: 'dog.png',
@@ -317,6 +346,7 @@ describe('PetsController', () => {
       });
 
       const request = {
+        user: { id: 'user-1' },
         params: { petId: '1', imageId: '9' },
       } as unknown as Request;
       const response = createResponse();
@@ -331,6 +361,28 @@ describe('PetsController', () => {
       );
       expect(response.status).toHaveBeenCalledWith(204);
       expect(response.send).toHaveBeenCalled();
+    });
+
+    it('rejects deleting an image from a pet that belongs to another user', async () => {
+      mockedPetsService.findById.mockResolvedValueOnce(
+        makePet({ userId: 'someone-else' }),
+      );
+
+      const request = {
+        user: { id: 'user-1' },
+        params: { petId: '1', imageId: '9' },
+      } as unknown as Request;
+      const response = createResponse();
+      response.send = vi.fn().mockReturnValue(response);
+
+      await PetsController.deleteImage(request, response);
+
+      expect(mockedPetsService.deleteImage).not.toHaveBeenCalled();
+      expect(mockedFs.unlink).not.toHaveBeenCalled();
+      expect(response.status).toHaveBeenCalledWith(403);
+      expect(response.json).toHaveBeenCalledWith(
+        expect.objectContaining({ error: expect.any(String) }),
+      );
     });
   });
 });

@@ -73,6 +73,7 @@ describe('PetsService', () => {
       information: 'Muito dócil',
       responsibleName: 'Rex Owner',
       phone: '11912345678',
+      userId: 'user-1',
       images: [{ path: 'dog.png' }],
     };
 

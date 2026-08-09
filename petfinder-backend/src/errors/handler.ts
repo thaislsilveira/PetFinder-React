@@ -4,15 +4,23 @@ import { ZodError } from 'zod';
 
 import { Prisma } from '../generated/prisma/client';
 import { MAX_PET_IMAGES } from '../config/upload';
+import UnsupportedFileTypeError from './UnsupportedFileTypeError';
 
 interface ValidationErrors {
   [key: string]: string[];
 }
 const errorHandler: ErrorRequestHandler = (error, request, response, _next) => {
-  if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_COUNT') {
+  if (
+    error instanceof multer.MulterError &&
+    error.code === 'LIMIT_FILE_COUNT'
+  ) {
     return response.status(400).json({
       error: `Você pode enviar no máximo ${MAX_PET_IMAGES} fotos.`,
     });
+  }
+
+  if (error instanceof UnsupportedFileTypeError) {
+    return response.status(400).json({ error: error.message });
   }
 
   if (error instanceof ZodError) {
