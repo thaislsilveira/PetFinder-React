@@ -24,6 +24,8 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
+      - run: yarn typecheck
+
       - run: yarn test
 
       - run: yarn build-storybook
@@ -44,6 +46,8 @@ jobs:
           cache-dependency-path: petfinder-backend/yarn.lock
 
       - run: yarn install --frozen-lockfile
+
+      - run: yarn typecheck
 
       - run: yarn test
 

@@ -26,6 +26,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "postinstall": "panda codegen",
     "storybook": "storybook dev -p 6006",
