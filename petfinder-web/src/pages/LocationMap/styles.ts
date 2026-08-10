@@ -114,6 +114,89 @@ export const container = css({
   },
 });
 
+export const filterButton = css({
+  cursor: 'pointer',
+  background: 'background',
+  color: 'black',
+  borderRadius: '50%',
+  zIndex: 401,
+  position: 'absolute',
+  top: '142px',
+  right: '26px',
+  width: '48px',
+  height: '48px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  border: '0',
+  transition: 'background-color 0.2s',
+
+  '&:hover': {
+    background: 'warning',
+  },
+  '&[aria-expanded="true"]': {
+    background: 'accent',
+  },
+});
+
+export const filterPanel = css({
+  position: 'absolute',
+  zIndex: 401,
+  top: '200px',
+  right: '26px',
+
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+
+  padding: '12px',
+  borderRadius: '16px',
+  background: 'containerBackground',
+  boxShadow: '17.2868px 27.6589px 41.4884px rgba(23, 142, 166, 0.16)',
+
+  '& .filter-group': {
+    display: 'flex',
+    border: '1px solid',
+    borderColor: 'white',
+    borderRadius: '12px',
+    overflow: 'hidden',
+  },
+
+  '& .filter-group button': {
+    flex: '1',
+    height: '36px',
+    padding: '0 14px',
+    border: '0',
+    borderLeft: '1px solid',
+    borderLeftColor: 'white',
+    background: 'white',
+    color: 'primary',
+    cursor: 'pointer',
+    fontSize: '13px',
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
+    textAlign: 'center',
+    transition: 'background-color 0.2s, color 0.2s',
+  },
+
+  '& .filter-group button:first-child': {
+    borderLeft: '0',
+  },
+
+  '& .filter-group button:hover': {
+    background: 'highlight',
+  },
+
+  '& .filter-group button.active': {
+    background: 'accent',
+    color: 'white',
+  },
+
+  '& .filter-group button.active:hover': {
+    background: 'accent',
+  },
+});
+
 export const animationContainer = css({
   display: 'flex',
   flexDirection: 'column',

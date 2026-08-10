@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -7,6 +7,7 @@ import {
   FiArrowLeft as FiArrowLeftIcon,
   FiArrowRight as FiArrowRightIcon,
   FiCrosshair as FiCrosshairIcon,
+  FiFilter as FiFilterIcon,
   FiLogOut as FiLogOutIcon,
 } from 'react-icons/fi';
 import {
@@ -17,7 +18,7 @@ import {
   useMap,
   useMapEvents,
 } from 'react-leaflet';
-import { LeafletMouseEvent } from 'leaflet';
+import Leaflet, { LeafletMouseEvent } from 'leaflet';
 
 import asIcon from '../../utils/icon';
 import {
@@ -25,6 +26,8 @@ import {
   animationContainer,
   exitButton,
   locateButton,
+  filterButton,
+  filterPanel,
 } from './styles';
 
 import api from '../../services/api';
@@ -36,14 +39,22 @@ import ModalCadastro from '../../components/ModalCadastro';
 import Logo from '../../components/Logo';
 import { useAuth } from '../../hooks/auth';
 import { useUserLocation } from '../../hooks/geolocation';
+import {
+  defaultPetFilters,
+  filterPets,
+  StatusFilter,
+  TypeFilter,
+} from '../../utils/filterPets';
 
 const FiArrowLeft = asIcon(FiArrowLeftIcon);
 const FiArrowRight = asIcon(FiArrowRightIcon);
 const FiCrosshair = asIcon(FiCrosshairIcon);
+const FiFilter = asIcon(FiFilterIcon);
 const FiLogOut = asIcon(FiLogOutIcon);
 
 interface Pet {
   id: number;
+  type: boolean;
   latitude: number;
   longitude: number;
   found: boolean;
@@ -91,6 +102,27 @@ const LocationMap: React.FC = () => {
   const [visible, setVisible] = useState(false);
 
   const [pets, setPets] = useState<Pet[]>([]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>(
+    defaultPetFilters.type,
+  );
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>(
+    defaultPetFilters.status,
+  );
+
+  const filteredPets = useMemo(
+    () => filterPets(pets, { type: typeFilter, status: statusFilter }),
+    [pets, typeFilter, statusFilter],
+  );
+
+  const disableMapClickPropagation = useCallback(
+    (node: HTMLElement | null) => {
+      if (node) {
+        Leaflet.DomEvent.disableClickPropagation(node);
+      }
+    },
+    [],
+  );
 
   const handleMapClick = useCallback((event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;
@@ -143,7 +175,7 @@ const LocationMap: React.FC = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
 
-          {pets.map(pet => {
+          {filteredPets.map(pet => {
             return (
               <Marker
                 icon={pet.found ? foundMapIcon : mapIcon}
@@ -217,6 +249,70 @@ const LocationMap: React.FC = () => {
           >
             <FiCrosshair size={18} color="#94443f" />
           </button>
+
+          <button
+            ref={disableMapClickPropagation}
+            type="button"
+            className={filterButton}
+            onClick={() => setFiltersOpen(state => !state)}
+            aria-expanded={filtersOpen}
+            aria-label="Filtrar pets no mapa"
+            title="Filtrar"
+          >
+            <FiFilter size={18} color="#94443f" />
+          </button>
+
+          {filtersOpen && (
+            <div ref={disableMapClickPropagation} className={filterPanel}>
+              <div className="filter-group" role="group" aria-label="Tipo">
+                <button
+                  type="button"
+                  className={typeFilter === 'all' ? 'active' : ''}
+                  onClick={() => setTypeFilter('all')}
+                >
+                  todos
+                </button>
+                <button
+                  type="button"
+                  className={typeFilter === 'dog' ? 'active' : ''}
+                  onClick={() => setTypeFilter('dog')}
+                >
+                  cachorro
+                </button>
+                <button
+                  type="button"
+                  className={typeFilter === 'cat' ? 'active' : ''}
+                  onClick={() => setTypeFilter('cat')}
+                >
+                  gato
+                </button>
+              </div>
+
+              <div className="filter-group" role="group" aria-label="Status">
+                <button
+                  type="button"
+                  className={statusFilter === 'all' ? 'active' : ''}
+                  onClick={() => setStatusFilter('all')}
+                >
+                  todos
+                </button>
+                <button
+                  type="button"
+                  className={statusFilter === 'lost' ? 'active' : ''}
+                  onClick={() => setStatusFilter('lost')}
+                >
+                  perdidos
+                </button>
+                <button
+                  type="button"
+                  className={statusFilter === 'found' ? 'active' : ''}
+                  onClick={() => setStatusFilter('found')}
+                >
+                  encontrados
+                </button>
+              </div>
+            </div>
+          )}
 
           <button type="button" className={exitButton} onClick={signOut}>
             <FiLogOut size={18} color="#94443f" />
