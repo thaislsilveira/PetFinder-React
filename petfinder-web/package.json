@@ -20,7 +20,7 @@
     "react-leaflet": "^4",
     "react-router-dom": "^7",
     "typescript": "^6.0.3",
-    "uuid": "^14.0.1"
+    "uuid": "^14.0.3"
   },
   "scripts": {
     "dev": "vite",
