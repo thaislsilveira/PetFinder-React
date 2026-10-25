@@ -322,12 +322,12 @@
   resolved "https://registry.yarnpkg.com/@pkgr/core/-/core-0.3.6.tgz#3569708bd4be4d8870ba32bf1c456dac81600d97"
   integrity sha512-SEeaJLb3qBNF/OaXnaR1NmmBbFYk1zC0ZH/52fATcRPLFg/p791YrcyFFy44Bo9sLaGuSuLp5Q6axbb/O+v/RA==
 
-"@prisma/adapter-better-sqlite3@^7.9.1":
-  version "7.9.1"
-  resolved "https://registry.yarnpkg.com/@prisma/adapter-better-sqlite3/-/adapter-better-sqlite3-7.9.1.tgz#decf6637ae08e4d39c6a72f024086fcc8257daae"
-  integrity sha512-EoAk+crcwbqjdhwjVehj1TaMx7X/zsR49cxjeukFs/g5frdJYYM3k8Q3xNQp032nvWb1L+RMBytn/4b/EYrNoA==
+"@prisma/adapter-better-sqlite3@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/adapter-better-sqlite3/-/adapter-better-sqlite3-7.10.1.tgz#d9a15a007c399e3066907de1859a1e0e168a9d07"
+  integrity sha512-iD7UgO7/wSrslDdb0WvRSBS5v36KRCL3biTrCuGetbR/IIKL+PxyGgiZlfMyqY2yjAfS+tXWXkFVVkiESiXskQ==
   dependencies:
-    "@prisma/driver-adapter-utils" "7.9.1"
+    "@prisma/driver-adapter-utils" "7.10.1"
     better-sqlite3 "^12.6.0"
 
 "@prisma/client-runtime-utils@7.9.1":
@@ -351,6 +351,11 @@
     deepmerge-ts "7.1.5"
     effect "3.20.0"
     empathic "2.0.0"
+
+"@prisma/debug@7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/debug/-/debug-7.10.1.tgz#6ef089971593d98668e762c5810ea335461773e8"
+  integrity sha512-eFCAkGZ13D/qPg48JBlG5IWi9cSBBOC7oG3abDPcAkYioDWlIjh0YJJLK2J7qo5S+xWWD8I6egAN/8KbCaiMCA==
 
 "@prisma/debug@7.2.0":
   version "7.2.0"
@@ -383,12 +388,12 @@
     valibot "1.4.2"
     zeptomatch "2.1.0"
 
-"@prisma/driver-adapter-utils@7.9.1":
-  version "7.9.1"
-  resolved "https://registry.yarnpkg.com/@prisma/driver-adapter-utils/-/driver-adapter-utils-7.9.1.tgz#525ddf8f10e045298af6fbc8f1517c66ac02a937"
-  integrity sha512-vmHehG7nn/heW32DXXpp13DxxAxVVe6n250oEt3dOL2E/4bt3olktKZN0mzSuxMMronyMSkbeW2uCOn3F4g8RQ==
+"@prisma/driver-adapter-utils@7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/driver-adapter-utils/-/driver-adapter-utils-7.10.1.tgz#72c9bc9f5a7489e15ca7aefd1c195643924d42a3"
+  integrity sha512-DJ4c6xvVnm3s9ZUyql9nCUicADSqyvH+CjXRCM9L6m5zJxCNmebCElG6X4irICq3rosBwlX+S19Dxq/4IrZk3A==
   dependencies:
-    "@prisma/debug" "7.9.1"
+    "@prisma/debug" "7.10.1"
 
 "@prisma/engines-version@7.9.0-1.e922089b7d7502aff4249d5da3420f6fa55fc6ad":
   version "7.9.0-1.e922089b7d7502aff4249d5da3420f6fa55fc6ad"
